@@ -1,0 +1,647 @@
+<!doctype html>
+<html class="dark" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>
+            The Tactile Residence: Materiality as Narrative - Archifyr
+        </title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "surface-container-low": "#1e1b18",
+                            "primary-fixed": "#ffdcbf",
+                            "on-tertiary": "#363025",
+                            primary: "#f9ba7f",
+                            "on-error-container": "#ffdad6",
+                            "surface-bright": "#3d3835",
+                            "surface-container-high": "#2d2926",
+                            surface: "#161310",
+                            "on-secondary-fixed": "#2d1600",
+                            "on-surface": "#e9e1db",
+                            "on-surface-variant": "#d5c3b6",
+                            "on-error": "#690005",
+                            "tertiary-fixed": "#ede1d1",
+                            "on-primary-fixed": "#2d1600",
+                            "on-tertiary-fixed-variant": "#4d463a",
+                            "on-secondary-container": "#e2ae7f",
+                            "on-tertiary-container": "#2f291f",
+                            "on-primary": "#4b2800",
+                            "surface-dim": "#161310",
+                            "surface-container": "#221f1c",
+                            error: "#ffb4ab",
+                            background: "#161310",
+                            "surface-variant": "#383430",
+                            secondary: "#f1bc8c",
+                            "inverse-surface": "#e9e1db",
+                            "outline-variant": "#51443a",
+                            "surface-container-highest": "#383430",
+                            "on-tertiary-fixed": "#201b11",
+                            "on-primary-fixed-variant": "#673d0c",
+                            tertiary: "#d0c5b6",
+                            "secondary-fixed": "#ffdcbf",
+                            "on-secondary-fixed-variant": "#633f19",
+                            "primary-container": "#bd854f",
+                            "secondary-container": "#66411b",
+                            "surface-tint": "#f9ba7f",
+                            "tertiary-fixed-dim": "#d0c5b6",
+                            outline: "#9e8e81",
+                            "on-primary-container": "#412200",
+                            "surface-container-lowest": "#100e0b",
+                            "on-secondary": "#492905",
+                            "inverse-primary": "#835422",
+                            "inverse-on-surface": "#34302c",
+                            "secondary-fixed-dim": "#f1bc8c",
+                            "error-container": "#93000a",
+                            "tertiary-container": "#998f82",
+                            "on-background": "#e9e1db",
+                            "primary-fixed-dim": "#f9ba7f",
+                        },
+                        borderRadius: {
+                            DEFAULT: "0.125rem",
+                            lg: "0.25rem",
+                            xl: "0.5rem",
+                            full: "0.75rem",
+                        },
+                        spacing: {
+                            md: "24px",
+                            sm: "12px",
+                            "margin-mobile": "16px",
+                            xs: "4px",
+                            "margin-desktop": "64px",
+                            lg: "48px",
+                            xl: "80px",
+                            gutter: "24px",
+                            base: "8px",
+                        },
+                        fontFamily: {
+                            "display-lg": ["Manrope"],
+                            "display-md": ["Manrope"],
+                            "label-lg": ["Manrope"],
+                            "headline-lg": ["Manrope"],
+                            "label-md": ["Manrope"],
+                            "body-lg": ["Manrope"],
+                            "body-md": ["Manrope"],
+                            "headline-lg-mobile": ["Manrope"],
+                        },
+                        fontSize: {
+                            "display-lg": [
+                                "64px",
+                                {
+                                    lineHeight: "1.1",
+                                    letterSpacing: "-0.04em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "display-md": [
+                                "48px",
+                                {
+                                    lineHeight: "1.2",
+                                    letterSpacing: "-0.03em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "label-lg": [
+                                "14px",
+                                {
+                                    lineHeight: "1.4",
+                                    letterSpacing: "0.05em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "headline-lg": [
+                                "32px",
+                                {
+                                    lineHeight: "1.3",
+                                    letterSpacing: "-0.02em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "label-md": [
+                                "12px",
+                                {
+                                    lineHeight: "1.4",
+                                    letterSpacing: "0.02em",
+                                    fontWeight: "500",
+                                },
+                            ],
+                            "body-lg": [
+                                "18px",
+                                {
+                                    lineHeight: "1.6",
+                                    letterSpacing: "0em",
+                                    fontWeight: "400",
+                                },
+                            ],
+                            "body-md": [
+                                "16px",
+                                {
+                                    lineHeight: "1.6",
+                                    letterSpacing: "0em",
+                                    fontWeight: "400",
+                                },
+                            ],
+                            "headline-lg-mobile": [
+                                "28px",
+                                {
+                                    lineHeight: "1.3",
+                                    letterSpacing: "-0.01em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                        },
+                    },
+                },
+            };
+        </script>
+    </head>
+    <body
+        class="bg-background text-on-surface font-body-md antialiased selection:bg-primary-container selection:text-on-primary-container"
+    >
+        <!-- Top Navigation (Shared Component) -->
+        <nav
+            class="bg-surface/90 backdrop-blur-md dark:bg-surface/90 fixed top-0 w-full z-50 border-b border-outline-variant/30 flat no shadows"
+        >
+            <div
+                class="max-w-[1440px] mx-auto px-margin-desktop flex justify-between items-center h-20"
+            >
+                <a
+                    class="font-display-md text-display-md tracking-tighter text-on-surface dark:text-on-surface"
+                    href="#"
+                >
+                    Archifyr
+                </a>
+                <div class="hidden md:flex gap-md items-center">
+                    <a
+                        class="text-on-surface-variant dark:text-on-surface-variant font-label-lg text-label-lg hover:text-primary transition-colors duration-300"
+                        href="#"
+                        >Portfolio</a
+                    >
+                    <a
+                        class="text-on-surface-variant dark:text-on-surface-variant font-label-lg text-label-lg hover:text-primary transition-colors duration-300"
+                        href="#"
+                        >Practice</a
+                    >
+                    <a
+                        class="text-on-surface-variant dark:text-on-surface-variant font-label-lg text-label-lg hover:text-primary transition-colors duration-300"
+                        href="#"
+                        >Services</a
+                    >
+                    <a
+                        class="text-on-surface-variant dark:text-on-surface-variant font-label-lg text-label-lg hover:text-primary transition-colors duration-300"
+                        href="#"
+                        >Contact</a
+                    >
+                    <a
+                        class="text-on-surface-variant dark:text-on-surface-variant font-label-lg text-label-lg hover:text-primary transition-colors duration-300 flex items-center gap-xs"
+                        href="#"
+                    >
+                        <span
+                            class="material-symbols-outlined"
+                            style="
+                                font-variation-settings: &quot;FILL&quot; 0;
+                                font-weight: 300;
+                            "
+                            >search</span
+                        >
+                    </a>
+                    <a
+                        class="bg-primary-container text-[#161310] font-label-lg text-label-lg px-6 py-3 rounded-DEFAULT hover:opacity-80 transition-opacity duration-200 ml-sm"
+                        href="#"
+                    >
+                        Enquire
+                    </a>
+                </div>
+                <!-- Mobile Menu Toggle -->
+                <button class="md:hidden text-on-surface flex items-center p-2">
+                    <span
+                        class="material-symbols-outlined"
+                        style="font-variation-settings: &quot;FILL&quot; 0"
+                        >menu</span
+                    >
+                </button>
+            </div>
+        </nav>
+        <!-- Main Content -->
+        <main class="pt-28 pb-xl md:pt-40 md:pb-[120px]">
+            <!-- Header Section -->
+            <header
+                class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop text-center"
+            >
+                <!-- Breadcrumbs -->
+                <nav
+                    aria-label="Breadcrumb"
+                    class="mb-lg flex justify-center items-center gap-2 text-on-surface-variant font-label-md text-label-md"
+                >
+                    <a class="hover:text-primary transition-colors" href="#"
+                        >Home</a
+                    >
+                    <span class="material-symbols-outlined text-[16px]"
+                        >chevron_right</span
+                    >
+                    <a class="hover:text-primary transition-colors" href="#"
+                        >Journal</a
+                    >
+                    <span class="material-symbols-outlined text-[16px]"
+                        >chevron_right</span
+                    >
+                    <span class="text-on-surface">The Tactile Residence</span>
+                </nav>
+                <!-- Category Pill -->
+                <div class="mb-md">
+                    <span
+                        class="inline-block bg-primary-container/10 text-primary border border-primary/20 px-4 py-1.5 rounded-DEFAULT font-label-md text-label-md tracking-widest uppercase"
+                    >
+                        Case Studies
+                    </span>
+                </div>
+                <!-- Title -->
+                <h1
+                    class="font-display-lg text-display-lg max-w-4xl mx-auto mb-md text-on-surface"
+                >
+                    The Tactile Residence: Materiality as Narrative
+                </h1>
+                <!-- Meta info -->
+                <div
+                    class="flex justify-center items-center gap-sm text-on-surface-variant font-label-md text-label-md mt-lg"
+                >
+                    <span class="font-semibold text-on-surface"
+                        >By Elias Thorne</span
+                    >
+                    <span class="h-3 w-[1px] bg-outline-variant"></span>
+                    <span>October 24, 2024</span>
+                    <span class="h-3 w-[1px] bg-outline-variant"></span>
+                    <span>8 min read</span>
+                </div>
+            </header>
+            <!-- Featured Image -->
+            <div
+                class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop mt-xl"
+            >
+                <div
+                    class="w-full h-[512px] md:h-[716px] rounded-DEFAULT border border-outline-variant overflow-hidden relative group"
+                >
+                    <div
+                        class="absolute inset-0 bg-surface/20 group-hover:bg-transparent transition-colors duration-700 z-10 pointer-events-none"
+                    ></div>
+                    <img
+                        alt="The Tactile Residence interior"
+                        class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-[1.02]"
+                        data-alt="A stunning wide-angle architectural photograph of a brutalist yet warm residential living space at night. High-end modern aesthetic with raw concrete walls juxtaposed against rich, dark charred timber ceilings. Deep warm lighting casts cinematic shadows, emphasizing the tactile textures of the materials. The overall mood is sophisticated, quiet, and exclusive, adhering to a premium dark-mode architectural color palette."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY59OdZSa4-tEZaggcsAiLJuAeYKDJtQv5juYPlYnVO2N3B1v-JmTb2rflEqsbORebhhfxuUNKvmVanwj3vX6tVNWk2IqNpYBiOuRllMqhfZUOki4I4xyIuPYTDJlWrjZRznhB2qDNRz12X_eDtPxUImKSo-3-TvevEidF_fIB2ruR-sN3IqnEpJeNqYo4EdI9mVMIRmwhOvf0roN2O7k-sOqpfHfNsPgz1LqGq2XujeRAqUuW4DPO"
+                    />
+                </div>
+            </div>
+            <!-- Article Body -->
+            <article class="max-w-3xl mx-auto px-margin-mobile md:px-0 mt-xl">
+                <p
+                    class="font-body-lg text-body-lg text-on-surface-variant mb-lg leading-[1.8]"
+                >
+                    In the realm of contemporary residential architecture, there
+                    is a profound shift away from the sterile, ultra-polished
+                    surfaces of early 2000s minimalism. We are witnessing a
+                    return to materiality—a deep, visceral craving for spaces
+                    that speak to our sense of touch. The 'Tactile Residence'
+                    project embodies this philosophy, standing as a testament to
+                    the idea that a home is not just a visual composition, but a
+                    physical experience.
+                </p>
+                <h2
+                    class="font-headline-lg text-headline-lg text-on-surface mb-md mt-xl"
+                >
+                    The Anatomy of Texture
+                </h2>
+                <p
+                    class="font-body-lg text-body-lg text-on-surface-variant mb-lg leading-[1.8]"
+                >
+                    When we embarked on this project, the immediate environment
+                    dictated a robust response. Located on a rugged, windswept
+                    coastline, the building needed to feel grounded, almost as
+                    if it had been excavated from the earth rather than placed
+                    upon it. We turned to a palette of raw, expressive
+                    materials: board-formed concrete, charred timber (Shou Sugi
+                    Ban), and patinated brass.
+                </p>
+                <!-- Pull Quote -->
+                <blockquote class="my-xl pl-md border-l-2 border-primary">
+                    <p
+                        class="font-display-md text-headline-lg-mobile md:text-headline-lg text-on-surface italic leading-tight text-opacity-90"
+                    >
+                        "Materiality is not just the finish; it is the dialogue
+                        between the hand and the space. A room should feel as
+                        intentional in the dark as it does in the daylight."
+                    </p>
+                </blockquote>
+                <p
+                    class="font-body-lg text-body-lg text-on-surface-variant mb-xl leading-[1.8]"
+                >
+                    The board-formed concrete, used extensively in the primary
+                    living volumes, retains the memory of the timber formwork.
+                    It offers a rough, heavily shadowed texture that changes
+                    dramatically as the sun tracks across the sky. By night,
+                    when illuminated by our carefully calibrated, low-level warm
+                    lighting scheme, these walls take on a soft, almost
+                    monolithic warmth, absorbing light rather than reflecting
+                    it.
+                </p>
+                <!-- In-Article Image -->
+                <figure class="my-xl">
+                    <div
+                        class="w-full h-auto rounded-DEFAULT border border-outline-variant overflow-hidden"
+                    >
+                        <img
+                            alt="Detail shot of concrete and timber"
+                            class="w-full h-auto object-cover"
+                            data-alt="A close-up, highly detailed architectural photograph focusing on the intersection of two contrasting materials. On the left, board-formed concrete showing the rough, wood-grain texture left by the formwork. On the right, deeply textured, black charred timber (Shou Sugi Ban). Warm, directional grazing light from a concealed source highlights the deep ridges and tactile nature of both materials against a sophisticated dark background."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCP5dVLlJQS3OlMtqn0yFn7rj9vgfhlY7VQ20tVWbCs3kjX9btZLpzxBRxNnNq64Bwrz6b84s6qWSwMp8C7JLahp57BSm33yUIIZtqJnOBbn_YGfcL6DBoEm6Ig_Dj24YQdYMlZjchFZ4Z62Xp_JuVgdT6rqZALI2YejoXprjVEPxA2brREi12qnb194Zsy6ihunltTyk7VAVI42shApajWgAngOKevJ2tVDNS13as67RuUBUPEnVzc"
+                        />
+                    </div>
+                    <figcaption
+                        class="mt-sm text-center font-label-md text-label-md text-on-surface-variant"
+                    >
+                        Exploring raw concrete and charred timber intersections
+                        in the main corridor.
+                    </figcaption>
+                </figure>
+                <h2
+                    class="font-headline-lg text-headline-lg text-on-surface mb-md mt-xl"
+                >
+                    A Symphony of Shadows
+                </h2>
+                <p
+                    class="font-body-lg text-body-lg text-on-surface-variant mb-lg leading-[1.8]"
+                >
+                    We approached the fenestration not merely as a means to
+                    capture views, but as instruments for orchestrating light
+                    and shadow. Deep reveals and brise-soleil crafted from the
+                    same charred timber as the cladding modulate the intense
+                    coastal light, casting slow-moving geometric patterns across
+                    the interior surfaces throughout the day.
+                </p>
+                <p
+                    class="font-body-lg text-body-lg text-on-surface-variant mb-xl leading-[1.8]"
+                >
+                    This manipulation of light ensures that the tactile
+                    qualities of the home are constantly redefined. It is an
+                    architecture that demands to be experienced slowly,
+                    revealing its complexities only to those who take the time
+                    to look, and more importantly, to feel.
+                </p>
+                <!-- Tags -->
+                <div
+                    class="flex flex-wrap gap-sm mt-xl mb-xl border-b border-outline-variant/30 pb-xl"
+                >
+                    <span
+                        class="inline-flex items-center justify-center px-4 py-2 border border-outline text-on-surface-variant font-label-md text-label-md rounded-DEFAULT hover:border-primary hover:text-primary transition-colors cursor-pointer"
+                        >Design</span
+                    >
+                    <span
+                        class="inline-flex items-center justify-center px-4 py-2 border border-outline text-on-surface-variant font-label-md text-label-md rounded-DEFAULT hover:border-primary hover:text-primary transition-colors cursor-pointer"
+                        >Sustainability</span
+                    >
+                    <span
+                        class="inline-flex items-center justify-center px-4 py-2 border border-outline text-on-surface-variant font-label-md text-label-md rounded-DEFAULT hover:border-primary hover:text-primary transition-colors cursor-pointer"
+                        >Interiors</span
+                    >
+                </div>
+                <!-- Author Bio Card -->
+                <div
+                    class="bg-surface-container border border-outline-variant rounded-DEFAULT p-lg flex flex-col sm:flex-row items-center sm:items-start gap-lg hover:border-primary/50 transition-colors duration-300 group"
+                >
+                    <div
+                        class="w-24 h-24 rounded-full overflow-hidden shrink-0 border border-outline-variant group-hover:border-primary transition-colors duration-300"
+                    >
+                        <img
+                            alt="Elias Thorne Avatar"
+                            class="w-full h-full object-cover"
+                            data-alt="A professional, moody, cinematic portrait of a male architect in his late 40s. He is wearing a minimalist dark charcoal turtleneck. The lighting is low-key with a warm amber rim light separating him from a dark, textured concrete background. The aesthetic is sophisticated, serious, and aligns with high-end editorial photography."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBb2MhWrp_dwoaFf9UKr3Ghah1c15HbBHV3xSPB6K6VO0lBT7KLviAf8EQRhLaUPkDIsKNiM6QwGhtSblDVCgrA8j5ZHPbGFKGWAZhPdKYrZxm4l4aptJ1IdCk2eEejr27WPRsvCFrQE-7DBhF18qvmV2rqEGW7jiiaEZ6gev1POkVlqilbEiS2RaWHICPtI7E7zSJe4dDLcPvWqzJTOtjA3j9M8QoLBKFBBWeh1T7uF5NbwFZ96623"
+                        />
+                    </div>
+                    <div class="text-center sm:text-left">
+                        <h3
+                            class="font-headline-lg-mobile md:text-headline-lg text-on-surface mb-xs"
+                        >
+                            Elias Thorne
+                        </h3>
+                        <p
+                            class="font-body-md text-body-md text-on-surface-variant leading-relaxed"
+                        >
+                            Principal Architect at Archifyr, specializing in
+                            brutalist-inspired residential design. Elias focuses
+                            on the intersection of raw materiality and
+                            psychological comfort in modern living spaces.
+                        </p>
+                    </div>
+                </div>
+            </article>
+            <!-- Related Articles -->
+            <section
+                class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop mt-24 md:mt-32"
+            >
+                <h2
+                    class="font-headline-lg text-headline-lg text-on-surface mb-lg border-b border-outline-variant/30 pb-sm"
+                >
+                    You might also like
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+                    <!-- Card 1 -->
+                    <a class="group block" href="#">
+                        <div
+                            class="w-full aspect-[4/3] rounded-DEFAULT overflow-hidden border border-outline-variant mb-md relative"
+                        >
+                            <div
+                                class="absolute inset-0 bg-surface/20 group-hover:bg-transparent transition-colors duration-700 z-10 pointer-events-none"
+                            ></div>
+                            <img
+                                alt="Shadow as a Material thumbnail"
+                                class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
+                                data-alt="A moody, high-end architectural photograph of a dark, minimalist interior corridor. Shadows are cast heavily across textured dark plaster walls by a single unseen light source. The scene explores the concept of shadow as a tangible design element in premium modern architecture. Dark charcoal and warm amber tones dominate."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfe808ev22LJIMCbW0zvGSlWLBVA6TPf9QV3YGfUGkSZiDbGTDaWRcLeSSgpZwn9l0ycm-mnIBmhfxbfkchdqdGAyVrNavy-Zb1ovA77Cep-XS1GVg2Xs7_xKQssTIBI0B4HvqCKm8SC7kuk2hSj6xf9VnZj64unscihxXiU95NI6jnE5qRd5B34W4K9vyI6MconLElMdIrORsZMHXUEH5VXQCmSMEaylK0aLtwdn19BldplqHM0O9"
+                            />
+                        </div>
+                        <div class="flex items-center gap-sm mb-xs">
+                            <span
+                                class="text-primary font-label-md text-label-md uppercase tracking-wider"
+                                >Theory</span
+                            >
+                        </div>
+                        <h3
+                            class="font-headline-lg-mobile md:text-headline-lg text-on-surface group-hover:text-primary transition-colors duration-300 mb-xs"
+                        >
+                            Shadow as a Material
+                        </h3>
+                        <p
+                            class="font-label-md text-label-md text-on-surface-variant"
+                        >
+                            Sept 12, 2024
+                        </p>
+                    </a>
+                    <!-- Card 2 -->
+                    <a class="group block" href="#">
+                        <div
+                            class="w-full aspect-[4/3] rounded-DEFAULT overflow-hidden border border-outline-variant mb-md relative"
+                        >
+                            <div
+                                class="absolute inset-0 bg-surface/20 group-hover:bg-transparent transition-colors duration-700 z-10 pointer-events-none"
+                            ></div>
+                            <img
+                                alt="The Obsidian Library thumbnail"
+                                class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
+                                data-alt="An atmospheric photograph of a luxurious, dark-themed private library. Floor-to-ceiling bookshelves made of matte black steel and dark walnut wood. A single, warm sculptural reading lamp provides the only illumination, creating an intimate, exclusive, and quiet mood. High-end residential architectural style."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbuiKt82AsvJchOW281arriHweihkDbpn9WoFui3WveTMxe38r2X0ufJMT8NudFUoEbMxRXgwlehpdu_e2S32lRkaYwUg0y430n8ACmuxGUVsx5JQnl223mMyZefWgD2A9X8Y1vLFgvpXqTdX5kEcfEAiABQBsNCWeex9jwTdzPcEMWEyYd8O8GSqPqyXn8fqEkXZkx2x8wfx68_4thrCQj7dzJ9Vz16Atvtr3BWSbFIN0HB_UN6Q0"
+                            />
+                        </div>
+                        <div class="flex items-center gap-sm mb-xs">
+                            <span
+                                class="text-primary font-label-md text-label-md uppercase tracking-wider"
+                                >Case Studies</span
+                            >
+                        </div>
+                        <h3
+                            class="font-headline-lg-mobile md:text-headline-lg text-on-surface group-hover:text-primary transition-colors duration-300 mb-xs"
+                        >
+                            The Obsidian Library
+                        </h3>
+                        <p
+                            class="font-label-md text-label-md text-on-surface-variant"
+                        >
+                            Aug 28, 2024
+                        </p>
+                    </a>
+                    <!-- Card 3 -->
+                    <a class="group block" href="#">
+                        <div
+                            class="w-full aspect-[4/3] rounded-DEFAULT overflow-hidden border border-outline-variant mb-md relative"
+                        >
+                            <div
+                                class="absolute inset-0 bg-surface/20 group-hover:bg-transparent transition-colors duration-700 z-10 pointer-events-none"
+                            ></div>
+                            <img
+                                alt="The Return to Weight thumbnail"
+                                class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
+                                data-alt="A striking architectural detail shot showing a massive, seemingly floating block of dark, honed stone resting on a delicate brass support. The image explores the tension between visual weight and structural lightness in high-end brutalist design. Deep moody lighting with a sophisticated dark palette."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5kQmOf5x9SsAnR5U1undgm4XgKPxLq6O0dCmaa4kHJNONtHD5JErEmsayIFkaZLtJbuvaH5dHkQlifvWmK4tyXHAH4JsLwyu5njsKDp6rLKiZFi9ceqaHtpWmTmVOa_RytnhjSQG3gE127aXIBKcigCQCXPMTlfqr2P_tcQ22QetqMnagEv2jd_ZDBvD6upW-hq8btXocVzqpfDuXhrQ9d4bkmiUs1D6P_12Aehf20RpEIAxU3Z_r"
+                            />
+                        </div>
+                        <div class="flex items-center gap-sm mb-xs">
+                            <span
+                                class="text-primary font-label-md text-label-md uppercase tracking-wider"
+                                >Opinion</span
+                            >
+                        </div>
+                        <h3
+                            class="font-headline-lg-mobile md:text-headline-lg text-on-surface group-hover:text-primary transition-colors duration-300 mb-xs"
+                        >
+                            The Return to Weight
+                        </h3>
+                        <p
+                            class="font-label-md text-label-md text-on-surface-variant"
+                        >
+                            Jul 05, 2024
+                        </p>
+                    </a>
+                </div>
+            </section>
+        </main>
+        <!-- Footer (Shared Component) -->
+        <footer
+            class="bg-surface-container-lowest dark:bg-surface-container-lowest w-full border-t border-outline-variant flat no shadows"
+        >
+            <div
+                class="max-w-[1440px] mx-auto px-margin-desktop py-xl grid grid-cols-1 md:grid-cols-4 gap-gutter"
+            >
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <a
+                        class="font-display-md text-display-md text-on-surface block mb-md"
+                        href="#"
+                    >
+                        Archifyr
+                    </a>
+                    <p
+                        class="font-body-md text-body-md text-on-surface-variant"
+                    >
+                        © 2024 Archifyr. All rights reserved.
+                    </p>
+                </div>
+                <!-- Links Area -->
+                <div
+                    class="md:col-span-3 flex flex-col md:flex-row justify-end gap-lg md:gap-xl"
+                >
+                    <!-- Social -->
+                    <div>
+                        <h4
+                            class="font-label-lg text-label-lg text-on-surface mb-md"
+                        >
+                            Social
+                        </h4>
+                        <ul class="space-y-sm">
+                            <li>
+                                <a
+                                    class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300 block hover:scale-95 transition-transform origin-left"
+                                    href="#"
+                                    >Instagram</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300 block hover:scale-95 transition-transform origin-left"
+                                    href="#"
+                                    >LinkedIn</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300 block hover:scale-95 transition-transform origin-left"
+                                    href="#"
+                                    >Pinterest</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Legal -->
+                    <div>
+                        <h4
+                            class="font-label-lg text-label-lg text-on-surface mb-md"
+                        >
+                            Legal
+                        </h4>
+                        <ul class="space-y-sm">
+                            <li>
+                                <a
+                                    class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300 block hover:scale-95 transition-transform origin-left"
+                                    href="#"
+                                    >Terms</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300 block hover:scale-95 transition-transform origin-left"
+                                    href="#"
+                                    >Privacy</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

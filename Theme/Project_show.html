@@ -1,0 +1,298 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Obsidian House - STUDIO NOIR</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#161310",
+                      "secondary-container": "#66411b",
+                      "surface-container-high": "#2d2926",
+                      "secondary-fixed-dim": "#f1bc8c",
+                      "surface-container": "#221f1c",
+                      "on-background": "#e9e1db",
+                      "on-error": "#690005",
+                      "primary-container": "#bd854f",
+                      "on-primary-fixed": "#2d1600",
+                      "on-error-container": "#ffdad6",
+                      "on-tertiary-fixed-variant": "#4d463a",
+                      "tertiary": "#d0c5b6",
+                      "surface-variant": "#383430",
+                      "primary-fixed-dim": "#f9ba7f",
+                      "tertiary-container": "#998f82",
+                      "background": "#161310",
+                      "outline-variant": "#51443a",
+                      "tertiary-fixed-dim": "#d0c5b6",
+                      "on-tertiary": "#363025",
+                      "secondary": "#f1bc8c",
+                      "inverse-on-surface": "#34302c",
+                      "on-surface-variant": "#d5c3b6",
+                      "surface-container-low": "#1e1b18",
+                      "inverse-surface": "#e9e1db",
+                      "on-secondary-fixed-variant": "#633f19",
+                      "surface-bright": "#3d3835",
+                      "surface-container-lowest": "#100e0b",
+                      "on-secondary": "#492905",
+                      "on-primary-fixed-variant": "#673d0c",
+                      "error-container": "#93000a",
+                      "inverse-primary": "#835422",
+                      "primary-fixed": "#ffdcbf",
+                      "primary": "#f9ba7f",
+                      "surface-container-highest": "#383430",
+                      "on-primary": "#4b2800",
+                      "on-tertiary-fixed": "#201b11",
+                      "on-tertiary-container": "#2f291f",
+                      "outline": "#9e8e81",
+                      "on-secondary-container": "#e2ae7f",
+                      "surface-tint": "#f9ba7f",
+                      "on-secondary-fixed": "#2d1600",
+                      "on-primary-container": "#412200",
+                      "on-surface": "#e9e1db",
+                      "surface-dim": "#161310",
+                      "tertiary-fixed": "#ede1d1",
+                      "secondary-fixed": "#ffdcbf",
+                      "error": "#ffb4ab"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "sm": "12px",
+                      "base": "8px",
+                      "xs": "4px",
+                      "margin-desktop": "64px",
+                      "md": "24px",
+                      "lg": "48px",
+                      "xl": "80px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "display-md": [
+                              "Manrope"
+                      ],
+                      "label-lg": [
+                              "Manrope"
+                      ],
+                      "headline-lg-mobile": [
+                              "Manrope"
+                      ],
+                      "body-lg": [
+                              "Manrope"
+                      ],
+                      "display-lg": [
+                              "Manrope"
+                      ],
+                      "headline-lg": [
+                              "Manrope"
+                      ],
+                      "label-md": [
+                              "Manrope"
+                      ],
+                      "body-md": [
+                              "Manrope"
+                      ]
+              },
+              "fontSize": {
+                      "display-md": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.03em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-lg": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "letterSpacing": "0em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "64px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "letterSpacing": "0em",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #161310;
+            color: #e9e1db;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased overflow-x-hidden selection:bg-primary-container selection:text-surface">
+<!-- SECTION 1 - Header & TopNavBar -->
+<header class="w-full bg-surface border-b border-outline-variant sticky top-0 z-50">
+<nav class="flex justify-between items-center w-full px-margin-desktop py-base max-w-[1440px] mx-auto font-label-lg text-label-lg">
+<div class="font-headline-lg text-headline-lg font-semibold text-primary tracking-tight">&nbsp;STUDIO NOIR</div>
+<ul class="hidden md:flex gap-md items-center">
+<li class=""><a class="text-primary border-b-2 border-primary pb-1" href="#">Portfolio</a></li>
+<li class=""><a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Practice</a></li>
+<li class=""><a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Services</a></li>
+<li class=""><a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Contact</a></li>
+</ul>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:text-primary transition-all">language</span>
+</div>
+</nav>
+</header>
+<main class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-xl flex flex-col gap-[120px]">
+<!-- SECTION 1 Continued - Project Header -->
+<section class="flex flex-col gap-md">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-md uppercase tracking-widest">
+<span class="">Home</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="">Portfolio</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary">Obsidian House</span>
+</div>
+<div class="flex flex-col gap-sm">
+<h1 class="font-display-lg text-display-lg md:text-[80px] leading-tight text-on-surface">Obsidian House</h1>
+<div class="flex items-center gap-md">
+<span class="px-3 py-1 bg-primary-container text-surface rounded-full font-label-md tracking-wider">Interior Design</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-md text-on-surface-variant font-label-lg mt-md border-t border-outline-variant pt-md w-max">
+<div class="flex items-center gap-2">
+<span class="text-outline">Client:</span> Private Commission
+                </div>
+<div class="w-px h-4 bg-outline-variant"></div>
+<div class="flex items-center gap-2">
+<span class="text-outline">Location:</span> Kyoto, Japan
+                </div>
+<div class="w-px h-4 bg-outline-variant"></div>
+<div class="flex items-center gap-2">
+<span class="text-outline">Year:</span> 2024
+                </div>
+</div>
+</section>
+<!-- SECTION 2 - Intro -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-4">
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface-variant leading-snug pr-md">
+                    A brutalist sanctuary carved from shadows and silence, nestled in the ancient hills of Kyoto.
+                </p>
+</div>
+<div class="md:col-span-8 flex flex-col gap-sm text-on-surface-variant font-body-lg text-body-lg columns-1 md:columns-2 gap-gutter">
+<p class="">
+                    The Obsidian House explores the dialogue between stark permanence and transient natural light. Designed as a retreat for an art collector, the spatial sequence is orchestrated to frame select vistas of the surrounding bamboo forest while maintaining an introspective, almost monastic atmosphere within.
+                </p>
+<p class="">
+                    Materiality drives the narrative. Board-formed concrete, blackened steel, and charred cedar (Shou Sugi Ban) absorb light, allowing the carefully curated illumination—both natural and artificial—to sculpt the volumes. The absence of color forces focus onto texture, temperature, and the subtle shifts of daylight across the heavy surfaces.
+                </p>
+<p class="">
+                    The layout abandons traditional domestic boundaries, favoring fluid, interconnected zones separated only by structural massive piers and subtle level changes, encouraging a deliberate, slow pace of living.
+                </p>
+</div>
+</section>
+<!-- SECTION 3 - Featured Hero Image -->
+<section class="w-full">
+<div class="w-full aspect-[21/9] border border-outline-variant rounded p-1 bg-surface-container-lowest">
+<div class="w-full h-full relative overflow-hidden group">
+<div class="absolute inset-0 bg-surface-container-high transition-colors duration-500 group-hover:bg-primary-container/10 z-10 pointer-events-none"></div>
+<img class="w-full h-full object-cover filter grayscale-[20%] contrast-125" data-alt="A highly cinematic, wide-angle architectural photograph of a brutalist interior space. Dark, board-formed concrete walls dominate the scene, punctuated by a large, floor-to-ceiling minimal window looking out onto a dense bamboo forest. Soft, moody, diffuse natural light spills into the room, creating dramatic shadows across a monolithic black stone table and minimalist furniture. The aesthetic is extremely premium, high-end design, dark mode, with subtle warm undertones in the shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxTYKEEm1yhw47oa1IoZ6hrMLh_kdvPaxELsPmMf98Onew1PvRJhCagZW3MxpjWesntdxnvyxVkm7Qae2T7YURQo_u6q-ZTCfMnCA8QrmIzSjSEoSvKKRVS4Fsgyt1XYCmYaWWsg6D8RC_6HmDdWPNAfNjZW-uR3oHw8N62tSK_eQFa_BuNtI_627qatWP27IPfCGWsArl-ambvwZM17iu5d43WS8OB6_LVMr7xQ7vAj3eKV4W37tW">
+</div>
+</div>
+</section>
+<!-- SECTION 4 - '2D Images' Gallery -->
+<section class="flex flex-col gap-lg">
+<div class="flex items-center gap-md">
+<h2 class="font-label-lg text-primary uppercase tracking-widest">2D Images</h2>
+<div class="h-px bg-outline-variant flex-grow"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="aspect-[4/3] border border-outline-variant bg-surface-container p-sm group hover:border-primary transition-colors duration-300">
+<img class="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A high-contrast, minimalist architectural floor plan drawn with thin white lines on a dark charcoal background. The plan shows a complex residential layout with varied floor levels and thick structural walls indicating brutalist architecture. The aesthetic is technical, precise, and premium, suitable for an exclusive design portfolio." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDq8ImskNOo8UKiXNeGBphFcrNbriJkMExsLSKlxQjZdQURgztf_HqgHD842i-VhWmfIji9MgPzIMu5UAnYrd3lCYD464kjkD7xfX6f2IHU0S2V4WnK1qWTN7K_IODfSZKCNqkR3O2_50VT4s2S7vZBJYXsJRQrayCgl2kN4blYTIVzeukqCKRwCIRQP3wJpQ8o8xDPN2gbqZGbIqkVsDflhgDKquo3jz7Ruu3xn75uauab7wMSzM1z">
+</div>
+<div class="aspect-[4/3] border border-outline-variant bg-surface-container p-sm group hover:border-primary transition-colors duration-300">
+<img class="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A detailed architectural section drawing in a minimalist style. White, precise line art on a deep blackish-brown background showing spatial volumes, double-height ceilings, and the relationship between indoor and outdoor topography. High-end, technical drafting aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuz5HrJE_9AqAsu4-7PdfSVgzN4U0fWG1xvitrosNzKcHjox18fELluJVNzuIbnJ5HnoyZGwRwBY3w-h5qB6KtR62oCT7ijnEeFO4CnbB8QmXvMABkE2aGz6DkSoeQVfhHR1guffNxtpHt_fZoWcllP7rRDHOpBp3VNR8qP5_hanKggJ239S5gHEqm-B28Tycpyki2BZmkfU776yeFnMLiZlLtoHXa4DJte7wdNTLEXb12TKV0Qk0J">
+</div>
+<div class="aspect-[4/3] border border-outline-variant bg-surface-container p-sm group hover:border-primary transition-colors duration-300">
+<img class="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A technical architectural elevation drawing showing a stark, windowless facade made of distinct concrete panels. Thin, crisp white lines on a rich dark grey background. The style is severe, modern, and highly precise, evoking luxury architectural documentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxqYVRfBuyEBY75cWd7m4UCXlpbr2R_uwwZgFkqyisDt4ogpCwM9APkVOktgxGycwfQ-wzPNVPzwaDyuhNRMG9Uv9EASScD5yz6afKtPeNKVCCNWjGPDVtj0wjG3O8oFGsx99znGlFTmD373ZeFfIpnZtKvUeeKidu9-mZ6n_6eKdpQe0S5x2P7Y6e-bPGRJCt49nDJ7cE671VTwqn8jM92CIZPcx4oT06uJ-D2bcAiJ6Coh8wu0qO">
+</div>
+</div>
+</section>
+</main>
+<!-- SECTION 11 - Footer -->
+<footer class="w-full bg-surface-container-lowest border-t border-outline-variant mt-xl">
+<div class="w-full px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center max-w-[1440px] mx-auto">
+<div class="font-headline-lg text-headline-lg text-on-surface mb-md md:mb-0">
+                STUDIO NOIR
+            </div>
+<ul class="flex flex-wrap justify-center gap-md md:gap-lg font-label-md text-label-md mb-md md:mb-0">
+<li class=""><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Journal</a></li>
+<li class=""><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Careers</a></li>
+<li class=""><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li class=""><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+</ul>
+<div class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider text-center md:text-right">
+                © 2024 STUDIO NOIR ARCHITECTS. ALL RIGHTS RESERVED.
+            </div>
+</div>
+</footer>
+
+
+</body></html>

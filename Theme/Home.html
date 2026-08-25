@@ -1,0 +1,625 @@
+<!doctype html>
+<html class="dark" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>STUDIO NOIR / Archifyr</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            outline: "#9e8e81",
+                            "on-tertiary-container": "#2f291f",
+                            "outline-variant": "#51443a",
+                            "on-primary": "#4b2800",
+                            "inverse-surface": "#e9e1db",
+                            "on-background": "#e9e1db",
+                            "surface-tint": "#f9ba7f",
+                            "on-tertiary": "#363025",
+                            "on-secondary-fixed-variant": "#633f19",
+                            "surface-container-highest": "#383430",
+                            "surface-container-lowest": "#100e0b",
+                            "on-tertiary-fixed": "#201b11",
+                            "on-primary-fixed-variant": "#673d0c",
+                            "on-surface": "#e9e1db",
+                            "surface-container-high": "#2d2926",
+                            "surface-bright": "#3d3835",
+                            primary: "#f9ba7f",
+                            "on-secondary-fixed": "#2d1600",
+                            "on-primary-container": "#412200",
+                            "surface-variant": "#383430",
+                            "surface-container": "#221f1c",
+                            "primary-container": "#bd854f",
+                            "primary-fixed": "#ffdcbf",
+                            "secondary-container": "#66411b",
+                            "surface-dim": "#161310",
+                            "secondary-fixed-dim": "#f1bc8c",
+                            "surface-container-low": "#1e1b18",
+                            "on-secondary": "#492905",
+                            "on-secondary-container": "#e2ae7f",
+                            "on-error-container": "#ffdad6",
+                            "secondary-fixed": "#ffdcbf",
+                            surface: "#161310",
+                            "error-container": "#93000a",
+                            "primary-fixed-dim": "#f9ba7f",
+                            "tertiary-fixed-dim": "#d0c5b6",
+                            tertiary: "#d0c5b6",
+                            "on-tertiary-fixed-variant": "#4d463a",
+                            "tertiary-fixed": "#ede1d1",
+                            "inverse-primary": "#835422",
+                            error: "#ffb4ab",
+                            "tertiary-container": "#998f82",
+                            background: "#161310",
+                            "on-primary-fixed": "#2d1600",
+                            secondary: "#f1bc8c",
+                            "inverse-on-surface": "#34302c",
+                            "on-surface-variant": "#d5c3b6",
+                            "on-error": "#690005",
+                        },
+                        borderRadius: {
+                            DEFAULT: "0.125rem",
+                            lg: "0.25rem",
+                            xl: "0.5rem",
+                            full: "0.75rem",
+                        },
+                        spacing: {
+                            lg: "48px",
+                            md: "24px",
+                            gutter: "24px",
+                            xl: "80px",
+                            base: "8px",
+                            xs: "4px",
+                            sm: "12px",
+                            "margin-mobile": "16px",
+                            "margin-desktop": "64px",
+                        },
+                        fontFamily: {
+                            "label-md": ["Manrope"],
+                            "display-md": ["Manrope"],
+                            "headline-lg": ["Manrope"],
+                            "headline-lg-mobile": ["Manrope"],
+                            "body-md": ["Manrope"],
+                            "label-lg": ["Manrope"],
+                            "display-lg": ["Manrope"],
+                            "body-lg": ["Manrope"],
+                        },
+                        fontSize: {
+                            "label-md": [
+                                "12px",
+                                {
+                                    lineHeight: "1.4",
+                                    letterSpacing: "0.02em",
+                                    fontWeight: "500",
+                                },
+                            ],
+                            "display-md": [
+                                "48px",
+                                {
+                                    lineHeight: "1.2",
+                                    letterSpacing: "-0.03em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "headline-lg": [
+                                "32px",
+                                {
+                                    lineHeight: "1.3",
+                                    letterSpacing: "-0.02em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "headline-lg-mobile": [
+                                "28px",
+                                {
+                                    lineHeight: "1.3",
+                                    letterSpacing: "-0.01em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "body-md": [
+                                "16px",
+                                {
+                                    lineHeight: "1.6",
+                                    letterSpacing: "0em",
+                                    fontWeight: "400",
+                                },
+                            ],
+                            "label-lg": [
+                                "14px",
+                                {
+                                    lineHeight: "1.4",
+                                    letterSpacing: "0.05em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "display-lg": [
+                                "64px",
+                                {
+                                    lineHeight: "1.1",
+                                    letterSpacing: "-0.04em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "body-lg": [
+                                "18px",
+                                {
+                                    lineHeight: "1.6",
+                                    letterSpacing: "0em",
+                                    fontWeight: "400",
+                                },
+                            ],
+                        },
+                    },
+                },
+            };
+        </script>
+        <style>
+            body {
+                background-color: #161310;
+                color: #e9e1db;
+            }
+        </style>
+    </head>
+    <body
+        class="bg-surface text-on-surface font-body-md antialiased selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden"
+    >
+        <!-- Top Navigation -->
+        <header
+            class="sticky top-0 z-50 bg-surface/90 backdrop-blur-md border-b border-outline-variant w-full"
+        >
+            <nav
+                class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-base max-w-[1440px] mx-auto"
+            >
+                <a
+                    class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg font-semibold text-primary tracking-tight"
+                    href="#"
+                >
+                    STUDIO NOIR
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a
+                        class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300"
+                        href="#"
+                        >Home</a
+                    >
+                    <a
+                        class="font-label-lg text-label-lg text-primary border-b-2 border-primary pb-1"
+                        href="#"
+                        >Portfolio</a
+                    >
+                    <a
+                        class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300"
+                        href="#"
+                        >Practice</a
+                    >
+                    <a
+                        class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300"
+                        href="#"
+                        >Services</a
+                    >
+                    <a
+                        class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300"
+                        href="#"
+                        >Contact</a
+                    >
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button
+                        class="text-on-surface-variant hover:text-primary transition-all duration-200"
+                    >
+                        <span
+                            class="material-symbols-outlined"
+                            style="font-variation-settings: &quot;FILL&quot; 0"
+                            >language</span
+                        >
+                    </button>
+                    <button
+                        class="md:hidden text-on-surface-variant hover:text-primary transition-all duration-200"
+                    >
+                        <span
+                            class="material-symbols-outlined"
+                            style="font-variation-settings: &quot;FILL&quot; 0"
+                            >menu</span
+                        >
+                    </button>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <!-- Hero Slider -->
+            <section
+                class="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center"
+            >
+                <div class="absolute inset-0 w-full h-full">
+                    <img
+                        alt="Background"
+                        class="w-full h-full object-cover object-center"
+                        src="https://lh3.googleusercontent.com/aida/AEtjO1Xo4iV5-Hwqn8kN-CDCyfXQ2O1wP4DdOtOEK9xXNvlXUrxYX4fzICPnOUWXKoFJ9NtA1sX-Qt29v58GNurpHuDgUmQ6CKzfLQd3l_vremGuf2RsweGYZgDm-besdMosc8kaDcZtyIRCxHGoKXgN4WROJu8wtu9v56PCMRup9JdhnfiEEA2JiMnM8tEHQJN7_0w8VXdQzKv-lhGrPpRwX9ZxydmEuArXhUWOeOp-jW1hOeL5K4TM7kajLEE"
+                    />
+                    <div
+                        class="absolute inset-0 bg-surface/60 mix-blend-multiply"
+                    ></div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-surface/30"
+                    ></div>
+                </div>
+                <div
+                    class="relative z-10 w-full max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop flex flex-col justify-center h-full pt-xl"
+                >
+                    <div class="max-w-3xl">
+                        <h1
+                            class="font-display-lg text-display-lg text-on-surface mb-sm"
+                        >
+                            Designing dreams, building reality.
+                        </h1>
+                        <p
+                            class="font-body-lg text-body-lg text-secondary-fixed-dim max-w-xl"
+                        >
+                            We blend modern minimalism with tactile nuances,
+                            crafting spaces that evoke authority, craftsmanship,
+                            and the quiet atmosphere of a premium studio.
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="absolute bottom-margin-desktop left-margin-mobile md:left-margin-desktop z-10 flex items-center space-x-md"
+                >
+                    <div class="flex space-x-sm">
+                        <button
+                            class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary hover:bg-surface-container-high transition-all"
+                        >
+                            <span class="material-symbols-outlined"
+                                >arrow_back</span
+                            >
+                        </button>
+                        <button
+                            class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary hover:bg-surface-container-high transition-all"
+                        >
+                            <span class="material-symbols-outlined"
+                                >arrow_forward</span
+                            >
+                        </button>
+                    </div>
+                    <div
+                        class="font-label-lg text-label-lg text-on-surface-variant flex items-center"
+                    >
+                        <span class="text-primary">01</span>
+                        <span
+                            class="mx-2 w-8 h-[1px] bg-outline-variant"
+                        ></span>
+                        <span>04</span>
+                    </div>
+                </div>
+                <div
+                    class="absolute right-margin-mobile md:right-margin-desktop top-1/2 -translate-y-1/2 z-10 hidden md:flex flex-col items-center space-y-2"
+                >
+                    <div class="w-[2px] h-16 bg-outline-variant relative">
+                        <div
+                            class="absolute top-0 left-0 w-full h-1/4 bg-primary"
+                        ></div>
+                    </div>
+                    <span
+                        class="font-label-md text-label-md text-on-surface-variant transform -rotate-90 origin-left mt-8 tracking-[0.2em] uppercase"
+                        >Scroll</span
+                    >
+                </div>
+            </section>
+            <!-- About Section -->
+            <section
+                class="py-xl px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto"
+            >
+                <div
+                    class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center"
+                >
+                    <div class="md:col-span-5 relative">
+                        <div
+                            class="absolute inset-0 border border-outline translate-x-4 translate-y-4 pointer-events-none"
+                        ></div>
+                        <img
+                            class="w-full aspect-[3/4] object-cover relative z-10"
+                            data-alt="A moody, high-contrast interior architecture photograph of a sophisticated living space. Dark espresso wood paneling, warm amber lighting reflecting off polished concrete floors. Minimalist furniture with clean lines. A sense of quiet luxury and tactile materials. Cinematic lighting, architectural photography style."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiR3yHutQo7_DI1-9_aX9uMVgDKvnXGCKd-I5HRzl2ua_PTGTjjxjuPk178C2KN-Y_wTAYTOc_uCYc9TZGfD6VkEBZ_fzYdV2d2zzlrQMUGpUIs_kXP7K4rE5a89aRqB-F0ucC9hjaoJrazhtu3iXn-7uwSvgnGuW7Gky5tiMf5-ITL7kWHOy7NKuWL29s36-5vnMcU8O5ZRNTJ9AD1oIbLfJWd-KQ1kXTr_JhIOJzmn3lVj4iKcEs"
+                        />
+                    </div>
+                    <div class="md:col-span-6 md:col-start-7 mt-lg md:mt-0">
+                        <span
+                            class="font-label-lg text-label-lg text-secondary-fixed-dim uppercase tracking-widest block mb-4"
+                            >Design Philosophy</span
+                        >
+                        <h2
+                            class="font-display-md text-display-md text-on-surface mb-md"
+                        >
+                            Crafting shadows and light.
+                        </h2>
+                        <p
+                            class="font-body-md text-body-md text-on-surface-variant mb-lg"
+                        >
+                            Our approach is deeply rooted in the interplay of
+                            light and materiality. We believe that true luxury
+                            lies in the details—the texture of natural stone,
+                            the warmth of aged wood, and the precise geometry
+                            that organizes space.
+                        </p>
+                        <div
+                            class="flex items-center space-x-xl pt-md border-t border-outline-variant"
+                        >
+                            <div>
+                                <span
+                                    class="font-headline-lg text-headline-lg text-primary block"
+                                    >15+</span
+                                >
+                                <span
+                                    class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider"
+                                    >Years Experience</span
+                                >
+                            </div>
+                            <div class="w-[1px] h-12 bg-outline-variant"></div>
+                            <div>
+                                <span
+                                    class="font-headline-lg text-headline-lg text-primary block"
+                                    >200+</span
+                                >
+                                <span
+                                    class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider"
+                                    >Projects Completed</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Services Section -->
+            <section
+                class="py-xl px-margin-mobile md:px-margin-desktop bg-surface-container-lowest max-w-[1440px] mx-auto"
+            >
+                <div class="text-center mb-xl">
+                    <h2
+                        class="font-display-md text-display-md text-on-surface mb-sm"
+                    >
+                        Our Expertise
+                    </h2>
+                    <p
+                        class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto"
+                    >
+                        Comprehensive architectural and interior design services
+                        tailored for discerning clients.
+                    </p>
+                </div>
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter"
+                >
+                    <!-- Service Card 1 -->
+                    <div
+                        class="bg-surface-container border border-outline-variant p-lg hover:bg-surface-container-high hover:border-secondary transition-all duration-300 group"
+                    >
+                        <div class="flex justify-between items-start mb-md">
+                            <span
+                                class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-primary transition-colors"
+                                style="
+                                    font-variation-settings: &quot;wght&quot;
+                                        200;
+                                "
+                                >architecture</span
+                            >
+                            <span
+                                class="font-label-md text-label-md text-outline-variant"
+                                >01</span
+                            >
+                        </div>
+                        <h3
+                            class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-4 group-hover:text-primary transition-colors"
+                        >
+                            Architecture
+                        </h3>
+                        <ul class="space-y-2">
+                            <li
+                                class="flex items-center font-body-md text-body-md text-on-surface-variant"
+                            >
+                                <span
+                                    class="w-1.5 h-1.5 bg-outline rounded-full mr-3"
+                                ></span>
+                                Concept Design
+                            </li>
+                            <li
+                                class="flex items-center font-body-md text-body-md text-on-surface-variant"
+                            >
+                                <span
+                                    class="w-1.5 h-1.5 bg-outline rounded-full mr-3"
+                                ></span>
+                                Master Planning
+                            </li>
+                            <li
+                                class="flex items-center font-body-md text-body-md text-on-surface-variant"
+                            >
+                                <span
+                                    class="w-1.5 h-1.5 bg-outline rounded-full mr-3"
+                                ></span>
+                                Construction Administration
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Service Card 2 -->
+                    <div
+                        class="bg-surface-container border border-outline-variant p-lg hover:bg-surface-container-high hover:border-secondary transition-all duration-300 group"
+                    >
+                        <div class="flex justify-between items-start mb-md">
+                            <span
+                                class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-primary transition-colors"
+                                style="
+                                    font-variation-settings: &quot;wght&quot;
+                                        200;
+                                "
+                                >chair</span
+                            >
+                            <span
+                                class="font-label-md text-label-md text-outline-variant"
+                                >02</span
+                            >
+                        </div>
+                        <h3
+                            class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-4 group-hover:text-primary transition-colors"
+                        >
+                            Interior Design
+                        </h3>
+                        <ul class="space-y-2">
+                            <li
+                                class="flex items-center font-body-md text-body-md text-on-surface-variant"
+                            >
+                                <span
+                                    class="w-1.5 h-1.5 bg-outline rounded-full mr-3"
+                                ></span>
+                                Space Planning
+                            </li>
+                            <li
+                                class="flex items-center font-body-md text-body-md text-on-surface-variant"
+                            >
+                                <span
+                                    class="w-1.5 h-1.5 bg-outline rounded-full mr-3"
+                                ></span>
+                                Material Selection
+                            </li>
+                            <li
+                                class="flex items-center font-body-md text-body-md text-on-surface-variant"
+                            >
+                                <span
+                                    class="w-1.5 h-1.5 bg-outline rounded-full mr-3"
+                                ></span>
+                                Custom Millwork
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Service Card 3 -->
+                    <div
+                        class="bg-surface-container border border-outline-variant p-lg hover:bg-surface-container-high hover:border-secondary transition-all duration-300 group"
+                    >
+                        <div class="flex justify-between items-start mb-md">
+                            <span
+                                class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-primary transition-colors"
+                                style="
+                                    font-variation-settings: &quot;wght&quot;
+                                        200;
+                                "
+                                >lightbulb</span
+                            >
+                            <span
+                                class="font-label-md text-label-md text-outline-variant"
+                                >03</span
+                            >
+                        </div>
+                        <h3
+                            class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-4 group-hover:text-primary transition-colors"
+                        >
+                            Lighting Design
+                        </h3>
+                        <ul class="space-y-2">
+                            <li
+                                class="flex items-center font-body-md text-body-md text-on-surface-variant"
+                            >
+                                <span
+                                    class="w-1.5 h-1.5 bg-outline rounded-full mr-3"
+                                ></span>
+                                Ambient Strategies
+                            </li>
+                            <li
+                                class="flex items-center font-body-md text-body-md text-on-surface-variant"
+                            >
+                                <span
+                                    class="w-1.5 h-1.5 bg-outline rounded-full mr-3"
+                                ></span>
+                                Fixture Curation
+                            </li>
+                            <li
+                                class="flex items-center font-body-md text-body-md text-on-surface-variant"
+                            >
+                                <span
+                                    class="w-1.5 h-1.5 bg-outline rounded-full mr-3"
+                                ></span>
+                                Control Systems
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <!-- CTA Section -->
+            <section
+                class="py-xl px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto"
+            >
+                <div
+                    class="bg-surface-container-high border border-outline-variant p-xl text-center"
+                >
+                    <h2
+                        class="font-display-md text-display-md text-on-surface mb-sm"
+                    >
+                        Have a project in mind?
+                    </h2>
+                    <p
+                        class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-lg"
+                    >
+                        Let's discuss how we can bring your vision to life with
+                        precision and uncompromising quality.
+                    </p>
+                    <button
+                        class="bg-primary-container text-on-primary-container font-label-lg text-label-lg px-8 py-4 uppercase tracking-wider hover:bg-primary transition-colors inline-flex items-center shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]"
+                    >
+                        Contact Us
+                        <span class="material-symbols-outlined ml-2 text-sm"
+                            >arrow_forward</span
+                        >
+                    </button>
+                </div>
+            </section>
+        </main>
+        <!-- Footer -->
+        <footer
+            class="w-full px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center max-w-[1440px] mx-auto bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant"
+        >
+            <div class="mb-md md:mb-0">
+                <span
+                    class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight block"
+                    >STUDIO NOIR</span
+                >
+                <span
+                    class="font-label-md text-label-md text-on-surface-variant mt-2 block"
+                    >© 2024 STUDIO NOIR ARCHITECTS. ALL RIGHTS RESERVED.</span
+                >
+            </div>
+            <div class="flex space-x-md">
+                <a
+                    class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors"
+                    href="#"
+                    >Journal</a
+                >
+                <a
+                    class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors"
+                    href="#"
+                    >Careers</a
+                >
+                <a
+                    class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors"
+                    href="#"
+                    >Privacy Policy</a
+                >
+                <a
+                    class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors"
+                    href="#"
+                    >Terms of Service</a
+                >
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,621 @@
+---
+alwaysApply: true
+---
+# Archify — Cursor AI Project Rules & Reference
+
+> **Purpose:** This file is the single source of truth for this project.
+> Load it into Cursor AI as a rule file. Every decision — naming, structure, design, logic — must follow what is defined here.
+>
+> This file works together with two companion rule files: `cursor-learning-rule.mdc` (how Cursor should guide/teach me step by step) and `system-design-rule.mdc` (deeper architectural patterns). This file covers the project itself: what it is, its schema, its stack, and its build order.
+
+---
+
+## 1. Project Overview
+
+A **multilingual website + admin CMS** for an architecture and interior design consultancy. Public visitors browse services, portfolio projects, the blog/journal, and team info, and submit contact/lead inquiries. A single admin manages all content through a dedicated dark-themed admin panel.
+
+**Brand personality:** Premium, moody, cinematic, warm. Dark cork/wood-inspired palette — not corporate gray, not flat SaaS design.
+
+**Languages:** English (default), Turkish, Arabic (RTL). Static UI strings are translated via Laravel's own localization files; dynamic content (services, projects, blog, etc.) is stored per-locale in `_translations` tables and can be auto-translated via **DeepL**.
+
+---
+
+## 2. Tech Stack
+
+| Layer | Technology | Notes |
+|---|---|---|
+| Backend framework | Laravel 12 | PHP 8.2+ |
+| Frontend bridge | Inertia.js v2 | SSR optional, add later if needed for SEO |
+| Frontend framework | Vue 3 | Composition API + `<script setup>` only |
+| Styling | Tailwind CSS v3 | Utility-first, no inline styles, no custom CSS files unless unavoidable |
+| Auth scaffolding | Laravel Breeze | Inertia + Vue preset — **admin login only**, no public registration |
+| Image/video management | Spatie Laravel MediaLibrary | All images, galleries, and video uploads across every model |
+| SEO-friendly URLs | Native slug columns per locale (see schema) | Not a package — slugs are per-language columns on translation tables |
+| Machine translation | DeepL PHP client (`deeplcom/deepl-php`) | Used only inside queued Jobs — never called synchronously in a request |
+| Queue driver | **Database** | Chosen specifically because Redis isn't reliably available on shared hosting; see Section 8 |
+| Frontend UI | @headlessui/vue | Accessible modals, dropdowns, tabs |
+| Frontend utilities | @vueuse/core | Composables (localStorage, debounce, etc.) |
+| Rich text editor | Tiptap (or TinyMCE) | Blog content and long descriptions |
+| Charts | Chart.js (via vue-chartjs) | Admin dashboard traffic/stats |
+| Icons | Tabler Icons (@tabler/icons-vue) | All icons throughout the app, matches the thin-line icon style from the design system |
+| HTTP client | Axios | Already included via Laravel |
+
+### Setup Commands
+```bash
+composer create-project laravel/laravel studio-noir "^12.0"
+cd studio-noir
+composer require laravel/breeze spatie/laravel-medialibrary deeplcom/deepl-php
+php artisan breeze:install vue
+npm install @headlessui/vue @vueuse/core @tabler/icons-vue vue-chartjs chart.js @tiptap/vue-3 @tiptap/starter-kit
+```
+
+---
+
+## 3. Coding Standards
+
+### General Rules
+- Always use **Vue 3 Composition API** with `<script setup>` — never Options API
+- Always use **Tailwind CSS** utility classes — never write custom CSS unless absolutely required
+- Controllers are **thin**: receive request → call a Service → return an Inertia response. No business logic and no direct Eloquent queries in controllers.
+- All business logic (create/update orchestration, media handling, translation dispatch) lives in **Services** (`app/Services`)
+- All data-fetching/query logic lives in **Repositories** (`app/Repositories`), implementing an interface, bound in `RepositoryServiceProvider`. Controllers/Services depend on the interface, never the concrete class.
+- All form validation lives in **FormRequest** classes — never validate in controllers directly
+- Use **API Resources** for all data passed to Inertia pages — never pass raw Eloquent models
+- Use **route model binding** with slugs where public-facing (`{project:slug}`), IDs in admin routes
+- All routes use **named routes** — never hardcode URLs in Vue components; use `ziggy-js`
+- Use **Global Scopes** for cross-cutting default behavior (e.g. auto-ordering by an `order` column)
+- Use **Local Scopes** for reusable filtered queries (e.g. `scopeActive`, `scopePublished`, `scopeForLanguage`)
+
+### Repository + Service Pattern (contract)
+```
+Controller
+  → calls → Service (business logic, transactions, media, translation dispatch)
+      → calls → Repository (query logic only, returns Models/Collections)
+          → Model (Eloquent, scopes, relationships)
+```
+- One Repository per aggregate root model (e.g. `ProjectRepository`, `ServiceRepository`, `BlogRepository`)
+- Repository methods are query-only: `find()`, `paginateActive()`, `findBySlug()`, etc. — no side effects
+- Service methods are the ones called by controllers: `create()`, `update()`, `delete()`, `publish()` — these can call multiple repositories, wrap in `DB::transaction()`, dispatch jobs, and handle media
+- Never inject a Model directly into a Controller — inject the Service
+
+### Example scope usage
+```php
+// Global scope — applied automatically
+class OrderedScope implements Scope {
+    public function apply(Builder $builder, Model $model): void {
+        $builder->orderBy('order');
+    }
+}
+// Applied on: Sliders, Services, TeamMember, Testimonial, Statistic,
+// CoreValue, Concept, ProjectCategory, BlogCategory
+
+// Local scope — called explicitly
+public function scopeForLanguage(Builder $query, int $languageId): Builder {
+    return $query->whereHas('translations', fn($q) => $q->where('language_id', $languageId));
+}
+```
+
+### Vue Component Rules
+- One component per file, PascalCase file names (`ProjectCard.vue`)
+- Page components: PascalCase matching the route (`Projects/Show.vue`)
+- Props typed via `defineProps<{}>()`, emits via `defineEmits<{}>()`
+- Use `useForm()` from `@inertiajs/vue3` for ALL form submissions — never raw `axios.post`
+- Use `<Link>` from `@inertiajs/vue3` for ALL internal navigation — never `<a href>`
+- Every admin form with translatable fields uses the shared `<TranslationTabs>` component (source-locale selector + auto-translate checkbox + per-locale tabs) — this exact pattern must not be reimplemented per page
+
+### Laravel Rules
+- Controllers return `Inertia::render()` or `redirect()->route()` — nothing else
+- Use `$request->validated()` always — never `$request->all()`
+- All models use `$fillable` — never `$guarded = []`
+- All migrations include `timestamps()`
+- Use Laravel Policies for admin authorization on models
+
+---
+
+## 4. User Roles
+
+Single admin role for this project (confirmed simple scope — no multi-role/permission matrix needed):
+
+| Role | Description |
+|---|---|
+| `admin` | Full unrestricted access to the CMS. Only role in the system. |
+
+- `App\Http\Middleware\AdminMiddleware` protects all `/admin/*` routes
+- No public user accounts exist — visitors are anonymous; leads are captured via the contact form only
+
+---
+
+## 5. Database Schema
+
+### `languages`
+```
+id, code (en|tr|ar), name, direction (ltr|rtl), is_default (bool),
+is_active (bool), order, timestamps
+```
+
+### `site_settings` (singleton row)
+```
+id, email, phone, whatsapp, map_lat, map_lng,
+instagram_url, youtube_url, twitter_url,
+google_analytics_id, gtm_id, facebook_pixel_id, google_site_verification,
+robots_txt, auto_translate_enabled (bool, default false),
+timestamps
+-- logo, favicon, og_image => Media Library collections
+```
+
+### `site_setting_translations`
+```
+id, site_setting_id (FK), language_id (FK),
+name, slogan, address, meta_title, meta_description, meta_keywords,
+unique(site_setting_id, language_id)
+```
+
+### `faqs`
+```
+id, order, timestamps
+```
+### `faq_translations`
+```
+id, faq_id (FK), language_id (FK), question, answer,
+unique(faq_id, language_id)
+```
+
+### `blog_categories`
+```
+id, color (hex), order, timestamps
+```
+### `blog_category_translations`
+```
+id, blog_category_id (FK), language_id (FK), name, slug,
+unique(blog_category_id, language_id), unique(slug, language_id)
+```
+
+### `blogs`
+```
+id, blog_category_id (FK), views_count (unsigned int, default 0), timestamps
+-- thumbnail, cover => Media Library collections
+```
+### `blog_translations`
+```
+id, blog_id (FK), language_id (FK),
+title, slug, content (longtext), read_time (int, auto-calculated),
+meta_title, meta_description, meta_keywords, translation_status (enum: manual|pending|translated|failed),
+unique(blog_id, language_id), unique(slug, language_id)
+```
+
+### `sliders`
+```
+id, order, is_active (bool), timestamps
+-- image => Media Library collection
+```
+### `slider_translations`
+```
+id, slider_id (FK), language_id (FK), title, description,
+unique(slider_id, language_id)
+```
+
+### `services`
+```
+id, icon, order, show_on_home (bool), timestamps
+```
+### `service_translations`
+```
+id, service_id (FK), language_id (FK), title, short_description,
+included_items (json array of strings),
+unique(service_id, language_id)
+```
+
+### `about_page` (singleton row)
+```
+id, timestamps
+-- story_image => Media Library collection
+```
+### `about_page_translations`
+```
+id, about_page_id (FK), language_id (FK),
+story_title, story_description, vision_title, vision_description,
+mission_title, mission_description,
+unique(about_page_id, language_id)
+```
+
+### `statistics`
+```
+id, count, order, timestamps
+```
+### `statistic_translations`
+```
+id, statistic_id (FK), language_id (FK), label,
+unique(statistic_id, language_id)
+```
+
+### `core_values`
+```
+id, icon, order, timestamps
+```
+### `core_value_translations`
+```
+id, core_value_id (FK), language_id (FK), title, short_description,
+unique(core_value_id, language_id)
+```
+
+### `project_categories`
+```
+id, order, timestamps
+```
+### `project_category_translations`
+```
+id, project_category_id (FK), language_id (FK), name, slug,
+unique(project_category_id, language_id), unique(slug, language_id)
+```
+
+### `projects`
+```
+id, project_category_id (FK), client_name, location, year,
+video_url (nullable, YouTube), views_count (unsigned int, default 0), timestamps
+-- thumbnail => Media Library collection (single)
+-- preview_video => Media Library collection (single, ~30s autoplay/loop)
+-- images_2d, images_3d, images_outdoor => Media Library collections (multiple)
+```
+### `project_translations`
+```
+id, project_id (FK), language_id (FK), name, slug,
+short_description, description,
+meta_title, meta_description, meta_keywords, translation_status (enum: manual|pending|translated|failed),
+unique(project_id, language_id), unique(slug, language_id)
+```
+
+### `concepts` (tag/feature list, not an image gallery)
+```
+id, icon, timestamps
+```
+### `concept_translations`
+```
+id, concept_id (FK), language_id (FK), title, short_description,
+unique(concept_id, language_id)
+```
+### `project_concept` (pivot)
+```
+project_id (FK), concept_id (FK)
+```
+
+### `team_members`
+```
+id, name, order, linkedin_url, behance_url, instagram_url, timestamps
+-- avatar => Media Library collection
+```
+### `team_member_translations`
+```
+id, team_member_id (FK), language_id (FK), role,
+unique(team_member_id, language_id)
+```
+
+### `testimonials`
+```
+id, client_name, order, timestamps
+-- avatar => Media Library collection
+```
+### `testimonial_translations`
+```
+id, testimonial_id (FK), language_id (FK), quote,
+unique(testimonial_id, language_id)
+```
+
+### `leads`
+```
+id, full_name, email, phone (nullable),
+service_id (FK -> services, nullable), interest_other (nullable string),
+message (text), status (enum: pending|contacted, default pending),
+internal_notes (text, nullable), language_id (FK, nullable), ip_address (nullable),
+timestamps
+```
+
+### `users` (admin only)
+```
+id, name, email, email_verified_at, password, avatar, remember_token, timestamps
+```
+
+### `media` — auto-created by Spatie Laravel MediaLibrary
+
+---
+
+## 6. Full File Structure
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── HomeController.php
+│   │   ├── ServiceController.php
+│   │   ├── ProjectController.php
+│   │   ├── BlogController.php
+│   │   ├── TeamController.php
+│   │   ├── ContactController.php
+│   │   └── Admin/
+│   │       ├── DashboardController.php
+│   │       ├── SliderController.php
+│   │       ├── AboutPageController.php
+│   │       ├── ServiceController.php
+│   │       ├── CategoryController.php        // shared for project + blog categories
+│   │       ├── ProjectController.php
+│   │       ├── ConceptController.php
+│   │       ├── BlogController.php
+│   │       ├── TeamMemberController.php
+│   │       ├── TestimonialController.php
+│   │       ├── FaqController.php
+│   │       ├── StatisticController.php
+│   │       ├── CoreValueController.php
+│   │       ├── LeadController.php
+│   │       ├── MediaLibraryController.php
+│   │       ├── TranslationController.php     // static UI string management
+│   │       └── SettingController.php
+│   ├── Middleware/
+│   │   └── AdminMiddleware.php
+│   ├── Requests/
+│   │   ├── StoreProjectRequest.php
+│   │   ├── UpdateProjectRequest.php
+│   │   ├── StoreServiceRequest.php
+│   │   ├── StoreBlogRequest.php
+│   │   ├── StoreLeadRequest.php               // public contact form
+│   │   ├── UpdateSettingsRequest.php
+│   │   └── ... (one per module, Store + Update where they differ)
+│   └── Resources/
+│       ├── ProjectResource.php
+│       ├── ServiceResource.php
+│       ├── BlogResource.php
+│       ├── SliderResource.php
+│       ├── TeamMemberResource.php
+│       ├── TestimonialResource.php
+│       ├── LeadResource.php
+│       └── SiteSettingResource.php
+├── Models/
+│   ├── Language.php
+│   ├── SiteSetting.php / SiteSettingTranslation.php
+│   ├── Faq.php / FaqTranslation.php
+│   ├── BlogCategory.php / BlogCategoryTranslation.php
+│   ├── Blog.php / BlogTranslation.php
+│   ├── Slider.php / SliderTranslation.php
+│   ├── Service.php / ServiceTranslation.php
+│   ├── AboutPage.php / AboutPageTranslation.php
+│   ├── Statistic.php / StatisticTranslation.php
+│   ├── CoreValue.php / CoreValueTranslation.php
+│   ├── ProjectCategory.php / ProjectCategoryTranslation.php
+│   ├── Project.php / ProjectTranslation.php
+│   ├── Concept.php / ConceptTranslation.php
+│   ├── TeamMember.php / TeamMemberTranslation.php
+│   ├── Testimonial.php / TestimonialTranslation.php
+│   ├── Lead.php
+│   └── User.php
+├── Repositories/
+│   ├── Contracts/
+│   │   ├── ProjectRepositoryInterface.php
+│   │   ├── ServiceRepositoryInterface.php
+│   │   ├── BlogRepositoryInterface.php
+│   │   └── ... (one interface per aggregate root)
+│   └── Eloquent/
+│       ├── ProjectRepository.php
+│       ├── ServiceRepository.php
+│       ├── BlogRepository.php
+│       └── ...
+├── Services/
+│   ├── ProjectService.php
+│   ├── ServiceService.php
+│   ├── BlogService.php
+│   ├── SiteSettingService.php
+│   ├── LeadService.php
+│   ├── TranslationDispatchService.php   // decides which locales need translating, dispatches Jobs
+│   └── DeepLTranslatorService.php       // thin wrapper around the DeepL client
+├── Jobs/
+│   ├── TranslateContentJob.php          // generic: given a model + field map + target locale
+│   └── RetryFailedTranslationsJob.php   // scheduled sweep, see Section 8
+├── Scopes/
+│   └── OrderedScope.php
+├── Providers/
+│   └── RepositoryServiceProvider.php
+└── Policies/
+    └── ... (only if/when multi-admin roles are introduced later)
+
+resources/
+├── js/
+│   ├── app.js
+│   ├── Pages/
+│   │   ├── Home.vue
+│   │   ├── About.vue
+│   │   ├── Services/{Index,Show}.vue
+│   │   ├── Projects/{Index,Show}.vue
+│   │   ├── Blog/{Index,Show}.vue
+│   │   ├── Team.vue
+│   │   ├── Contact.vue
+│   │   ├── Errors/404.vue
+│   │   ├── Auth/Login.vue
+│   │   └── Admin/
+│   │       ├── Dashboard.vue
+│   │       ├── HomeBuilder/Index.vue
+│   │       ├── About/Index.vue
+│   │       ├── Services/{Index,Form}.vue
+│   │       ├── Categories/Index.vue
+│   │       ├── Projects/{Index,Form}.vue
+│   │       ├── Blog/{Index,Form}.vue
+│   │       ├── Team/{Index,Form}.vue
+│   │       ├── Testimonials/{Index,Form}.vue
+│   │       ├── Faqs/Index.vue
+│   │       ├── Leads/Index.vue
+│   │       ├── MediaLibrary/Index.vue
+│   │       ├── Translations/Index.vue
+│   │       └── Settings/Index.vue
+│   ├── Components/
+│   │   ├── Public/
+│   │   │   ├── Navbar.vue, Footer.vue, HeroSlider.vue
+│   │   │   ├── ProjectCard.vue, ServiceCard.vue, BlogCard.vue
+│   │   │   ├── TestimonialCarousel.vue, StatBlock.vue
+│   │   │   └── ContactForm.vue
+│   │   ├── Admin/
+│   │   │   ├── Sidebar.vue, TopBar.vue, StatsCard.vue, DataTable.vue
+│   │   │   ├── TranslationTabs.vue     // the reusable locale-tabs + auto-translate pattern
+│   │   │   ├── MediaUploader.vue       // wraps Spatie collections, drag-drop
+│   │   │   ├── IconPicker.vue
+│   │   │   └── SeoFields.vue
+│   │   └── Shared/
+│   │       ├── AppButton.vue, AppModal.vue, AppInput.vue, AppSelect.vue
+│   │       ├── AppTextarea.vue, AppToggle.vue, AppBadge.vue, EmptyState.vue
+│   ├── Layouts/
+│   │   ├── AppLayout.vue, AuthLayout.vue, AdminLayout.vue
+│   └── Composables/
+│       ├── useToast.js, useConfirm.js, useLocale.js
+
+routes/
+├── web.php      // public, locale-prefixed
+├── auth.php     // Breeze admin login only
+└── admin.php
+```
+
+---
+
+## 7. Routing & Locale Strategy
+
+- URL structure: `/{locale}/...` with `en` as default (optionally omitted: `/` = English, `/tr/...`, `/ar/...`)
+- A `SetLocale` middleware resolves `{locale}` from the URL segment, validates it against active `languages`, and sets `app()->setLocale()`
+- Slugs are **per-language** (from the schema) — the same project has a different slug per locale, resolved via a custom route binding that looks up the translation table by `slug` + current locale
+- Admin routes are **not** locale-prefixed (`/admin/...`) — the admin UI language (EN/TR/AR for the interface itself) is a separate concern from content locale tabs
+
+---
+
+## 8. Translation System (DeepL + Jobs) — Critical Section
+
+This directly addresses the shared-hosting job failures from previous projects. Rules:
+
+1. **Global toggle, off by default.** `site_settings.auto_translate_enabled` defaults to `false`. When off, admins must fill every locale tab manually and Save blocks on missing required fields per locale.
+2. **Never call DeepL synchronously in a request.** All calls happen inside `TranslateContentJob`, dispatched via `TranslationDispatchService` after the source-locale save completes.
+3. **One job per (model, target locale)** — not one giant job translating every field/locale at once. If Turkish translation fails, English/Arabic are unaffected and only the Turkish job needs retrying. Smaller jobs are also far less likely to hit shared-hosting execution time limits.
+4. **Explicit job configuration** to prevent runaway failures:
+   ```php
+   class TranslateContentJob implements ShouldQueue {
+       public $tries = 3;
+       public $backoff = [30, 120, 300]; // seconds between retries
+       public $timeout = 60;             // hard cap per attempt
+       public $maxExceptions = 2;
+   }
+   ```
+5. **`WithoutOverlapping` middleware** keyed by `model_id + locale` so the same record/locale can't be translated twice concurrently if saved rapidly.
+6. **Track status per translation row** via `translation_status` (manual|pending|translated|failed) so the admin UI can show a badge and offer a manual "Retry translation" button per row instead of it silently failing.
+7. **Queue worker on shared hosting:** since a persistent `queue:work` daemon usually isn't available on shared hosting, use `php artisan schedule:run` (cron every minute, already required for Laravel) to run `queue:work --stop-when-empty --max-time=50` on a schedule, keeping each run short-lived and safe within typical PHP execution limits — rather than one long-running worker process.
+8. **Rate-limit outgoing DeepL calls** (e.g. Laravel's rate limiter around the job's handle method) to avoid hitting DeepL's API rate limits when many records are saved in quick succession (e.g. bulk import).
+9. **`RetryFailedTranslationsJob`** runs on a daily schedule, finds all `translation_status = failed` rows, and re-dispatches them once — surfacing anything that fails twice for manual review instead of retrying forever.
+
+---
+
+## 9. Layouts
+
+### `AppLayout.vue`
+Public pages. Includes `<Navbar>`, `<slot>`, `<Footer>`. Handles `dir="rtl"` automatically based on current locale's `direction`.
+
+### `AuthLayout.vue`
+Admin login only. Split layout — dark cork-brown brand panel with logo, right-side login form.
+
+### `AdminLayout.vue`
+All `/admin/*` pages. Includes `<AdminSidebar>`, `<AdminTopBar>`, `<slot>`. Sidebar collapse state via `useLocalStorage`.
+
+---
+
+## 10. SEO Strategy
+
+- Every public page sets meta tags via `<Head>` from `@inertiajs/vue3`, using the current locale's `meta_title`/`meta_description` from the relevant translation row, falling back to `site_settings` global defaults
+- Title template: `{page_title} | {site_name}`
+- `sitemap.xml` generated per locale, regenerated on publish/update of any translatable content
+- `robots.txt` served dynamically from `site_settings.robots_txt`
+- All public URLs use locale-specific slugs, never IDs
+- Post-deployment: connect Google Analytics (ID from settings), Google Search Console (verification meta tag from settings), submit the generated sitemap
+- Structured data (JSON-LD) for Organization + individual Projects/Articles, to support both traditional search and AI-driven search surfaces
+
+---
+
+## 11. Build Order (Development Phases)
+
+### Phase 1 — Foundation
+1. Install Laravel 11 + Breeze (Inertia + Vue), configure Tailwind with design tokens
+2. Create `languages` table + seed en/tr/ar
+3. Create all migrations from Section 5, run `php artisan migrate`
+4. Create Models + relationships, apply `OrderedScope` where relevant
+5. Set up Repository interfaces + Eloquent implementations + `RepositoryServiceProvider`
+6. `HandleInertiaRequests` shared data (current locale, active languages, site settings)
+7. Build `AppLayout`, `AdminLayout`, `AuthLayout` shells
+
+### Phase 2 — Translation Infrastructure
+8. `TranslateContentJob`, `TranslationDispatchService`, `DeepLTranslatorService`
+9. `<TranslationTabs>` shared Vue component
+10. Test the full job pipeline end-to-end on the actual shared-hosting target before building content features on top of it
+
+### Phase 3 — Public Shell + Static Content
+11. Locale-prefixed routing + `SetLocale` middleware
+12. Navbar, Footer, Home page (hero slider + about + services + portfolio preview + testimonials)
+13. About page, Team page, FAQ
+
+### Phase 4 — Portfolio & Services
+14. Services list/detail
+15. Project categories, Projects CRUD (with the 6 media collections), Project detail page
+16. Concepts tag system
+
+### Phase 5 — Blog & Leads
+17. Blog categories, Blog CRUD (rich text, read-time calculation, views tracking)
+18. Contact form + Leads inbox (admin)
+
+### Phase 6 — Admin Panel Polish
+19. Dashboard (stats, charts)
+20. Media Library screen
+21. Translations manager (static UI strings)
+22. Site Settings (general, SEO, homepage content tabs)
+
+### Phase 7 — SEO & Launch
+23. Meta tags across all pages, sitemap generation, structured data
+24. Connect Google Analytics + Search Console post-deployment
+25. Final queue/cron verification on production hosting
+
+---
+
+## 12. Environment Variables
+
+```env
+APP_NAME="Archify"
+APP_URL=http://localhost
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=Archify
+DB_USERNAME=root
+DB_PASSWORD=
+
+QUEUE_CONNECTION=database
+
+DEEPL_API_KEY=
+DEEPL_API_URL=https://api-free.deepl.com
+
+MAIL_MAILER=smtp
+MAIL_FROM_ADDRESS="hello@Archify.com"
+MAIL_FROM_NAME="Archify"
+
+MEDIA_DISK=public
+```
+
+---
+
+## 13. Naming Conventions Cheatsheet
+
+| Thing | Convention | Example |
+|---|---|---|
+| Laravel controller | PascalCase + Controller | `ProjectController` |
+| Laravel model | PascalCase singular | `Project` |
+| Repository interface | PascalCase + RepositoryInterface | `ProjectRepositoryInterface` |
+| Repository implementation | PascalCase + Repository | `ProjectRepository` |
+| Service class | PascalCase + Service | `ProjectService` |
+| Job class | PascalCase + Job | `TranslateContentJob` |
+| Laravel migration | snake_case descriptive | `create_projects_table` |
+| Laravel route name | dot.notation | `projects.show` |
+| Vue page component | PascalCase in folder | `Projects/Show.vue` |
+| Vue shared component | PascalCase | `TranslationTabs.vue`, `MediaUploader.vue` |
+| Vue composable | camelCase with `use` | `useLocale.js` |
+| DB column | snake_case | `is_featured`, `meta_title`, `translation_status` |
+| JS variable | camelCase | `isLoading`, `activeLocale` |
+
+---
+
+*Covers: full database schema, Repository/Service architecture, DeepL job-based translation strategy (with shared-hosting safeguards), Vue 3 + Inertia conventions, and the complete build order for this project.*

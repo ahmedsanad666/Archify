@@ -1,0 +1,245 @@
+---
+alwaysApply: true
+---
+
+# System Design Rule — "Archifyr" Design System
+
+# Archify Project — Always Active
+
+> **Purpose:** This file is the single source of truth for visual implementation — colors, typography, spacing, elevation, shapes, and component styling. Every Tailwind class, every Vue component, and every admin/public screen Cursor generates must conform to this system. It works alongside `project-brief-rule.mdc` (architecture/schema) and `cursor-learning-rule.mdc` (mentorship behavior).
+
+---
+
+## Brand & Style
+
+Built for the high-end architectural and interior design space. The personality is sophisticated, tactile, and quiet — the atmosphere of a premium design studio at night. Modern Minimalism blended with subtle Tactile/Skeuomorphic nuances: deep warm dark tones, material-inspired textures, precise typography. The interface should feel like a physical portfolio — weighted, intentional, expensive. Hierarchy comes from tonal layering and simulated light-source, never from aggressive color or heavy drop shadows.
+
+⚠️ **One deviation from the original Stitch-generated spec, decided for this project:** the original spec calls for a strict, sharp 6px radius everywhere ("avoid pill-shaped, retain rectangular structure"). **We are overriding that** — buttons, inputs, chips, cards, and tables should use a **more rounded, softer radius** across the board (see Section 6 — Shapes for exact values). Everything else in this document stands as specified.
+
+---
+
+## 1. Colors
+
+Rooted in organic, earthy neutrals mimicking charcoal, espresso timber, and terracotta. Never use pure white or pure black.
+
+### Tailwind config (`tailwind.config.js`)
+
+```js
+export default {
+    theme: {
+        extend: {
+            colors: {
+                surface: {
+                    DEFAULT: "#161310",
+                    dim: "#161310",
+                    bright: "#3d3835",
+                    "container-lowest": "#100e0b",
+                    "container-low": "#1e1b18",
+                    container: "#221f1c",
+                    "container-high": "#2d2926",
+                    "container-highest": "#383430",
+                },
+                "on-surface": "#e9e1db",
+                "on-surface-variant": "#d5c3b6",
+                "inverse-surface": "#e9e1db",
+                "inverse-on-surface": "#34302c",
+                outline: "#9e8e81",
+                "outline-variant": "#51443a",
+                primary: {
+                    DEFAULT: "#f9ba7f",
+                    container: "#bd854f",
+                    fixed: "#ffdcbf",
+                    "fixed-dim": "#f9ba7f",
+                },
+                "on-primary": "#4b2800",
+                "on-primary-container": "#412200",
+                "inverse-primary": "#835422",
+                secondary: {
+                    DEFAULT: "#f1bc8c",
+                    container: "#66411b",
+                },
+                "on-secondary": "#492905",
+                "on-secondary-container": "#e2ae7f",
+                tertiary: {
+                    DEFAULT: "#d0c5b6",
+                    container: "#998f82",
+                },
+                "on-tertiary": "#363025",
+                "on-tertiary-container": "#2f291f",
+                error: { DEFAULT: "#ffb4ab", container: "#93000a" },
+                "on-error": "#690005",
+                "on-error-container": "#ffdad6",
+                background: "#161310",
+                "on-background": "#e9e1db",
+                "surface-variant": "#383430",
+            },
+        },
+    },
+};
+```
+
+### Usage rules
+
+- **Background/base canvas:** `bg-surface` (`#161310`)
+- **Elevated structural elements** (cards, nav bars, sidebar): `bg-surface-container` (`#221D18` equivalent)
+- **Interactive/hover states, modal overlays:** `bg-surface-container-high` (`#2E2822`)
+- **Primary CTAs and key branding moments:** `bg-primary` / `text-on-primary`
+- **Secondary, lower-priority interactive elements:** `secondary` tones
+- **Primary readable text:** `text-on-surface` (cream, `#F2ECE3`-equivalent) — never plain white
+- **Secondary/metadata/disabled text:** `text-on-surface-variant` (muted gray-tan)
+- **All card/container borders:** `border-outline-variant` (`#3A332B`-equivalent)
+
+---
+
+## 2. Typography
+
+Font: **Manrope** (import via Google Fonts or bundle locally — do not substitute).
+
+```js
+// tailwind.config.js
+fontFamily: {
+  sans: ['Manrope', 'sans-serif'],
+}
+```
+
+| Token                | Size | Weight | Line height | Letter spacing | Use                            |
+| -------------------- | ---- | ------ | ----------- | -------------- | ------------------------------ |
+| `display-lg`         | 64px | 700    | 1.1         | -0.04em        | Hero headings                  |
+| `display-md`         | 48px | 600    | 1.2         | -0.03em        | Section headings               |
+| `headline-lg`        | 32px | 600    | 1.3         | -0.02em        | Page/card titles               |
+| `headline-lg-mobile` | 28px | 600    | 1.3         | -0.01em        | Mobile page titles             |
+| `body-lg`            | 18px | 400    | 1.6         | 0              | Lead paragraphs                |
+| `body-md`            | 16px | 400    | 1.6         | 0              | Standard body text             |
+| `label-lg`           | 14px | 600    | 1.4         | 0.05em         | Buttons, form labels           |
+| `label-md`           | 12px | 500    | 1.4         | 0.02em         | Chips, metadata, table headers |
+
+- Display/headline weights lean SemiBold–Bold with tight tracking for editorial impact
+- Body text keeps generous 1.6 line-height for "air" against the dark palette
+- **Labels and small buttons/table headers are uppercase** with increased letter-spacing — architectural, precise
+
+---
+
+## 3. Layout & Spacing
+
+- **Spacing scale (8px base):** `xs: 4px, sm: 12px, md: 24px, lg: 48px, xl: 80px`
+- **Desktop:** 12-column grid, max content width 1440px, 24px gutters
+- **Tablet:** 8-column grid, 16px margins
+- **Mobile:** 4-column grid, 16px margins
+- Large vertical gaps (`80px+`, i.e. `py-20`) between major page sections — reinforces the exclusive, gallery-like pacing established in the public site prompts
+
+---
+
+## 4. Elevation & Depth
+
+No traditional drop shadows. Depth comes from **tonal layering** + **low-contrast outlines**.
+
+- Elements "lift" by moving from `bg-surface` → `bg-surface-container` → `bg-surface-container-high`, not via `shadow-*` utilities
+- All card/container boundaries: `border border-outline-variant`
+- **Hover state on interactive cards:** background transitions to `surface-container-high`, border transitions to `secondary` — implement with `transition-colors duration-200`
+- Buttons may use an extremely subtle top-left radial gradient for a tactile, beveled feel — keep it barely perceptible, never a strong highlight
+
+---
+
+## 5. Iconography
+
+- **Tabler Icons** (`@tabler/icons-vue`), 1.5px stroke width
+- Open-ended, minimalist style only
+- Default color: `text-on-surface-variant`; active/selected state: `text-primary`
+- Never use filled/solid icon variants — outline only, consistent with the thin-line style established across every Stitch screen
+
+---
+
+## 6. Shapes (⚠️ Updated Radius — Rounder Than Original Spec)
+
+The original Stitch spec called for a strict sharp 6px radius everywhere. **For this build, use a rounder, softer radius scale instead:**
+
+```js
+// tailwind.config.js
+borderRadius: {
+  sm: '0.5rem',     // 8px  — chips, small badges
+  DEFAULT: '0.75rem', // 12px — buttons, inputs
+  md: '0.75rem',    // 12px — buttons, inputs (alias)
+  lg: '1rem',       // 16px — cards, table containers, modals
+  xl: '1.25rem',    // 20px — large feature cards, hero panels
+  full: '9999px',   // avatars, status dots, circular icon buttons only
+}
+```
+
+### Applied rules
+
+- **Buttons, inputs, chips/filter pills:** `rounded-md` (12px) — enough to feel soft and modern without becoming a pill
+- **Cards (project cards, service cards, stat blocks, admin panel cards):** `rounded-lg` (16px)
+- **Tables:** the outer table **container** gets `rounded-lg overflow-hidden` so the header row and last row corners clip cleanly to the radius; individual `<tr>`/`<td>` cells stay square — never round individual table cells
+- **Modals/dialogs, drawers, large feature/hero panels:** `rounded-xl` (20px)
+- **Avatars, status dots, circular icon-only buttons:** `rounded-full` — this is the one place pill/circular shapes remain correct
+- Do **not** apply `rounded-full` to any rectangular button, input, or card — that contradicts the architectural, structured feel of the brand even with the softer radius
+
+💡 **Best Practice:** When building a new component, default to `rounded-lg` for anything card-shaped and `rounded-md` for anything button/input-shaped. If genuinely unsure which bucket a new element falls into, ask rather than guessing — consistency here matters more than getting one component "close enough."
+
+---
+
+## 7. Components
+
+### Buttons
+
+- Primary: `bg-primary text-on-primary rounded-md`, no border
+- Secondary: `border border-outline-variant text-on-surface rounded-md bg-transparent`, hover fills subtly with `surface-container-high`
+- Disabled: reduce opacity, `text-on-surface-variant`, no hover transition
+
+### Input Fields
+
+- Fill: `bg-surface-container`
+- Border: `border-outline`, focus state: `border-primary` with a subtle `ring-primary/20`
+- Radius: `rounded-md`
+- Labels: `label-lg` style, `text-on-surface`
+
+### Cards
+
+- No box-shadow, ever
+- `bg-surface-container border border-outline-variant rounded-lg`
+- Hover (if interactive): `hover:bg-surface-container-high hover:border-secondary transition-colors duration-200`
+
+### Tables
+
+- Outer wrapper: `rounded-lg border border-outline-variant overflow-hidden`
+- Header row: `bg-surface-container-low`, `label-md` uppercase text, `text-on-surface-variant`
+- Rows: `border-b border-outline-variant` between rows, last row no bottom border
+- Row hover: `hover:bg-surface-container` (subtle, do not overdo)
+- Action icons (edit/delete/view) use `on-surface-variant`, transition to `primary` on hover
+
+### Chips / Filters / Status Badges
+
+- `rounded-sm` (8px), `label-md` text, generous horizontal padding (`px-3 py-1`)
+- Active/selected filter: `bg-primary text-on-primary`; inactive: `border border-outline-variant text-on-surface-variant`
+- Status badges (Published/Draft, Pending/Contacted): background at ~15% opacity of the semantic color, full-opacity text of that color
+
+### Lists
+
+- Divide items with `border-b border-outline` (not `outline-variant` — slightly more visible for list separation)
+- Generous vertical padding per row: `py-6` (24px)
+
+---
+
+## 8. RTL Considerations
+
+Since Arabic is a supported locale with `direction: rtl`:
+
+- Use Tailwind **logical properties** (`ms-`, `me-`, `ps-`, `pe-`, `start-`, `end-`) instead of physical (`ml-`, `mr-`, `left-`, `right-`) wherever direction-sensitive spacing/positioning is involved
+- Icons that imply direction (arrows, chevrons) must flip automatically under `dir="rtl"` — verify this per component, don't assume Tailwind/Tabler handles it for free
+- Test every new component in both `dir="ltr"` and `dir="rtl"` before considering it done
+
+---
+
+## 9. Applying This System
+
+- This is the **only** design system for the project — do not introduce ad-hoc colors, radii, or font sizes outside these tokens, even for "just this one component"
+- If a new UI need doesn't map cleanly to an existing token (e.g. a new semantic color for a status not covered here), stop and flag it rather than inventing a one-off hex value:
+    ```
+    🎨 Design System Gap: [what's missing and a suggested token that fits the existing palette]
+    ```
+- Component reuse takes priority over recreating similar UI — check `Components/Shared` and `Components/Admin` before building something that likely already exists (per `project-brief-rule.mdc` Section 6 file structure)
+
+---
+
+_Covers: full color system, typography scale, spacing/grid, elevation model, iconography, the updated rounder shape system, and component-level styling rules for every screen in this project._
+_Load alongside: `project-brief-rule.mdc` and `cursor-learning-rule.mdc`_

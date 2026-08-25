@@ -1,0 +1,818 @@
+<!doctype html>
+<html class="dark" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Team Management - Archifyr</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "on-secondary-container": "#e2ae7f",
+                            "secondary-fixed-dim": "#f1bc8c",
+                            "surface-tint": "#f9ba7f",
+                            "surface-container-low": "#1e1b18",
+                            "primary-container": "#bd854f",
+                            error: "#ffb4ab",
+                            "error-container": "#93000a",
+                            "on-secondary": "#492905",
+                            "surface-container": "#221f1c",
+                            "primary-fixed": "#ffdcbf",
+                            "surface-variant": "#383430",
+                            secondary: "#f1bc8c",
+                            "secondary-container": "#66411b",
+                            "on-surface": "#e9e1db",
+                            "on-error-container": "#ffdad6",
+                            "tertiary-fixed-dim": "#d0c5b6",
+                            "on-tertiary-fixed": "#201b11",
+                            "secondary-fixed": "#ffdcbf",
+                            "on-surface-variant": "#d5c3b6",
+                            "outline-variant": "#51443a",
+                            "tertiary-fixed": "#ede1d1",
+                            "on-tertiary-container": "#2f291f",
+                            surface: "#161310",
+                            "on-secondary-fixed": "#2d1600",
+                            "on-tertiary-fixed-variant": "#4d463a",
+                            "surface-container-highest": "#383430",
+                            "on-primary-container": "#412200",
+                            "on-primary-fixed-variant": "#673d0c",
+                            "inverse-primary": "#835422",
+                            "tertiary-container": "#998f82",
+                            "on-background": "#e9e1db",
+                            "inverse-surface": "#e9e1db",
+                            "surface-dim": "#161310",
+                            outline: "#9e8e81",
+                            primary: "#f9ba7f",
+                            "on-primary": "#4b2800",
+                            "primary-fixed-dim": "#f9ba7f",
+                            "on-tertiary": "#363025",
+                            "surface-bright": "#3d3835",
+                            tertiary: "#d0c5b6",
+                            "on-secondary-fixed-variant": "#633f19",
+                            "surface-container-high": "#2d2926",
+                            "inverse-on-surface": "#34302c",
+                            "on-error": "#690005",
+                            "surface-container-lowest": "#100e0b",
+                            "on-primary-fixed": "#2d1600",
+                            background: "#161310",
+                        },
+                        borderRadius: {
+                            DEFAULT: "0.125rem",
+                            lg: "0.25rem",
+                            xl: "0.5rem",
+                            full: "0.75rem",
+                        },
+                        spacing: {
+                            "margin-desktop": "64px",
+                            sm: "12px",
+                            lg: "48px",
+                            md: "24px",
+                            xs: "4px",
+                            "margin-mobile": "16px",
+                            base: "8px",
+                            xl: "80px",
+                            gutter: "24px",
+                        },
+                        fontFamily: {
+                            "label-lg": ["Manrope"],
+                            "display-md": ["Manrope"],
+                            "headline-lg-mobile": ["Manrope"],
+                            "display-lg": ["Manrope"],
+                            "body-lg": ["Manrope"],
+                            "headline-lg": ["Manrope"],
+                            "label-md": ["Manrope"],
+                            "body-md": ["Manrope"],
+                        },
+                        fontSize: {
+                            "label-lg": [
+                                "14px",
+                                {
+                                    lineHeight: "1.4",
+                                    letterSpacing: "0.05em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "display-md": [
+                                "48px",
+                                {
+                                    lineHeight: "1.2",
+                                    letterSpacing: "-0.03em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "headline-lg-mobile": [
+                                "28px",
+                                {
+                                    lineHeight: "1.3",
+                                    letterSpacing: "-0.01em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "display-lg": [
+                                "64px",
+                                {
+                                    lineHeight: "1.1",
+                                    letterSpacing: "-0.04em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "body-lg": [
+                                "18px",
+                                {
+                                    lineHeight: "1.6",
+                                    letterSpacing: "0em",
+                                    fontWeight: "400",
+                                },
+                            ],
+                            "headline-lg": [
+                                "32px",
+                                {
+                                    lineHeight: "1.3",
+                                    letterSpacing: "-0.02em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "label-md": [
+                                "12px",
+                                {
+                                    lineHeight: "1.4",
+                                    letterSpacing: "0.02em",
+                                    fontWeight: "500",
+                                },
+                            ],
+                            "body-md": [
+                                "16px",
+                                {
+                                    lineHeight: "1.6",
+                                    letterSpacing: "0em",
+                                    fontWeight: "400",
+                                },
+                            ],
+                        },
+                    },
+                },
+            };
+        </script>
+        <style>
+            .custom-scrollbar::-webkit-scrollbar {
+                width: 8px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+                background-color: #3a332b;
+                border-radius: 4px;
+            }
+
+            .toggle-checkbox:checked {
+                right: 0;
+                border-color: #b07a45;
+            }
+            .toggle-checkbox:checked + .toggle-label {
+                background-color: #b07a45;
+            }
+        </style>
+    </head>
+    <body
+        class="bg-surface text-on-surface font-body-md h-screen overflow-hidden flex"
+    >
+        <!-- SideNavBar -->
+        <nav
+            class="h-screen w-64 fixed left-0 top-0 border-r border-outline-variant bg-surface-container-low hidden md:flex flex-col py-lg px-md z-40"
+        >
+            <div class="mb-xl">
+                <h1
+                    class="font-display-md text-display-md text-primary tracking-tighter"
+                >
+                    Archifyr
+                </h1>
+                <p
+                    class="font-label-md text-label-md text-on-surface-variant mt-xs"
+                >
+                    Design Studio CMS
+                </p>
+            </div>
+            <div class="flex-1 flex flex-col gap-base">
+                <a
+                    class="flex items-center gap-sm px-sm py-sm rounded text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 active:scale-95 transition-transform"
+                    href="#"
+                >
+                    <span class="material-symbols-outlined text-[20px]"
+                        >dashboard</span
+                    >
+                    <span class="font-label-lg text-label-lg">Dashboard</span>
+                </a>
+                <a
+                    class="flex items-center gap-sm px-sm py-sm rounded text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 active:scale-95 transition-transform"
+                    href="#"
+                >
+                    <span class="material-symbols-outlined text-[20px]"
+                        >home</span
+                    >
+                    <span class="font-label-lg text-label-lg">Home Page</span>
+                </a>
+                <a
+                    class="flex items-center gap-sm px-sm py-sm rounded text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 active:scale-95 transition-transform"
+                    href="#"
+                >
+                    <span class="material-symbols-outlined text-[20px]"
+                        >person</span
+                    >
+                    <span class="font-label-lg text-label-lg">About</span>
+                </a>
+                <a
+                    class="flex items-center gap-sm px-sm py-sm rounded text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 active:scale-95 transition-transform"
+                    href="#"
+                >
+                    <span class="material-symbols-outlined text-[20px]"
+                        >architecture</span
+                    >
+                    <span class="font-label-lg text-label-lg">Services</span>
+                </a>
+                <a
+                    class="flex items-center gap-sm px-sm py-sm rounded text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 active:scale-95 transition-transform"
+                    href="#"
+                >
+                    <span class="material-symbols-outlined text-[20px]"
+                        >apartment</span
+                    >
+                    <span class="font-label-lg text-label-lg">Projects</span>
+                </a>
+                <a
+                    class="flex items-center gap-sm px-sm py-sm rounded text-primary font-bold border-r-2 border-primary hover:bg-surface-container-high transition-colors duration-200 active:scale-95 transition-transform bg-surface-container-high"
+                    href="#"
+                >
+                    <span class="material-symbols-outlined text-[20px]"
+                        >group</span
+                    >
+                    <span class="font-label-lg text-label-lg">Team</span>
+                </a>
+                <a
+                    class="flex items-center gap-sm px-sm py-sm rounded text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 active:scale-95 transition-transform"
+                    href="#"
+                >
+                    <span class="material-symbols-outlined text-[20px]"
+                        >article</span
+                    >
+                    <span class="font-label-lg text-label-lg">Blog</span>
+                </a>
+            </div>
+            <button
+                class="mt-auto w-full bg-primary-container text-surface font-label-lg text-label-lg py-sm px-md rounded flex items-center justify-center gap-sm hover:bg-primary transition-colors"
+            >
+                <span class="material-symbols-outlined text-[18px]">add</span>
+                New Project
+            </button>
+        </nav>
+        <!-- Main Wrapper -->
+        <div class="flex-1 md:ml-64 flex flex-col h-screen relative">
+            <!-- TopAppBar -->
+            <header
+                class="fixed top-0 right-0 w-full md:w-[calc(100%-16rem)] h-16 border-b border-outline-variant bg-surface-container flex justify-between items-center px-md z-30"
+            >
+                <div class="flex items-center md:hidden">
+                    <span
+                        class="material-symbols-outlined cursor-pointer text-on-surface-variant text-[24px]"
+                        >menu</span
+                    >
+                </div>
+                <div class="flex-1 flex justify-start">
+                    <div class="relative w-64 hidden md:block">
+                        <span
+                            class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]"
+                            >search</span
+                        >
+                        <input
+                            class="w-full bg-surface border border-outline-variant rounded py-xs pl-lg pr-sm text-label-md text-on-surface focus:outline-none focus:border-primary placeholder-on-surface-variant/50"
+                            placeholder="Search..."
+                            type="text"
+                        />
+                    </div>
+                </div>
+                <div class="flex items-center gap-md">
+                    <span
+                        class="material-symbols-outlined cursor-pointer text-on-surface-variant hover:text-primary transition-colors text-[24px]"
+                        >notifications</span
+                    >
+                    <span
+                        class="material-symbols-outlined cursor-pointer text-on-surface-variant hover:text-primary transition-colors text-[24px]"
+                        >settings</span
+                    >
+                    <div
+                        class="w-8 h-8 rounded-full bg-surface-variant border border-outline-variant overflow-hidden cursor-pointer"
+                    >
+                        <img
+                            class="w-full h-full object-cover"
+                            data-alt="A close up, moody portrait of an architect in a dimly lit studio, soft warm lighting hitting their face, professional and sophisticated styling, high end corporate headshot."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl1-Ub9w8j0GqUB18JXE078VduLgKtwlgSRs5bUxpd72_cudUtCYCo1jiy3cbs-mtqBqCBMm217HT7tf5j3uXa0E5WDyMlGBNSP5V2uMHib67uvvc4_v1dBaO2vgoCt-Mp6PuVn6xOgELklutdozbrCsoYqvDwU01wCOlQ0eaKHbzKHHPN2hfJ9oCKSvBtVdpP63uvfc8sci1md671tXRqX1_qsPQ8FcjA4LiXvS5zO9e4j07gaTb7"
+                        />
+                    </div>
+                </div>
+            </header>
+            <!-- Page Content -->
+            <main
+                class="flex-1 mt-16 p-margin-mobile md:p-margin-desktop overflow-y-auto custom-scrollbar"
+            >
+                <div class="max-w-6xl mx-auto">
+                    <!-- Header -->
+                    <div
+                        class="flex flex-col sm:flex-row sm:items-end justify-between gap-md mb-xl"
+                    >
+                        <div>
+                            <h2
+                                class="font-display-md text-display-md text-on-surface tracking-tight"
+                            >
+                                Team
+                            </h2>
+                            <p
+                                class="font-body-lg text-body-lg text-on-surface-variant mt-xs"
+                            >
+                                Manage team members shown on your website
+                            </p>
+                        </div>
+                        <button
+                            class="bg-[#B07A45] hover:bg-[#c28c57] text-[#161310] font-label-lg text-label-lg px-md py-sm rounded flex items-center justify-center gap-xs transition-colors shadow-sm"
+                            onclick="toggleDrawer(true)"
+                        >
+                            <span class="material-symbols-outlined text-[20px]"
+                                >add</span
+                            >
+                            Add team member
+                        </button>
+                    </div>
+                    <!-- Team List -->
+                    <div
+                        class="bg-surface-container border border-[#3A332B] rounded flex flex-col"
+                    >
+                        <!-- Header Row -->
+                        <div
+                            class="grid grid-cols-[40px_60px_1fr_1fr_100px_100px] items-center py-sm px-md border-b border-[#3A332B] text-label-md text-on-surface-variant uppercase tracking-wider"
+                        >
+                            <div></div>
+                            <div></div>
+                            <div>Name</div>
+                            <div>Role</div>
+                            <div class="text-center">Visible</div>
+                            <div class="text-right">Actions</div>
+                        </div>
+                        <!-- Rows -->
+                        <div class="flex flex-col">
+                            <!-- Row 1 -->
+                            <div
+                                class="grid grid-cols-[40px_60px_1fr_1fr_100px_100px] items-center py-md px-md border-b border-[#3A332B] hover:bg-surface-container-high transition-colors group"
+                            >
+                                <div
+                                    class="cursor-grab text-outline-variant group-hover:text-primary transition-colors"
+                                >
+                                    <span
+                                        class="material-symbols-outlined text-[20px]"
+                                        >drag_indicator</span
+                                    >
+                                </div>
+                                <div
+                                    class="w-10 h-10 rounded-full bg-surface overflow-hidden border border-[#3A332B]"
+                                >
+                                    <img
+                                        class="w-full h-full object-cover"
+                                        data-alt="A professional headshot of a female principal architect in a dark, warm-toned studio environment. She wears a minimalist black turtleneck. High end, moody lighting highlighting her features."
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSERevUJlLV5lk246DD7OU75IKL_PfcebCmotdIZXdfO-Gz-M5p9X_9kdd3MRdyCRGAteRSs554RQuxRt1mEX-8eAMo6WL5YygJxIQ0PPZTkt-0CYlUG2eEcl__-oXjK_lo68Z4BnDldIqpZDp1eWwROvZ-8d7Y6s51J-sdrkcca6G8UzXlt3exrYzfxYlO8T52fW71D_JmQBQb_smnX48_sEuvFOxbC5fIaAoaU1pzYvYVqxqmOi0"
+                                    />
+                                </div>
+                                <div
+                                    class="font-label-lg text-label-lg text-on-surface pr-md truncate"
+                                >
+                                    Elena Rostova
+                                </div>
+                                <div
+                                    class="font-body-md text-body-md text-on-surface-variant pr-md truncate"
+                                >
+                                    Principal Architect
+                                </div>
+                                <div class="flex justify-center">
+                                    <div
+                                        class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"
+                                    >
+                                        <input
+                                            checked=""
+                                            class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-surface border-2 border-outline-variant appearance-none cursor-pointer z-10 transition-all duration-300"
+                                            id="toggle1"
+                                            name="toggle"
+                                            type="checkbox"
+                                        />
+                                        <label
+                                            class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer transition-colors duration-300"
+                                            for="toggle1"
+                                        ></label>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex justify-end gap-sm text-outline-variant"
+                                >
+                                    <button
+                                        class="hover:text-primary transition-colors"
+                                        onclick="toggleDrawer(true)"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-[20px]"
+                                            >edit</span
+                                        >
+                                    </button>
+                                    <button
+                                        class="hover:text-error transition-colors"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-[20px]"
+                                            >delete</span
+                                        >
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Row 2 -->
+                            <div
+                                class="grid grid-cols-[40px_60px_1fr_1fr_100px_100px] items-center py-md px-md border-b border-[#3A332B] hover:bg-surface-container-high transition-colors group"
+                            >
+                                <div
+                                    class="cursor-grab text-outline-variant group-hover:text-primary transition-colors"
+                                >
+                                    <span
+                                        class="material-symbols-outlined text-[20px]"
+                                        >drag_indicator</span
+                                    >
+                                </div>
+                                <div
+                                    class="w-10 h-10 rounded-full bg-surface overflow-hidden border border-[#3A332B]"
+                                >
+                                    <img
+                                        class="w-full h-full object-cover"
+                                        data-alt="Portrait of a male senior interior designer, wearing bespoke dark clothing, standing against a dark concrete wall in a premium architectural firm. Subtle, soft, warm spotlight."
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVJIwTnRWpeE9muu684rBosCeQ0s8lfzKDCMCiU-XmjSpiwzrAXT2nMA-QXYfzCQJYkGyuz09Q_fdAYiaJAwCDNu0mJttTVrntmy_5DUELZR6M2z8PNzKQyfKQIbkXsTV_xvJR1pE0AGXExh2oFxoT89nqmDSyhBHz_Fys2yjQ1Yj4ss5Gy9ulK4qfeinOJmoE701KmaioIht-HznshgpDvl7uScgxwywUauLqvUEt9KHtuzpYjnVi"
+                                    />
+                                </div>
+                                <div
+                                    class="font-label-lg text-label-lg text-on-surface pr-md truncate"
+                                >
+                                    Marcus Vane
+                                </div>
+                                <div
+                                    class="font-body-md text-body-md text-on-surface-variant pr-md truncate"
+                                >
+                                    Senior Interior Designer
+                                </div>
+                                <div class="flex justify-center">
+                                    <div
+                                        class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"
+                                    >
+                                        <input
+                                            checked=""
+                                            class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-surface border-2 border-outline-variant appearance-none cursor-pointer z-10 transition-all duration-300"
+                                            id="toggle2"
+                                            name="toggle"
+                                            type="checkbox"
+                                        />
+                                        <label
+                                            class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer transition-colors duration-300"
+                                            for="toggle2"
+                                        ></label>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex justify-end gap-sm text-outline-variant"
+                                >
+                                    <button
+                                        class="hover:text-primary transition-colors"
+                                        onclick="toggleDrawer(true)"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-[20px]"
+                                            >edit</span
+                                        >
+                                    </button>
+                                    <button
+                                        class="hover:text-error transition-colors"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-[20px]"
+                                            >delete</span
+                                        >
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Row 3 -->
+                            <div
+                                class="grid grid-cols-[40px_60px_1fr_1fr_100px_100px] items-center py-md px-md border-b border-[#3A332B] hover:bg-surface-container-high transition-colors group"
+                            >
+                                <div
+                                    class="cursor-grab text-outline-variant group-hover:text-primary transition-colors"
+                                >
+                                    <span
+                                        class="material-symbols-outlined text-[20px]"
+                                        >drag_indicator</span
+                                    >
+                                </div>
+                                <div
+                                    class="w-10 h-10 rounded-full bg-surface overflow-hidden border border-[#3A332B] flex items-center justify-center text-outline-variant"
+                                >
+                                    <span
+                                        class="material-symbols-outlined text-[20px]"
+                                        >person</span
+                                    >
+                                </div>
+                                <div
+                                    class="font-label-lg text-label-lg text-on-surface pr-md truncate"
+                                >
+                                    Sofia Chen
+                                </div>
+                                <div
+                                    class="font-body-md text-body-md text-on-surface-variant pr-md truncate"
+                                >
+                                    Project Manager
+                                </div>
+                                <div class="flex justify-center">
+                                    <div
+                                        class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"
+                                    >
+                                        <input
+                                            class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-surface border-2 border-outline-variant appearance-none cursor-pointer z-10 transition-all duration-300"
+                                            id="toggle3"
+                                            name="toggle"
+                                            type="checkbox"
+                                        />
+                                        <label
+                                            class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer transition-colors duration-300"
+                                            for="toggle3"
+                                        ></label>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex justify-end gap-sm text-outline-variant"
+                                >
+                                    <button
+                                        class="hover:text-primary transition-colors"
+                                        onclick="toggleDrawer(true)"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-[20px]"
+                                            >edit</span
+                                        >
+                                    </button>
+                                    <button
+                                        class="hover:text-error transition-colors"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-[20px]"
+                                            >delete</span
+                                        >
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- Overlay -->
+        <div
+            class="fixed inset-0 bg-surface/80 backdrop-blur-sm z-40 hidden transition-opacity opacity-0"
+            id="drawerOverlay"
+            onclick="toggleDrawer(false)"
+        ></div>
+        <!-- Edit Drawer -->
+        <div
+            class="fixed top-0 right-0 w-full max-w-lg h-full bg-[#221D18] border-l-2 border-[#B07A45] z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl"
+            id="editDrawer"
+        >
+            <!-- Drawer Header -->
+            <div
+                class="flex justify-between items-center p-lg border-b border-[#3A332B]"
+            >
+                <h3 class="font-headline-lg text-headline-lg text-on-surface">
+                    Edit Team Member
+                </h3>
+                <button
+                    class="text-on-surface-variant hover:text-primary transition-colors"
+                    onclick="toggleDrawer(false)"
+                >
+                    <span class="material-symbols-outlined text-[24px]"
+                        >close</span
+                    >
+                </button>
+            </div>
+            <!-- Drawer Content -->
+            <div class="flex-1 overflow-y-auto p-lg custom-scrollbar">
+                <!-- Photo Upload -->
+                <div class="flex flex-col items-center mb-xl">
+                    <div
+                        class="w-32 h-32 rounded-full border-2 border-dashed border-[#3A332B] flex flex-col items-center justify-center cursor-pointer hover:border-[#B07A45] hover:bg-surface-container-high transition-colors group relative overflow-hidden"
+                    >
+                        <img
+                            class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-30 transition-opacity"
+                            data-alt="A professional headshot of a female principal architect in a dark, warm-toned studio environment. She wears a minimalist black turtleneck. High end, moody lighting highlighting her features."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAq4-481HrJTv1spoxKKOah5TaocVfJ4j0zILwpPjtZO7pdZjyNjHAyEY9dlZVnrCjl5UeKg5Gd1oBkweO1F2TOVVBJxN4hfn7T5vgdgV06PSO2iJOWNKxoOzD1J-i9tJ3z9h4flNYELztP5U-w2b5NQ9BlDQsXtl2biGx3FOKFk9Hyo92PD2ykX17_BrGzNQlsvmq9P-o6DTIZ_hw9016xW9tlaDaurCb9IG5R_U5v3picdgeG_-IC"
+                        />
+                        <span
+                            class="material-symbols-outlined text-outline-variant group-hover:text-primary text-[32px] z-10"
+                            >upload</span
+                        >
+                        <span
+                            class="font-label-md text-label-md text-outline-variant group-hover:text-primary mt-xs z-10"
+                            >Change Photo</span
+                        >
+                    </div>
+                </div>
+                <!-- Translation UI -->
+                <div class="mb-lg border-b border-[#3A332B]">
+                    <div class="flex justify-between items-center mb-sm">
+                        <select
+                            class="bg-surface border border-[#3A332B] rounded py-xs px-sm text-label-md text-on-surface focus:border-primary focus:ring-0"
+                        >
+                            <option>Source: English</option>
+                            <option>Source: Türkçe</option>
+                        </select>
+                        <label class="flex items-center gap-xs cursor-pointer">
+                            <input
+                                class="rounded border-[#3A332B] bg-surface text-primary focus:ring-0 focus:ring-offset-0"
+                                type="checkbox"
+                            />
+                            <span
+                                class="font-label-md text-label-md text-on-surface-variant"
+                                >Auto-translate other locales</span
+                            >
+                        </label>
+                    </div>
+                    <div class="flex gap-md pt-sm">
+                        <button
+                            class="font-label-lg text-label-lg text-primary border-b-2 border-[#B07A45] pb-xs px-xs"
+                        >
+                            English
+                        </button>
+                        <button
+                            class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface pb-xs px-xs transition-colors"
+                        >
+                            Türkçe
+                        </button>
+                        <button
+                            class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface pb-xs px-xs transition-colors"
+                        >
+                            العربية
+                        </button>
+                    </div>
+                </div>
+                <!-- Form Fields -->
+                <div class="space-y-md">
+                    <div>
+                        <label
+                            class="block font-label-md text-label-md text-on-surface-variant mb-xs"
+                            >Name</label
+                        >
+                        <input
+                            class="w-full bg-surface border-b border-[#3A332B] py-sm px-xs text-body-lg text-on-surface focus:outline-none focus:border-primary focus:bg-surface-container-high transition-colors"
+                            type="text"
+                            value="Elena Rostova"
+                        />
+                    </div>
+                    <div>
+                        <label
+                            class="block font-label-md text-label-md text-on-surface-variant mb-xs"
+                            >Role/Title</label
+                        >
+                        <input
+                            class="w-full bg-surface border-b border-[#3A332B] py-sm px-xs text-body-lg text-on-surface focus:outline-none focus:border-primary focus:bg-surface-container-high transition-colors"
+                            type="text"
+                            value="Principal Architect"
+                        />
+                    </div>
+                    <div>
+                        <label
+                            class="block font-label-md text-label-md text-on-surface-variant mb-xs"
+                            >Short Bio</label
+                        >
+                        <textarea
+                            class="w-full bg-surface border border-[#3A332B] rounded py-sm px-sm text-body-md text-on-surface focus:outline-none focus:border-primary focus:bg-surface-container-high transition-colors resize-none"
+                            rows="4"
+                        >
+Elena leads the conceptual design phase for all major commercial projects, bringing over 15 years of experience in brutalist and minimalist integration.</textarea
+                        >
+                    </div>
+                    <div class="pt-sm border-t border-[#3A332B]">
+                        <h4
+                            class="font-label-lg text-label-lg text-on-surface mb-md"
+                        >
+                            Social Links
+                        </h4>
+                        <div class="space-y-sm">
+                            <div class="relative">
+                                <span
+                                    class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline-variant text-[20px]"
+                                    >link</span
+                                >
+                                <input
+                                    class="w-full bg-surface border border-[#3A332B] rounded py-sm pl-xl pr-sm text-body-md text-on-surface focus:outline-none focus:border-primary"
+                                    placeholder="LinkedIn URL"
+                                    type="url"
+                                />
+                            </div>
+                            <div class="relative">
+                                <span
+                                    class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline-variant text-[20px]"
+                                    >mail</span
+                                >
+                                <input
+                                    class="w-full bg-surface border border-[#3A332B] rounded py-sm pl-xl pr-sm text-body-md text-on-surface focus:outline-none focus:border-primary"
+                                    placeholder="Email Address"
+                                    type="email"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="pt-sm border-t border-[#3A332B] flex items-center justify-between"
+                    >
+                        <div>
+                            <label
+                                class="block font-label-md text-label-md text-on-surface-variant mb-xs"
+                                >Display Order</label
+                            >
+                            <input
+                                class="w-24 bg-surface border border-[#3A332B] rounded py-xs px-sm text-body-md text-on-surface focus:outline-none focus:border-primary text-center"
+                                type="number"
+                                value="1"
+                            />
+                        </div>
+                        <div class="flex items-center gap-sm">
+                            <span
+                                class="font-label-md text-label-md text-on-surface-variant"
+                                >Visible</span
+                            >
+                            <div
+                                class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in"
+                            >
+                                <input
+                                    checked=""
+                                    class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-surface border-2 border-outline-variant appearance-none cursor-pointer z-10 transition-all duration-300"
+                                    id="toggleDrawerVisible"
+                                    name="toggleDrawer"
+                                    type="checkbox"
+                                />
+                                <label
+                                    class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer transition-colors duration-300"
+                                    for="toggleDrawerVisible"
+                                ></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Drawer Footer -->
+            <div class="p-lg border-t border-[#3A332B] flex gap-md">
+                <button
+                    class="flex-1 bg-surface border border-[#3A332B] text-on-surface font-label-lg text-label-lg py-sm rounded hover:bg-surface-container-high transition-colors"
+                    onclick="toggleDrawer(false)"
+                >
+                    Cancel
+                </button>
+                <button
+                    class="flex-1 bg-[#B07A45] hover:bg-[#c28c57] text-[#161310] font-label-lg text-label-lg py-sm rounded transition-colors shadow-sm"
+                >
+                    Save member
+                </button>
+            </div>
+        </div>
+        <script>
+            function toggleDrawer(show) {
+                const drawer = document.getElementById("editDrawer");
+                const overlay = document.getElementById("drawerOverlay");
+
+                if (show) {
+                    overlay.classList.remove("hidden");
+                    // Small delay to allow display block to apply before transition
+                    setTimeout(() => {
+                        overlay.classList.remove("opacity-0");
+                        drawer.classList.remove("translate-x-full");
+                    }, 10);
+                } else {
+                    overlay.classList.add("opacity-0");
+                    drawer.classList.add("translate-x-full");
+                    setTimeout(() => {
+                        overlay.classList.add("hidden");
+                    }, 300); // match transition duration
+                }
+            }
+        </script>
+    </body>
+</html>

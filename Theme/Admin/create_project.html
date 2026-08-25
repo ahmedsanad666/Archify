@@ -1,0 +1,918 @@
+<!doctype html>
+<html class="dark" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Archifyr - Projects Manager</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            background: "#161310",
+                            "surface-dim": "#161310",
+                            "surface-bright": "#3d3835",
+                            "on-secondary": "#492905",
+                            "on-surface": "#e9e1db",
+                            "tertiary-fixed-dim": "#d0c5b6",
+                            "error-container": "#93000a",
+                            "on-error": "#690005",
+                            "on-secondary-fixed": "#2d1600",
+                            "inverse-on-surface": "#34302c",
+                            primary: "#f9ba7f",
+                            "on-primary-container": "#412200",
+                            tertiary: "#d0c5b6",
+                            "primary-fixed": "#ffdcbf",
+                            "on-tertiary": "#363025",
+                            "primary-container": "#bd854f",
+                            error: "#ffb4ab",
+                            "on-primary-fixed-variant": "#673d0c",
+                            "secondary-container": "#66411b",
+                            "outline-variant": "#51443a",
+                            "inverse-primary": "#835422",
+                            "on-tertiary-fixed-variant": "#4d463a",
+                            "on-secondary-fixed-variant": "#633f19",
+                            "inverse-surface": "#e9e1db",
+                            "surface-container-lowest": "#100e0b",
+                            "surface-container-low": "#1e1b18",
+                            outline: "#9e8e81",
+                            "surface-container-high": "#2d2926",
+                            "primary-fixed-dim": "#f9ba7f",
+                            "on-tertiary-fixed": "#201b11",
+                            "surface-container-highest": "#383430",
+                            "surface-container": "#221f1c",
+                            "secondary-fixed": "#ffdcbf",
+                            "on-background": "#e9e1db",
+                            "surface-tint": "#f9ba7f",
+                            "tertiary-container": "#998f82",
+                            surface: "#161310",
+                            "on-error-container": "#ffdad6",
+                            "on-primary-fixed": "#2d1600",
+                            "on-secondary-container": "#e2ae7f",
+                            "secondary-fixed-dim": "#f1bc8c",
+                            "surface-variant": "#383430",
+                            "on-surface-variant": "#d5c3b6",
+                            "tertiary-fixed": "#ede1d1",
+                            secondary: "#f1bc8c",
+                            "on-primary": "#4b2800",
+                            "on-tertiary-container": "#2f291f",
+                        },
+                        borderRadius: {
+                            DEFAULT: "0.125rem",
+                            lg: "0.25rem",
+                            xl: "0.5rem",
+                            full: "0.75rem",
+                        },
+                        spacing: {
+                            gutter: "24px",
+                            lg: "48px",
+                            xl: "80px",
+                            sm: "12px",
+                            md: "24px",
+                            xs: "4px",
+                            "margin-mobile": "16px",
+                            "margin-desktop": "64px",
+                            base: "8px",
+                        },
+                        fontFamily: {
+                            "label-md": ["Manrope"],
+                            "display-lg": ["Manrope"],
+                            "body-md": ["Manrope"],
+                            "headline-lg-mobile": ["Manrope"],
+                            "label-lg": ["Manrope"],
+                            "display-md": ["Manrope"],
+                            "body-lg": ["Manrope"],
+                            "headline-lg": ["Manrope"],
+                        },
+                        fontSize: {
+                            "label-md": [
+                                "12px",
+                                {
+                                    lineHeight: "1.4",
+                                    letterSpacing: "0.02em",
+                                    fontWeight: "500",
+                                },
+                            ],
+                            "display-lg": [
+                                "64px",
+                                {
+                                    lineHeight: "1.1",
+                                    letterSpacing: "-0.04em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "body-md": [
+                                "16px",
+                                {
+                                    lineHeight: "1.6",
+                                    letterSpacing: "0em",
+                                    fontWeight: "400",
+                                },
+                            ],
+                            "headline-lg-mobile": [
+                                "28px",
+                                {
+                                    lineHeight: "1.3",
+                                    letterSpacing: "-0.01em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "label-lg": [
+                                "14px",
+                                {
+                                    lineHeight: "1.4",
+                                    letterSpacing: "0.05em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "display-md": [
+                                "48px",
+                                {
+                                    lineHeight: "1.2",
+                                    letterSpacing: "-0.03em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "body-lg": [
+                                "18px",
+                                {
+                                    lineHeight: "1.6",
+                                    letterSpacing: "0em",
+                                    fontWeight: "400",
+                                },
+                            ],
+                            "headline-lg": [
+                                "32px",
+                                {
+                                    lineHeight: "1.3",
+                                    letterSpacing: "-0.02em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                        },
+                    },
+                },
+            };
+        </script>
+        <style>
+            body {
+                background-color: #161310;
+                color: #e9e1db;
+            }
+            .bg-cork-brown {
+                background-color: #b07a45;
+            }
+            .text-cork-brown {
+                color: #b07a45;
+            }
+            .border-cork-brown {
+                border-color: #b07a45;
+            }
+            .material-symbols-outlined {
+                font-variation-settings:
+                    "FILL" 0,
+                    "wght" 300,
+                    "GRAD" 0,
+                    "opsz" 24;
+            }
+            .material-symbols-outlined.filled {
+                font-variation-settings:
+                    "FILL" 1,
+                    "wght" 300,
+                    "GRAD" 0,
+                    "opsz" 24;
+            }
+
+            /* Custom Scrollbar for a premium feel */
+            ::-webkit-scrollbar {
+                width: 6px;
+                height: 6px;
+            }
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #383430;
+                border-radius: 4px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #51443a;
+            }
+        </style>
+    </head>
+    <body
+        class="bg-background text-on-surface font-body-md antialiased overflow-x-hidden"
+    >
+        <!-- Shell Container -->
+        <div class="flex h-screen overflow-hidden">
+            <!-- SideNav (Shared Component Logic) -->
+            <nav
+                class="bg-background dark:bg-background text-primary dark:text-primary font-label-lg text-label-lg h-full w-64 border-r border-outline-variant flex flex-col fixed left-0 top-0 z-40 hidden md:flex"
+            >
+                <div
+                    class="p-gutter h-20 flex items-center border-b border-outline-variant"
+                >
+                    <span
+                        class="font-display-md text-display-md text-primary tracking-tight"
+                        >Studio Admin</span
+                    >
+                </div>
+                <div class="px-6 py-4">
+                    <span
+                        class="text-on-surface-variant font-label-md text-label-md uppercase tracking-widest"
+                        >Architectural CMS</span
+                    >
+                </div>
+                <ul class="flex-1 px-4 py-2 space-y-2">
+                    <li>
+                        <a
+                            class="flex items-center space-x-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200"
+                            href="#"
+                            ><span class="material-symbols-outlined"
+                                >dashboard</span
+                            ><span>Dashboard</span></a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            class="flex items-center space-x-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200"
+                            href="#"
+                            ><span class="material-symbols-outlined">home</span
+                            ><span>Home Page</span></a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            class="flex items-center space-x-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200"
+                            href="#"
+                            ><span class="material-symbols-outlined">info</span
+                            ><span>About</span></a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            class="flex items-center space-x-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200"
+                            href="#"
+                            ><span class="material-symbols-outlined"
+                                >design_services</span
+                            ><span>Services</span></a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            class="flex items-center space-x-3 px-4 py-3 rounded-DEFAULT text-primary font-bold border-r-2 border-primary bg-surface-container-high transition-colors duration-200"
+                            href="#"
+                            ><span class="material-symbols-outlined"
+                                >architecture</span
+                            ><span>Projects</span></a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            class="flex items-center space-x-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200"
+                            href="#"
+                            ><span class="material-symbols-outlined"
+                                >groups</span
+                            ><span>Team</span></a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            class="flex items-center space-x-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200"
+                            href="#"
+                            ><span class="material-symbols-outlined"
+                                >article</span
+                            ><span>Blog</span></a
+                        >
+                    </li>
+                </ul>
+            </nav>
+            <!-- Main Content Area -->
+            <main class="flex-1 md:ml-64 relative flex flex-col h-screen">
+                <!-- TopAppBar (Shared Component Logic) -->
+                <header
+                    class="bg-surface dark:bg-surface text-primary dark:text-primary font-headline-lg text-headline-lg flex justify-between items-center w-full px-gutter h-20 border-b border-outline-variant z-30 sticky top-0"
+                >
+                    <div class="flex items-center gap-4">
+                        <span
+                            class="material-symbols-outlined md:hidden cursor-pointer"
+                            >menu</span
+                        >
+                        <span
+                            class="font-headline-lg text-headline-lg text-primary tracking-tight hidden md:block"
+                            >Architectural CMS</span
+                        >
+                    </div>
+                    <div class="flex items-center space-x-6">
+                        <div class="relative hidden sm:flex items-center">
+                            <span
+                                class="material-symbols-outlined absolute left-3 text-on-surface-variant text-sm"
+                                >search</span
+                            >
+                            <input
+                                class="bg-surface-container border-b border-outline-variant focus:border-primary text-on-surface text-sm pl-10 pr-4 py-2 w-64 transition-colors outline-none rounded-t-DEFAULT"
+                                placeholder="Search..."
+                                type="text"
+                            />
+                        </div>
+                        <button
+                            class="text-on-surface-variant hover:text-primary transition-all duration-200"
+                        >
+                            <span class="material-symbols-outlined"
+                                >notifications</span
+                            >
+                        </button>
+                        <button
+                            class="text-on-surface-variant hover:text-primary transition-all duration-200"
+                        >
+                            <span class="material-symbols-outlined"
+                                >settings</span
+                            >
+                        </button>
+                        <div
+                            class="w-10 h-10 rounded-full border border-outline-variant overflow-hidden"
+                        >
+                            <img
+                                class="w-full h-full object-cover"
+                                data-alt="A professional headshot of an administrator for a high-end architectural CMS, dramatic lighting, minimalist background, moody warm tones, conveying authority and sophistication."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBudQ0hHOI3xy6vJ91w-zy-eB-1jVixD4-NJLc91rhHwsYLXzjCfVh0t8MgL7yCtlO0crlCCSgyZvlmHOR5Iqoak141JB9411gtsDiy02iV8ucH5_SOFQQfYUGH4O80fkqbNS-jUvMR9mNSu5T8Cnh0jsj9YduHIMhlaFwqxzLnY7jVAyKMWQKTb5EKqEemleTEHPGaaHLgGp6Xrf_dEin7hW6vGJbndeQyyfsfcHh2Pp6udDE-5SuI"
+                            />
+                        </div>
+                    </div>
+                </header>
+                <!-- Scrollable Content -->
+                <div class="flex-1 overflow-y-auto overflow-x-hidden relative">
+                    <!-- Background Context: List View (Faded out / positioned behind or below to serve as context if needed, but per prompt "Main focus is Edit/Create view", we will render the Edit View prominently, and maybe hint at the List View or just focus on the requested Edit View layout entirely. The prompt asks to "Design a Projects manager admin page" and details both. Let's make it a cohesive SPA layout where we are currently IN the Edit view, but maybe the list view is in a drawer or just focus fully on the Edit View layout as requested: "EDIT/CREATE VIEW (The main focus of the screen)". I will render the Edit/Create view as the primary interface.) -->
+                    <div
+                        class="max-w-[1440px] mx-auto p-margin-mobile md:p-gutter lg:p-margin-desktop space-y-xl"
+                    >
+                        <!-- EDIT/CREATE VIEW HEADER -->
+                        <div
+                            class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-lg"
+                        >
+                            <div class="space-y-4">
+                                <nav
+                                    class="flex text-on-surface-variant font-label-md text-label-md items-center space-x-2"
+                                >
+                                    <a
+                                        class="hover:text-primary transition-colors"
+                                        href="#"
+                                        >Projects</a
+                                    >
+                                    <span
+                                        class="material-symbols-outlined text-sm"
+                                        >chevron_right</span
+                                    >
+                                    <span class="text-on-surface"
+                                        >New project</span
+                                    >
+                                </nav>
+                                <div>
+                                    <h1
+                                        class="font-display-md text-display-md text-on-surface tracking-tight"
+                                    >
+                                        Add new project
+                                    </h1>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <button
+                                    class="px-6 py-3 border border-outline-variant text-on-surface font-label-lg text-label-lg rounded-DEFAULT hover:bg-surface-container transition-colors duration-200"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    class="px-6 py-3 bg-cork-brown text-background font-label-lg text-label-lg rounded-DEFAULT hover:bg-opacity-90 transition-colors duration-200 shadow-md"
+                                >
+                                    Publish
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Layout: Two-column grid -->
+                        <div
+                            class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start"
+                        >
+                            <!-- Left Column (Main Content) -->
+                            <div class="lg:col-span-8 space-y-md">
+                                <!-- Content Card -->
+                                <div
+                                    class="bg-surface-container border border-outline-variant rounded-DEFAULT p-md space-y-lg relative group transition-all duration-300 hover:bg-surface-container-high hover:border-secondary"
+                                >
+                                    <!-- Tabs -->
+                                    <div
+                                        class="flex justify-between items-center border-b border-outline-variant pb-4 mb-6"
+                                    >
+                                        <div
+                                            class="flex space-x-6 font-label-md text-label-md"
+                                        >
+                                            <button
+                                                class="text-primary border-b-2 border-primary pb-4 -mb-[17px] relative z-10"
+                                            >
+                                                English
+                                            </button>
+                                            <button
+                                                class="text-on-surface-variant hover:text-on-surface transition-colors pb-4"
+                                            >
+                                                Türkçe
+                                            </button>
+                                            <button
+                                                class="text-on-surface-variant hover:text-on-surface transition-colors pb-4"
+                                            >
+                                                العربية
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="flex items-center space-x-4"
+                                        >
+                                            <label
+                                                class="flex items-center space-x-2 cursor-pointer font-label-md text-label-md text-on-surface-variant"
+                                            >
+                                                <input
+                                                    class="form-checkbox h-4 w-4 text-primary bg-background border-outline-variant rounded-sm focus:ring-primary focus:ring-offset-background"
+                                                    type="checkbox"
+                                                />
+                                                <span>Auto-translate</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-6">
+                                        <!-- Title Input -->
+                                        <div class="space-y-2">
+                                            <label
+                                                class="block text-on-surface font-label-md text-label-md"
+                                                >Project title *</label
+                                            >
+                                            <input
+                                                class="w-full bg-background border-b border-outline-variant text-on-surface p-3 outline-none focus:border-primary transition-colors font-body-lg text-body-lg rounded-t-DEFAULT"
+                                                placeholder="e.g. Obsidian House"
+                                                type="text"
+                                            />
+                                        </div>
+                                        <!-- Short Description -->
+                                        <div class="space-y-2">
+                                            <label
+                                                class="block text-on-surface font-label-md text-label-md"
+                                                >Short description</label
+                                            >
+                                            <textarea
+                                                class="w-full bg-background border-b border-outline-variant text-on-surface p-3 outline-none focus:border-primary transition-colors font-body-md text-body-md rounded-t-DEFAULT resize-none"
+                                                placeholder="Brief summary for list views..."
+                                                rows="2"
+                                            ></textarea>
+                                        </div>
+                                        <!-- Full Description (Rich Text Fake) -->
+                                        <div class="space-y-2">
+                                            <label
+                                                class="block text-on-surface font-label-md text-label-md"
+                                                >Full description</label
+                                            >
+                                            <div
+                                                class="border border-outline-variant rounded-DEFAULT overflow-hidden bg-background"
+                                            >
+                                                <div
+                                                    class="flex items-center space-x-2 p-2 border-b border-outline-variant bg-surface-container-low text-on-surface-variant"
+                                                >
+                                                    <button
+                                                        class="p-1 hover:text-on-surface transition-colors rounded-sm hover:bg-surface-container"
+                                                    >
+                                                        <span
+                                                            class="material-symbols-outlined text-sm"
+                                                            >format_bold</span
+                                                        >
+                                                    </button>
+                                                    <button
+                                                        class="p-1 hover:text-on-surface transition-colors rounded-sm hover:bg-surface-container"
+                                                    >
+                                                        <span
+                                                            class="material-symbols-outlined text-sm"
+                                                            >format_italic</span
+                                                        >
+                                                    </button>
+                                                    <button
+                                                        class="p-1 hover:text-on-surface transition-colors rounded-sm hover:bg-surface-container"
+                                                    >
+                                                        <span
+                                                            class="material-symbols-outlined text-sm"
+                                                            >test_clone</span
+                                                        >
+                                                    </button>
+                                                    <div
+                                                        class="w-px h-4 bg-outline-variant mx-2"
+                                                    ></div>
+                                                    <button
+                                                        class="p-1 hover:text-on-surface transition-colors rounded-sm hover:bg-surface-container"
+                                                    >
+                                                        <span
+                                                            class="material-symbols-outlined text-sm"
+                                                            >format_list_bulleted</span
+                                                        >
+                                                    </button>
+                                                    <button
+                                                        class="p-1 hover:text-on-surface transition-colors rounded-sm hover:bg-surface-container"
+                                                    >
+                                                        <span
+                                                            class="material-symbols-outlined text-sm"
+                                                            >link</span
+                                                        >
+                                                    </button>
+                                                </div>
+                                                <textarea
+                                                    class="w-full bg-transparent text-on-surface p-4 outline-none resize-y font-body-md text-body-md border-none focus:ring-0"
+                                                    placeholder="Detailed architectural narrative..."
+                                                    rows="6"
+                                                ></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Media Section -->
+                                <div class="space-y-md mt-xl">
+                                    <h3
+                                        class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface border-b border-outline-variant pb-4 mb-6"
+                                    >
+                                        Media Assets
+                                    </h3>
+                                    <!-- 1. Featured Image -->
+                                    <div
+                                        class="bg-surface-container border border-outline-variant rounded-DEFAULT p-md group hover:bg-surface-container-high hover:border-secondary transition-all duration-300"
+                                    >
+                                        <div
+                                            class="flex items-center justify-between mb-4"
+                                        >
+                                            <div
+                                                class="flex items-center space-x-3"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-primary"
+                                                    >image</span
+                                                >
+                                                <h4
+                                                    class="font-label-lg text-label-lg text-on-surface"
+                                                >
+                                                    Featured image
+                                                </h4>
+                                            </div>
+                                            <span
+                                                class="text-xs text-on-surface-variant font-label-md"
+                                                >Required</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="border-2 border-dashed border-outline-variant rounded-DEFAULT p-8 text-center flex flex-col items-center justify-center cursor-pointer hover:border-primary hover:bg-surface-container-lowest transition-colors group-hover:border-primary/50"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-4xl text-on-surface-variant mb-2"
+                                                >add_photo_alternate</span
+                                            >
+                                            <p
+                                                class="font-body-md text-body-md text-on-surface-variant"
+                                            >
+                                                Drag and drop or
+                                                <span
+                                                    class="text-primary underline"
+                                                    >browse</span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- 2. 2D Images -->
+                                    <div
+                                        class="bg-surface-container border border-outline-variant rounded-DEFAULT p-md group hover:bg-surface-container-high hover:border-secondary transition-all duration-300"
+                                    >
+                                        <div
+                                            class="flex items-center space-x-3 mb-4"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-primary"
+                                                >photo_library</span
+                                            >
+                                            <h4
+                                                class="font-label-lg text-label-lg text-on-surface"
+                                            >
+                                                2D images
+                                            </h4>
+                                        </div>
+                                        <div
+                                            class="grid grid-cols-2 sm:grid-cols-4 gap-4"
+                                        >
+                                            <div
+                                                class="aspect-square border border-outline-variant rounded-DEFAULT overflow-hidden relative group/img"
+                                            >
+                                                <img
+                                                    class="w-full h-full object-cover"
+                                                    data-alt="High-contrast black and white architectural sketch of a modern pavilion, dramatic lighting, sharp lines, minimalist presentation, conveying a sense of early design iteration."
+                                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt3F1mWtNKEL38jVrjEWhpr6DgyGfspf_GaR1nTGX7PqYa7Si6fMiDRKG5lTXASaSEoumZIMKBOBnzJBKm1VOMCwk0dOJnV0BZLGznF5mRMZ4Jt-JoWmq3GAxmsU1QRJnWcPzxcA5oEcWBAz0QRCwE1_9l-5qbDmJmLwz8nhhMreWwtofTMRwhKP-_kt8bBbVQkjIWPmeuAjf-2y_rHE0zgGC1cFa8JiqaYk9pcb_CK8m_ZDpr5_cz"
+                                                />
+                                                <div
+                                                    class="absolute inset-0 bg-background/50 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity"
+                                                >
+                                                    <button
+                                                        class="text-error bg-surface rounded-full p-2 hover:bg-error-container transition-colors"
+                                                    >
+                                                        <span
+                                                            class="material-symbols-outlined text-sm"
+                                                            >delete</span
+                                                        >
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="aspect-square border border-outline-variant rounded-DEFAULT overflow-hidden relative group/img"
+                                            >
+                                                <img
+                                                    class="w-full h-full object-cover"
+                                                    data-alt="Detailed floor plan schematic of a luxury residence, white lines on a dark background, precise drafting style, architectural blueprint aesthetic."
+                                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2AKq-paIyCjSxYJXuRjEHUd794gDLxTIbT2Yb-svH8z2qWWfQvFQuEkDioTNy6EYaAaJRBD8sCLXEUxo9A-6RhUP9qvTw-ZRREcMK5nR6zOFutKneZUWyVqNlalOtV62YLidgBnPwS01YEG_BOUwtqBeecLieXkt9nUDzQOlv-YPE-DlneXfgDZjBj0THVq6My4Gfb3-2TCr8f5ZOYSuxNVGWH5PaSIoKKgKq7qJDvZ4GVXFmhboo"
+                                                />
+                                            </div>
+                                            <div
+                                                class="aspect-square border border-outline-variant rounded-DEFAULT overflow-hidden relative group/img"
+                                            >
+                                                <img
+                                                    class="w-full h-full object-cover"
+                                                    data-alt="Elevation drawing of a brutalist concrete structure, technical aesthetic, muted monochromatic tones, precise linework."
+                                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsthHmiXD-PvLNt1YSh32iCuD9zD5uq3inXyO_jSCzxjhk2ZA2tw1CePmLPAJ_UJ0yOfhz8DQxo_sFNCUt_1XvocXbr0eQx0e6flDpiI76bcuAv-cW9t_0xbpRtXix9iZfGDXaGjuDSKvH_45cPHakpTnjAAAu-wpeakFFQrQx1pO6QWy026Hy3iNwsJmbLtGVa2LR74bN_pHLyXGFp3e22gEYigYpNCe6YsEn2nvda7RdFk0MVZz8"
+                                                />
+                                            </div>
+                                            <div
+                                                class="aspect-square border-2 border-dashed border-outline-variant rounded-DEFAULT flex items-center justify-center cursor-pointer hover:border-primary hover:bg-surface-container-lowest transition-colors"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-on-surface-variant"
+                                                    >add</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 3. 3D Images -->
+                                    <div
+                                        class="bg-surface-container border border-outline-variant rounded-DEFAULT p-md group hover:bg-surface-container-high hover:border-secondary transition-all duration-300"
+                                    >
+                                        <div
+                                            class="flex items-center space-x-3 mb-4"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-primary"
+                                                >view_in_ar</span
+                                            >
+                                            <h4
+                                                class="font-label-lg text-label-lg text-on-surface"
+                                            >
+                                                3D images
+                                            </h4>
+                                        </div>
+                                        <div
+                                            class="border-2 border-dashed border-outline-variant rounded-DEFAULT p-6 text-center flex flex-col items-center justify-center cursor-pointer hover:border-primary transition-colors"
+                                        >
+                                            <p
+                                                class="font-body-md text-body-md text-on-surface-variant text-sm"
+                                            >
+                                                Upload renders or 3D models
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- 4. Concepts -->
+                                    <div
+                                        class="bg-surface-container border border-outline-variant rounded-DEFAULT p-md group hover:bg-surface-container-high hover:border-secondary transition-all duration-300"
+                                    >
+                                        <div
+                                            class="flex items-center space-x-3 mb-4"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-primary"
+                                                >lightbulb</span
+                                            >
+                                            <h4
+                                                class="font-label-lg text-label-lg text-on-surface"
+                                            >
+                                                Concepts
+                                            </h4>
+                                        </div>
+                                        <div
+                                            class="border-2 border-dashed border-outline-variant rounded-DEFAULT p-6 text-center flex flex-col items-center justify-center cursor-pointer hover:border-primary transition-colors"
+                                        >
+                                            <p
+                                                class="font-body-md text-body-md text-on-surface-variant text-sm"
+                                            >
+                                                Upload moodboards and concept
+                                                sketches
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- 5. Animation -->
+                                    <div
+                                        class="bg-surface-container border border-outline-variant rounded-DEFAULT p-md group hover:bg-surface-container-high hover:border-secondary transition-all duration-300"
+                                    >
+                                        <div
+                                            class="flex items-center space-x-3 mb-4"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-primary"
+                                                >animation</span
+                                            >
+                                            <h4
+                                                class="font-label-lg text-label-lg text-on-surface"
+                                            >
+                                                Animation
+                                            </h4>
+                                        </div>
+                                        <div
+                                            class="relative w-full md:w-1/2 aspect-video border border-outline-variant rounded-DEFAULT overflow-hidden group/vid cursor-pointer"
+                                        >
+                                            <img
+                                                class="w-full h-full object-cover opacity-60"
+                                                data-alt="A sophisticated architectural animation frame showing a slow pan over a minimalist concrete interior with warm sunset light streaming through large windows, creating dramatic shadows."
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBF2KVLXrgEUzGS9JuxiDRkWDkJZxeQmR5jQV9Rkg6mwyFMxUyxCo1-dg29LJtaHP8spCVMHJ9yDRg08aAf1f-nnKi9D7HxNTovVHQ5INnYJWQYWWqfdulqLflfXR04u91IIB-P4Yb49JbeXQ7mFHreS9ZeeO147UCStsZ05OPu0l4mJJpFWMEEYZKE4yrbVws4CpnGp1ouQyFfZ9KFeHskJQtoWgmPJPiy_02Ob9NkrtTnWNUKPcLX"
+                                            />
+                                            <div
+                                                class="absolute inset-0 flex items-center justify-center bg-background/20 group-hover/vid:bg-background/40 transition-colors"
+                                            >
+                                                <div
+                                                    class="w-12 h-12 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center"
+                                                >
+                                                    <span
+                                                        class="material-symbols-outlined filled text-primary text-2xl ml-1"
+                                                        >play_arrow</span
+                                                    >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Right Column (Sticky Sidebar) -->
+                            <div
+                                class="lg:col-span-4 space-y-md lg:sticky lg:top-[104px]"
+                            >
+                                <!-- Project Details Card -->
+                                <div
+                                    class="bg-surface-container border border-outline-variant rounded-DEFAULT p-md space-y-6 group hover:border-secondary transition-all duration-300"
+                                >
+                                    <h3
+                                        class="font-label-lg text-label-lg text-on-surface border-b border-outline-variant pb-2"
+                                    >
+                                        Project Details
+                                    </h3>
+                                    <div class="space-y-2">
+                                        <label
+                                            class="block text-on-surface-variant font-label-md text-label-md"
+                                            >Category</label
+                                        >
+                                        <select
+                                            class="w-full bg-background border-b border-outline-variant text-on-surface p-2 outline-none focus:border-primary transition-colors font-body-md text-body-md appearance-none rounded-t-DEFAULT"
+                                        >
+                                            <option>Residential</option>
+                                            <option>Commercial</option>
+                                            <option>Cultural</option>
+                                            <option>Interior</option>
+                                        </select>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label
+                                            class="block text-on-surface-variant font-label-md text-label-md"
+                                            >Client</label
+                                        >
+                                        <input
+                                            class="w-full bg-background border-b border-outline-variant text-on-surface p-2 outline-none focus:border-primary transition-colors font-body-md text-body-md rounded-t-DEFAULT"
+                                            placeholder="Client name"
+                                            type="text"
+                                        />
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="space-y-2">
+                                            <label
+                                                class="block text-on-surface-variant font-label-md text-label-md"
+                                                >Year</label
+                                            >
+                                            <input
+                                                class="w-full bg-background border-b border-outline-variant text-on-surface p-2 outline-none focus:border-primary transition-colors font-body-md text-body-md rounded-t-DEFAULT"
+                                                placeholder="YYYY"
+                                                type="text"
+                                            />
+                                        </div>
+                                        <div class="space-y-2">
+                                            <label
+                                                class="block text-on-surface-variant font-label-md text-label-md"
+                                                >Order #</label
+                                            >
+                                            <input
+                                                class="w-full bg-background border-b border-outline-variant text-on-surface p-2 outline-none focus:border-primary transition-colors font-body-md text-body-md rounded-t-DEFAULT"
+                                                placeholder="00"
+                                                type="number"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Publishing Card -->
+                                <div
+                                    class="bg-surface-container border border-outline-variant rounded-DEFAULT p-md space-y-6 group hover:border-secondary transition-all duration-300"
+                                >
+                                    <h3
+                                        class="font-label-lg text-label-lg text-on-surface border-b border-outline-variant pb-2"
+                                    >
+                                        Publishing
+                                    </h3>
+                                    <div
+                                        class="flex items-center justify-between"
+                                    >
+                                        <span
+                                            class="text-on-surface-variant font-body-md text-body-md"
+                                            >Status</span
+                                        >
+                                        <span
+                                            class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full font-label-md text-label-md"
+                                            >Draft</span
+                                        >
+                                    </div>
+                                    <label
+                                        class="flex items-center justify-between cursor-pointer group/toggle"
+                                    >
+                                        <span
+                                            class="text-on-surface font-body-md text-body-md"
+                                            >Featured on homepage</span
+                                        >
+                                        <div class="relative">
+                                            <input
+                                                class="sr-only"
+                                                type="checkbox"
+                                            />
+                                            <div
+                                                class="block bg-surface-container-highest w-10 h-6 rounded-full border border-outline-variant transition-colors group-hover/toggle:border-primary"
+                                            ></div>
+                                            <div
+                                                class="dot absolute left-1 top-1 bg-outline w-4 h-4 rounded-full transition transform"
+                                            ></div>
+                                        </div>
+                                    </label>
+                                    <div
+                                        class="space-y-2 pt-2 border-t border-outline-variant"
+                                    >
+                                        <label
+                                            class="block text-on-surface-variant font-label-md text-label-md"
+                                            >Slug URL</label
+                                        >
+                                        <div
+                                            class="flex items-center bg-background border-b border-outline-variant focus-within:border-primary transition-colors rounded-t-DEFAULT px-2"
+                                        >
+                                            <span
+                                                class="text-outline-variant text-sm py-2"
+                                                >/projects/</span
+                                            >
+                                            <input
+                                                class="w-full bg-transparent text-on-surface p-2 outline-none font-body-md text-body-md border-none focus:ring-0"
+                                                placeholder="obsidian-house"
+                                                type="text"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- Minimal script for toggle interactions -->
+        <script>
+            document
+                .querySelectorAll('input[type="checkbox"].sr-only')
+                .forEach((toggle) => {
+                    toggle.addEventListener("change", (e) => {
+                        const bg = e.target.nextElementSibling;
+                        const dot = bg.nextElementSibling;
+                        if (e.target.checked) {
+                            bg.classList.remove("bg-surface-container-highest");
+                            bg.classList.add("bg-primary-container");
+                            dot.classList.remove("bg-outline", "translate-x-0");
+                            dot.classList.add(
+                                "bg-on-primary-container",
+                                "translate-x-4",
+                            );
+                        } else {
+                            bg.classList.add("bg-surface-container-highest");
+                            bg.classList.remove("bg-primary-container");
+                            dot.classList.add("bg-outline", "translate-x-0");
+                            dot.classList.remove(
+                                "bg-on-primary-container",
+                                "translate-x-4",
+                            );
+                        }
+                    });
+                });
+        </script>
+    </body>
+</html>

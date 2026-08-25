@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Portfolio - STUDIO NOIR</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#998f82",
+                        "on-error": "#690005",
+                        "surface-variant": "#383430",
+                        "surface-container-lowest": "#100e0b",
+                        "secondary-fixed": "#ffdcbf",
+                        "outline-variant": "#51443a",
+                        "background": "#161310",
+                        "surface-bright": "#3d3835",
+                        "on-tertiary": "#363025",
+                        "tertiary": "#d0c5b6",
+                        "error-container": "#93000a",
+                        "secondary": "#f1bc8c",
+                        "on-tertiary-fixed": "#201b11",
+                        "outline": "#9e8e81",
+                        "surface-dim": "#161310",
+                        "on-secondary-container": "#e2ae7f",
+                        "secondary-container": "#66411b",
+                        "primary": "#f9ba7f",
+                        "on-background": "#e9e1db",
+                        "on-secondary": "#492905",
+                        "primary-container": "#bd854f",
+                        "on-primary": "#4b2800",
+                        "surface-container": "#221f1c",
+                        "surface-tint": "#f9ba7f",
+                        "secondary-fixed-dim": "#f1bc8c",
+                        "inverse-on-surface": "#34302c",
+                        "on-primary-fixed-variant": "#673d0c",
+                        "on-tertiary-container": "#2f291f",
+                        "surface-container-highest": "#383430",
+                        "inverse-primary": "#835422",
+                        "surface": "#161310",
+                        "surface-container-high": "#2d2926",
+                        "on-tertiary-fixed-variant": "#4d463a",
+                        "tertiary-fixed": "#ede1d1",
+                        "on-surface-variant": "#d5c3b6",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#d0c5b6",
+                        "inverse-surface": "#e9e1db",
+                        "on-secondary-fixed": "#2d1600",
+                        "primary-fixed": "#ffdcbf",
+                        "primary-fixed-dim": "#f9ba7f",
+                        "surface-container-low": "#1e1b18",
+                        "on-primary-container": "#412200",
+                        "on-primary-fixed": "#2d1600",
+                        "on-surface": "#e9e1db",
+                        "error": "#ffb4ab",
+                        "on-secondary-fixed-variant": "#633f19"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xl": "80px",
+                        "lg": "48px",
+                        "xs": "4px",
+                        "md": "24px",
+                        "margin-mobile": "16px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "display-md": ["Manrope"],
+                        "headline-lg": ["Manrope"],
+                        "display-lg": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "label-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-md": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "display-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #161310;
+            color: #e9e1db;
+            overflow-x: hidden;
+        }
+        
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #161310;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3A332B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #51443a;
+        }
+
+        /* Subtle noise texture */
+        .noise-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        
+        .card-hover:hover .card-img {
+            transform: scale(1.05);
+        }
+        .card-hover:hover .card-icon {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased relative min-h-screen flex flex-col">
+<div class="noise-bg"></div>
+<!-- Scroll Progress Indicator -->
+<div class="fixed right-0 top-0 h-full w-margin-mobile md:w-margin-desktop z-40 hidden md:flex flex-col items-center justify-center border-l border-outline-variant pointer-events-none">
+<div class="h-1/3 w-px bg-outline-variant relative">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[3px] h-8 bg-primary rounded-full transition-all duration-75" id="scroll-thumb"></div>
+</div>
+<div class="mt-md font-label-md text-label-md text-on-surface-variant transform rotate-90" id="scroll-percent">0%</div>
+</div>
+<!-- Top Navigation -->
+<nav class="sticky top-0 z-50 bg-surface dark:bg-surface border-b border-outline-variant">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-base max-w-[1440px] mx-auto">
+<a class="font-headline-lg text-headline-lg font-semibold text-primary tracking-tight" href="#">STUDIO NOIR</a>
+<!-- Desktop Nav -->
+<div class="hidden md:flex items-center space-x-lg">
+<a class="font-label-lg text-label-lg text-primary border-b-2 border-primary pb-1" href="#">Portfolio</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Practice</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Services</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Contact</a>
+<button aria-label="Language" class="text-on-surface-variant hover:text-primary transition-all ml-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300;">language</span>
+</button>
+</div>
+<!-- Mobile Menu Button -->
+<button class="md:hidden text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-xl md:pr-[calc(theme(spacing.margin-desktop)+1px)]">
+<!-- Header Section -->
+<header class="text-center mb-xl pt-lg">
+<div class="flex items-center justify-center space-x-md mb-md">
+<div class="h-px w-8 bg-outline-variant"></div>
+<span class="font-label-lg text-label-lg text-primary uppercase tracking-widest">Some of our latest</span>
+<div class="h-px w-8 bg-outline-variant"></div>
+</div>
+<h1 class="font-display-md md:font-display-lg text-display-md md:text-display-lg text-on-surface">Our work</h1>
+</header>
+<!-- Filter Bar -->
+<div class="flex flex-col md:flex-row justify-between items-center mb-xl border-b border-outline-variant pb-md">
+<span class="font-label-md text-label-md text-outline uppercase tracking-wider mb-md md:mb-0">Filter</span>
+<div class="flex flex-wrap justify-center gap-sm">
+<!-- Active Pill -->
+<button class="flex items-center space-x-xs px-4 py-2 bg-primary-container text-on-primary-container rounded-full font-label-md text-label-md transition-all duration-300">
+<span class="material-symbols-outlined text-[14px]">check</span>
+<span>All</span>
+</button>
+<!-- Inactive Pills -->
+<button class="px-4 py-2 bg-transparent border border-outline-variant text-on-surface-variant rounded-full font-label-md text-label-md hover:border-primary hover:text-primary transition-all duration-300">Architectural design</button>
+<button class="px-4 py-2 bg-transparent border border-outline-variant text-on-surface-variant rounded-full font-label-md text-label-md hover:border-primary hover:text-primary transition-all duration-300">Interior design</button>
+<button class="px-4 py-2 bg-transparent border border-outline-variant text-on-surface-variant rounded-full font-label-md text-label-md hover:border-primary hover:text-primary transition-all duration-300">Landscape design</button>
+<button class="px-4 py-2 bg-transparent border border-outline-variant text-on-surface-variant rounded-full font-label-md text-label-md hover:border-primary hover:text-primary transition-all duration-300">Site supervision</button>
+</div>
+</div>
+<!-- Portfolio Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mb-xl">
+<!-- Project Card 1 -->
+<article class="group relative overflow-hidden rounded border border-outline-variant hover:border-secondary transition-colors duration-500 card-hover aspect-[4/5] bg-surface-container cursor-pointer">
+<img alt="Obsidian House" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out card-img" data-alt="A striking minimalist residential home exterior at dusk. The architecture features stark black monolithic concrete forms contrasting with warm interior light spilling from large floor-to-ceiling windows. The landscape is sparse and manicured, bathed in deep moody atmospheric lighting that emphasizes the sophisticated dark mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsMpzOJJEaBBuwoy-eTmz8M2qWQYvpt0ZhBSopEirDMXdMl3Fdoa5h9zba6vOhZxIRkf8aDuYKPNV3WYoPtNngbPVQABj6703z0ghzC35QaBdYuKaRm8ktyzWRvlYk7Ke92OK1f8L2w2tYbwAn5Qo5rbi2v0fLFAOruvCWuM5RSPeg5pGsScfw4KVCJMIno9gBLNHsjRSdLn3CSe-Jwu6bPUT15kZLVzDHfzgY_pgFBfEr9k-Mr2SJ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80"></div>
+<div class="absolute top-md right-md opacity-0 translate-y-2 -translate-x-2 transition-all duration-500 card-icon">
+<div class="w-10 h-10 rounded-full bg-surface/80 backdrop-blur-sm border border-outline-variant flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300;">north_east</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 p-lg w-full">
+<span class="inline-block px-3 py-1 bg-primary-container text-on-primary-container rounded-sm font-label-md text-label-md mb-sm">Residential</span>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface group-hover:text-primary transition-colors duration-300">Obsidian House</h2>
+</div>
+</article>
+<!-- Project Card 2 -->
+<article class="group relative overflow-hidden rounded border border-outline-variant hover:border-secondary transition-colors duration-500 card-hover aspect-[4/5] bg-surface-container cursor-pointer md:mt-xl">
+<img alt="Vantablack Gallery" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out card-img" data-alt="An expansive modern commercial gallery space viewed from a low angle. The interior uses light-absorbing matte black materials (vantablack concept) offset by precise, thin strips of warm LED lighting. Sculptural elements sit in pools of dramatic light. High-end, premium architectural atmosphere in deep charcoal tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSSh9KYG24XfwKdihqNJKn4x-sXlJoTS9W-yEW-AvLPr1Yb304cOqpRCbacv8-UIY7u3B0f8mIwgEgCoDaq4EqeEbw__1GnJYhjECHnk52qkDWdgN-NfMeR7_s_c1dncF-38I5PR-icMmkPKLNku-2NM2IQr8QQaU3WZOlp3d6gquEsa2-zxFdqqoFqrSjwTtaP__co6OywKL_YDR2DhUJDooUXB7ngq71ni36mD5uEZ8EQMmDIYLM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80"></div>
+<div class="absolute top-md right-md opacity-0 translate-y-2 -translate-x-2 transition-all duration-500 card-icon">
+<div class="w-10 h-10 rounded-full bg-surface/80 backdrop-blur-sm border border-outline-variant flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300;">north_east</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 p-lg w-full">
+<span class="inline-block px-3 py-1 bg-primary-container text-on-primary-container rounded-sm font-label-md text-label-md mb-sm">Commercial</span>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface group-hover:text-primary transition-colors duration-300">Vantablack Gallery</h2>
+</div>
+</article>
+<!-- Project Card 3 -->
+<article class="group relative overflow-hidden rounded border border-outline-variant hover:border-secondary transition-colors duration-500 card-hover aspect-[4/5] bg-surface-container cursor-pointer">
+<img alt="Cedar &amp; Stone" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out card-img" data-alt="A luxurious interior design detail shot of a living space. Features rich dark cedar wood paneling intersecting with rough-hewn slate stone. Soft ambient lighting creates deep shadows and highlights the tactile textures of the materials. The mood is intimate, expensive, and quietly sophisticated, fitting a dark moody theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPWIIFtbvJLlRLV82pVeN_wGPmiIPUqOiNBpwRZ-eVRYeFB7EaVTYtXTxPzOjaOjqVKIkcpWOIu5mli8Qjleq2fVAXQwiW0Yde9CApmHJhQaod_imOaYQQyY5f9ONge6eX_LQaTgUcZNW4DJUhn_qGOYE0FmkyX3ASx4O0YPEyYbY-TUFJ5CjcvehHZebZprsKiGHtBtJmsE35P_SiuJVnmvUAzVjgLARpiBzgToi2qMRUmjRyBgpz"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80"></div>
+<div class="absolute top-md right-md opacity-0 translate-y-2 -translate-x-2 transition-all duration-500 card-icon">
+<div class="w-10 h-10 rounded-full bg-surface/80 backdrop-blur-sm border border-outline-variant flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300;">north_east</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 p-lg w-full">
+<span class="inline-block px-3 py-1 bg-primary-container text-on-primary-container rounded-sm font-label-md text-label-md mb-sm">Interior</span>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface group-hover:text-primary transition-colors duration-300">Cedar &amp; Stone</h2>
+</div>
+</article>
+<!-- Project Card 4 -->
+<article class="group relative overflow-hidden rounded border border-outline-variant hover:border-secondary transition-colors duration-500 card-hover aspect-[4/5] bg-surface-container cursor-pointer md:mt-xl">
+<img alt="Highland Retreat" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out card-img" data-alt="A sprawling landscape design blending seamlessly with a rugged mountain environment. Geometric concrete pathways cut through wild grasses and mist. Shot during blue hour with subtle warm ground-level lighting illuminating the paths. The aesthetic is raw, natural, yet highly controlled and premium." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkHai02tNqO4OsFPmkBFWgaVmJhNYdlH4Ix8wGr3JEbNHYId5vvLTH3tu4W-DkUkZ24_sSdlNuu728qz5UOGun1hj_p_vYRGHLd9a1TGdq3XrmR1AEu5GMzCe8dwgleqd6Ca11AwK-xnpGlNHuqWOxdJ8iOARJk8d1Z597H06eABwG3JBF3KWODFwL_KotJsFPTv_MGIYACROhnIpdBl5D8i7O9GybVdixgo4wlR67VwRGXmCfaWui"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80"></div>
+<div class="absolute top-md right-md opacity-0 translate-y-2 -translate-x-2 transition-all duration-500 card-icon">
+<div class="w-10 h-10 rounded-full bg-surface/80 backdrop-blur-sm border border-outline-variant flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300;">north_east</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 p-lg w-full">
+<span class="inline-block px-3 py-1 bg-primary-container text-on-primary-container rounded-sm font-label-md text-label-md mb-sm">Landscape</span>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface group-hover:text-primary transition-colors duration-300">Highland Retreat</h2>
+</div>
+</article>
+<!-- Project Card 5 -->
+<article class="group relative overflow-hidden rounded border border-outline-variant hover:border-secondary transition-colors duration-500 card-hover aspect-[4/5] bg-surface-container cursor-pointer">
+<img alt="The Monolith" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out card-img" data-alt="An imposing contemporary architectural structure shaped like a massive stone monolith, situated in a sparse urban plaza. Heavy rain adds reflection to the dark paving stones. The building has minimal fenestration, radiating a quiet, impenetrable authority. Rendered in deep charcoal greys and warm amber lighting accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoIUCxDd16fItRugwC3LArNiD1A5wu62T74_1pE3JrwlpqPCfAs-VK7h-WpXuOurK2o38gnbK_wTnSVWn-SdQ7xtoxGeW4iU4HMT5AySs4sXoUiBULIl-TdTyhVdybO-kg-2E9q5wTMqFOPnHhC7BAeQYvYW5DocCW5TEim7jkdkNf9JpbbsfPHGii77qwLQLbTSyhqwA4XP8JcVrn_FVe2xrZPt9CUeljdExxypklRbRKxuPrRkPi"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80"></div>
+<div class="absolute top-md right-md opacity-0 translate-y-2 -translate-x-2 transition-all duration-500 card-icon">
+<div class="w-10 h-10 rounded-full bg-surface/80 backdrop-blur-sm border border-outline-variant flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300;">north_east</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 p-lg w-full">
+<span class="inline-block px-3 py-1 bg-primary-container text-on-primary-container rounded-sm font-label-md text-label-md mb-sm">Architecture</span>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface group-hover:text-primary transition-colors duration-300">The Monolith</h2>
+</div>
+</article>
+<!-- Project Card 6 -->
+<article class="group relative overflow-hidden rounded border border-outline-variant hover:border-secondary transition-colors duration-500 card-hover aspect-[4/5] bg-surface-container cursor-pointer md:mt-xl">
+<img alt="Urban Sanctuary" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out card-img" data-alt="An exclusive commercial spa or wellness center interior. Dark plaster walls, central reflection pool capturing dramatic shafts of overhead warm light. Minimalist design prioritizing void space and calm. The atmosphere is deeply tranquil, luxurious, and rooted in a dark, moody architectural style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBu8xNxsno3YQZUfQH7Vme41Z3BMsvvWsxNypq2P5nP-ECNEGIWcSEtrphg87z7h20WzRM60_DtDxWlyo3qTRRg89fG8okGV6zWYGlRdbk0kMzHBl3ao2ubJxFsZDLUe_DwaGtdfVeR4B8Mw_LTXxFjjuJj2UzcEWp80IrfabLNWtb0dyzWfinyGacL9__lxxGVlolD0K5wUDDLELYrB8uOI2w00jAWp8tJv19aQOMR2kCRsrwuqrpG"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80"></div>
+<div class="absolute top-md right-md opacity-0 translate-y-2 -translate-x-2 transition-all duration-500 card-icon">
+<div class="w-10 h-10 rounded-full bg-surface/80 backdrop-blur-sm border border-outline-variant flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300;">north_east</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 p-lg w-full">
+<span class="inline-block px-3 py-1 bg-primary-container text-on-primary-container rounded-sm font-label-md text-label-md mb-sm">Commercial</span>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface group-hover:text-primary transition-colors duration-300">Urban Sanctuary</h2>
+</div>
+</article>
+</div>
+<!-- Pagination -->
+<div class="flex justify-center mt-xl mb-xl">
+<button class="px-8 py-3 bg-transparent border border-outline-variant text-on-surface rounded-full font-label-lg text-label-lg hover:border-primary hover:text-primary transition-all duration-300 flex items-center space-x-2">
+<span>Load more</span>
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant mt-auto">
+<div class="w-full px-margin-mobile md:px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center max-w-[1440px] mx-auto md:pr-[calc(theme(spacing.margin-desktop)+1px)]">
+<div class="font-headline-lg text-headline-lg text-on-surface mb-md md:mb-0">
+                STUDIO NOIR
+            </div>
+<div class="flex flex-wrap justify-center gap-md mb-md md:mb-0">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Journal</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Careers</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="font-label-md text-label-md text-on-surface-variant text-center md:text-right">
+                © 2024 STUDIO NOIR ARCHITECTS. ALL RIGHTS RESERVED.
+            </div>
+</div>
+</footer>
+<script>
+        // Simple scroll progress indicator script
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            
+            const thumb = document.getElementById('scroll-thumb');
+            const percent = document.getElementById('scroll-percent');
+            
+            if(thumb && percent) {
+                // Move thumb down the line (max 100% of container height minus thumb height)
+                thumb.style.top = `calc(${scrolled}% - ${scrolled * 0.32}px)`; 
+                percent.innerText = Math.round(scrolled) + '%';
+            }
+        });
+    </script>
+</body></html>

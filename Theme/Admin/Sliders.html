@@ -1,0 +1,823 @@
+<!doctype html>
+<html class="dark" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Home Page Builder - Archifyr</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "primary-fixed-dim": "#f9ba7f",
+                            "on-tertiary-fixed": "#201b11",
+                            "inverse-surface": "#e9e1db",
+                            "tertiary-container": "#998f82",
+                            "on-tertiary": "#363025",
+                            error: "#ffb4ab",
+                            outline: "#9e8e81",
+                            "on-primary": "#4b2800",
+                            "surface-bright": "#3d3835",
+                            "primary-fixed": "#ffdcbf",
+                            secondary: "#f1bc8c",
+                            "outline-variant": "#51443a",
+                            "on-tertiary-fixed-variant": "#4d463a",
+                            "on-primary-fixed": "#2d1600",
+                            "secondary-fixed-dim": "#f1bc8c",
+                            "inverse-primary": "#835422",
+                            "primary-container": "#bd854f",
+                            "surface-dim": "#161310",
+                            "error-container": "#93000a",
+                            primary: "#f9ba7f",
+                            "on-surface-variant": "#d5c3b6",
+                            "on-secondary-container": "#e2ae7f",
+                            "on-tertiary-container": "#2f291f",
+                            "on-primary-container": "#412200",
+                            "on-error-container": "#ffdad6",
+                            "on-secondary": "#492905",
+                            "on-error": "#690005",
+                            "on-secondary-fixed": "#2d1600",
+                            "inverse-on-surface": "#34302c",
+                            "secondary-container": "#66411b",
+                            "tertiary-fixed-dim": "#d0c5b6",
+                            "surface-variant": "#383430",
+                            "on-primary-fixed-variant": "#673d0c",
+                            "on-secondary-fixed-variant": "#633f19",
+                            "surface-tint": "#f9ba7f",
+                            "surface-container-high": "#2d2926",
+                            surface: "#161310",
+                            "surface-container-lowest": "#100e0b",
+                            "secondary-fixed": "#ffdcbf",
+                            background: "#161310",
+                            "tertiary-fixed": "#ede1d1",
+                            tertiary: "#d0c5b6",
+                            "surface-container": "#221f1c",
+                            "surface-container-low": "#1e1b18",
+                            "on-background": "#e9e1db",
+                            "on-surface": "#e9e1db",
+                            "surface-container-highest": "#383430",
+                        },
+                        borderRadius: {
+                            DEFAULT: "0.125rem",
+                            lg: "0.25rem",
+                            xl: "0.5rem",
+                            full: "0.75rem",
+                        },
+                        spacing: {
+                            "margin-desktop": "64px",
+                            md: "24px",
+                            xs: "4px",
+                            sm: "12px",
+                            xl: "80px",
+                            base: "8px",
+                            lg: "48px",
+                            "margin-mobile": "16px",
+                            gutter: "24px",
+                        },
+                        fontFamily: {
+                            "display-md": ["Manrope"],
+                            "body-md": ["Manrope"],
+                            "label-md": ["Manrope"],
+                            "body-lg": ["Manrope"],
+                            "headline-lg-mobile": ["Manrope"],
+                            "display-lg": ["Manrope"],
+                            "label-lg": ["Manrope"],
+                            "headline-lg": ["Manrope"],
+                        },
+                        fontSize: {
+                            "display-md": [
+                                "48px",
+                                {
+                                    lineHeight: "1.2",
+                                    letterSpacing: "-0.03em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "body-md": [
+                                "16px",
+                                {
+                                    lineHeight: "1.6",
+                                    letterSpacing: "0em",
+                                    fontWeight: "400",
+                                },
+                            ],
+                            "label-md": [
+                                "12px",
+                                {
+                                    lineHeight: "1.4",
+                                    letterSpacing: "0.02em",
+                                    fontWeight: "500",
+                                },
+                            ],
+                            "body-lg": [
+                                "18px",
+                                {
+                                    lineHeight: "1.6",
+                                    letterSpacing: "0em",
+                                    fontWeight: "400",
+                                },
+                            ],
+                            "headline-lg-mobile": [
+                                "28px",
+                                {
+                                    lineHeight: "1.3",
+                                    letterSpacing: "-0.01em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "display-lg": [
+                                "64px",
+                                {
+                                    lineHeight: "1.1",
+                                    letterSpacing: "-0.04em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "label-lg": [
+                                "14px",
+                                {
+                                    lineHeight: "1.4",
+                                    letterSpacing: "0.05em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "headline-lg": [
+                                "32px",
+                                {
+                                    lineHeight: "1.3",
+                                    letterSpacing: "-0.02em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                        },
+                    },
+                },
+            };
+        </script>
+    </head>
+    <body
+        class="bg-background text-on-background font-body-md min-h-screen flex selection:bg-primary selection:text-on-primary"
+    >
+        <!-- Side NavBar (Component 1) -->
+        <nav
+            class="bg-background dark:bg-background text-primary dark:text-primary font-label-lg text-label-lg fixed left-0 top-0 h-screen w-64 border-r border-outline-variant bg-surface flex flex-col h-full py-lg px-md z-20"
+        >
+            <div class="mb-xl flex flex-col gap-1">
+                <h1
+                    class="font-headline-lg text-headline-lg text-on-surface tracking-tighter"
+                >
+                    Archifyr
+                </h1>
+                <p class="text-on-surface-variant font-label-md text-label-md">
+                    Design CMS
+                </p>
+            </div>
+            <button
+                class="mb-lg w-full bg-primary-container text-surface-dim font-label-lg py-sm px-md rounded hover:bg-primary transition-colors flex justify-center items-center gap-2"
+            >
+                <span
+                    class="material-symbols-outlined"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >add</span
+                >
+                New Project
+            </button>
+            <ul class="flex flex-col gap-sm flex-1">
+                <li>
+                    <a
+                        class="flex items-center gap-3 p-3 rounded hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 text-on-surface-variant font-medium group"
+                        href="#"
+                    >
+                        <span
+                            class="material-symbols-outlined group-hover:text-primary transition-colors"
+                            >dashboard</span
+                        >
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a
+                        class="flex items-center gap-3 p-3 text-primary font-bold border-r-2 border-primary bg-surface-container-low opacity-80 transition-all rounded-l"
+                        href="#"
+                    >
+                        <span
+                            class="material-symbols-outlined"
+                            style="font-variation-settings: &quot;FILL&quot; 1"
+                            >home</span
+                        >
+                        Home Page
+                    </a>
+                </li>
+                <li>
+                    <a
+                        class="flex items-center gap-3 p-3 rounded hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 text-on-surface-variant font-medium group"
+                        href="#"
+                    >
+                        <span
+                            class="material-symbols-outlined group-hover:text-primary transition-colors"
+                            >info</span
+                        >
+                        About
+                    </a>
+                </li>
+                <li>
+                    <a
+                        class="flex items-center gap-3 p-3 rounded hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 text-on-surface-variant font-medium group"
+                        href="#"
+                    >
+                        <span
+                            class="material-symbols-outlined group-hover:text-primary transition-colors"
+                            >category</span
+                        >
+                        Services
+                    </a>
+                </li>
+                <li>
+                    <a
+                        class="flex items-center gap-3 p-3 rounded hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 text-on-surface-variant font-medium group"
+                        href="#"
+                    >
+                        <span
+                            class="material-symbols-outlined group-hover:text-primary transition-colors"
+                            >architecture</span
+                        >
+                        Projects
+                    </a>
+                </li>
+                <li>
+                    <a
+                        class="flex items-center gap-3 p-3 rounded hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 text-on-surface-variant font-medium group"
+                        href="#"
+                    >
+                        <span
+                            class="material-symbols-outlined group-hover:text-primary transition-colors"
+                            >groups</span
+                        >
+                        Team
+                    </a>
+                </li>
+                <li>
+                    <a
+                        class="flex items-center gap-3 p-3 rounded hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 text-on-surface-variant font-medium group"
+                        href="#"
+                    >
+                        <span
+                            class="material-symbols-outlined group-hover:text-primary transition-colors"
+                            >article</span
+                        >
+                        Blog
+                    </a>
+                </li>
+            </ul>
+            <div
+                class="mt-auto pt-md border-t border-outline-variant flex flex-col gap-sm"
+            >
+                <a
+                    class="flex items-center gap-3 p-3 rounded hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 text-on-surface-variant font-medium group"
+                    href="#"
+                >
+                    <span
+                        class="material-symbols-outlined group-hover:text-primary transition-colors"
+                        >settings</span
+                    >
+                    Settings
+                </a>
+                <a
+                    class="flex items-center gap-3 p-3 rounded hover:bg-surface-container-high hover:text-on-surface transition-colors duration-200 text-on-surface-variant font-medium group"
+                    href="#"
+                >
+                    <span
+                        class="material-symbols-outlined group-hover:text-primary transition-colors"
+                        >logout</span
+                    >
+                    Logout
+                </a>
+            </div>
+        </nav>
+        <!-- Main Content Area -->
+        <main class="ml-64 flex-1 flex flex-col min-h-screen">
+            <!-- TopAppBar (Component 2) -->
+            <header
+                class="bg-surface dark:bg-surface text-primary dark:text-primary font-label-md text-label-md fixed top-0 right-0 left-64 h-16 border-b border-outline-variant flex justify-between items-center px-lg z-10"
+            >
+                <div class="flex items-center gap-md">
+                    <div
+                        class="flex items-center gap-2 text-on-surface-variant"
+                    >
+                        <span
+                            class="hover:text-primary transition-colors duration-200 cursor-pointer"
+                            >Pages</span
+                        >
+                        <span class="material-symbols-outlined text-[14px]"
+                            >chevron_right</span
+                        >
+                        <span class="text-on-surface font-medium"
+                            >Home page</span
+                        >
+                    </div>
+                </div>
+                <div class="flex items-center gap-md">
+                    <button
+                        class="hover:text-primary transition-colors duration-200"
+                    >
+                        <span class="material-symbols-outlined text-[20px]"
+                            >notifications</span
+                        >
+                    </button>
+                    <div class="h-6 w-px bg-outline-variant"></div>
+                    <div class="flex items-center gap-3 cursor-pointer group">
+                        <span
+                            class="material-symbols-outlined group-hover:text-primary transition-colors duration-200 text-[24px]"
+                            >account_circle</span
+                        >
+                        <span
+                            class="text-on-surface-variant group-hover:text-primary transition-colors duration-200"
+                            >Admin</span
+                        >
+                    </div>
+                </div>
+            </header>
+            <!-- Page Content -->
+            <div
+                class="pt-24 px-margin-desktop pb-xl flex-1 max-w-[1440px] mx-auto w-full"
+            >
+                <!-- Header Section -->
+                <div
+                    class="flex justify-between items-end mb-xl border-b border-outline-variant pb-md"
+                >
+                    <div>
+                        <h2
+                            class="font-display-md text-display-md text-inverse-surface mb-2"
+                        >
+                            Home page
+                        </h2>
+                        <p class="text-on-surface-variant text-body-lg">
+                            Manage hero slides and homepage section order
+                        </p>
+                    </div>
+                    <button
+                        class="bg-primary-container text-surface-dim font-label-lg py-sm px-md rounded hover:bg-primary transition-colors flex justify-center items-center gap-2"
+                    >
+                        <span
+                            class="material-symbols-outlined text-[18px]"
+                            style="font-variation-settings: &quot;FILL&quot; 1"
+                            >add</span
+                        >
+                        Add new slide
+                    </button>
+                </div>
+                <!-- Tabs -->
+                <div class="flex gap-lg border-b border-outline-variant mb-xl">
+                    <button
+                        class="pb-sm font-label-lg text-primary border-b-2 border-primary"
+                    >
+                        Hero slides
+                    </button>
+                    <button
+                        class="pb-sm font-label-lg text-on-surface-variant hover:text-on-surface transition-colors"
+                    >
+                        Section order
+                    </button>
+                    <button
+                        class="pb-sm font-label-lg text-on-surface-variant hover:text-on-surface transition-colors"
+                    >
+                        Testimonials block
+                    </button>
+                    <button
+                        class="pb-sm font-label-lg text-on-surface-variant hover:text-on-surface transition-colors"
+                    >
+                        CTA banner
+                    </button>
+                </div>
+                <!-- Content Area: Hero Slides -->
+                <div class="flex flex-col gap-md">
+                    <!-- Expanded Slide Card (Active Edit) -->
+                    <div
+                        class="bg-surface-container rounded-lg border border-outline-variant overflow-hidden"
+                    >
+                        <!-- Card Header (Collapsed view style) -->
+                        <div
+                            class="flex items-center justify-between p-md bg-surface-container border-b border-outline-variant hover:bg-surface-container-high transition-colors cursor-pointer group"
+                        >
+                            <div class="flex items-center gap-md flex-1">
+                                <span
+                                    class="material-symbols-outlined text-outline cursor-grab hover:text-primary transition-colors"
+                                    >drag_indicator</span
+                                >
+                                <div
+                                    class="w-16 h-12 rounded border border-outline-variant bg-surface-dim overflow-hidden relative"
+                                >
+                                    <div
+                                        class="bg-cover bg-center w-full h-full"
+                                        data-alt="A dark, moody architectural exterior shot of a modern brutalist concrete house at twilight. Warm interior lights glow through large glass windows, contrasting with the deep blue-grey sky. The scene is highly detailed, photorealistic, and conveys a sense of premium, secluded luxury."
+                                        style="
+                                            background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuC_ctylbSaRpJVczamfekRg2R9K7aLONc-a0U6eSnUj45PTBihgPQqeDaitoN1VsrmVtkOz539C1401j5OwLOQNHuD6MYrn4elNu-4US-OouoEdkr5WjakbugbzoUjhWsZve8QiLT7_upTuB597IhkFcHvNzVFlP5vvhWpagp9FfdsQ98pGeljcsTDyNmNdMVicj_nwrsMdk19eKsD28Oll5KJHc5qvhRJuopxVFeeY4zpUqZmpg6Lk&quot;);
+                                        "
+                                    ></div>
+                                </div>
+                                <div>
+                                    <h4
+                                        class="font-label-lg text-on-surface group-hover:text-primary transition-colors"
+                                    >
+                                        The Obsidian Residence
+                                    </h4>
+                                    <span
+                                        class="inline-block mt-1 text-[10px] uppercase tracking-wider font-semibold text-primary-fixed bg-primary-fixed/10 px-2 py-0.5 rounded"
+                                        >Published</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-sm">
+                                <button
+                                    class="p-2 text-primary bg-surface-variant rounded hover:bg-primary-container hover:text-surface-dim transition-colors"
+                                >
+                                    <span
+                                        class="material-symbols-outlined text-[18px]"
+                                        >keyboard_arrow_up</span
+                                    >
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Expanded Edit Form -->
+                        <div class="p-lg bg-surface flex flex-col gap-xl">
+                            <!-- Image Upload -->
+                            <div>
+                                <h5 class="font-label-lg text-on-surface mb-sm">
+                                    Slide Background
+                                </h5>
+                                <div
+                                    class="border-2 border-dashed border-outline-variant rounded-lg p-xl flex flex-col items-center justify-center text-center relative group overflow-hidden bg-surface-container-low hover:bg-surface-container-high hover:border-primary transition-all cursor-pointer"
+                                >
+                                    <!-- Preview Image (Behind overlay on hover) -->
+                                    <div
+                                        class="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-20 transition-opacity"
+                                        data-alt="A dark, moody architectural exterior shot of a modern brutalist concrete house at twilight. Warm interior lights glow through large glass windows, contrasting with the deep blue-grey sky. The scene is highly detailed, photorealistic, and conveys a sense of premium, secluded luxury."
+                                        style="
+                                            background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAR-72BYroFLPP1Dy2MvMLxszHRuDHspB_DJ7GznDY_qJa7vU6Lxz3U01jk7tI-nIB_NKpXRcuez_Dih9gZ3rOq7ixkzegUmDrE77jd4tO_RkYvTKyyTsS3GeQ_wYxPcRq2KTnuqEJGFJQry7LafltvKVosq82LCNkgREbNzF1G26-gmgIbKpVs4tLCCMjk-WiShoGzBJi-hQ1jfb5PdUh0J0IDV5PSwdnTHnz6M4d8uTeQbLEADigu&quot;);
+                                        "
+                                    ></div>
+                                    <span
+                                        class="material-symbols-outlined text-4xl text-outline mb-sm group-hover:text-primary transition-colors relative z-10"
+                                        style="
+                                            font-variation-settings: &quot;FILL&quot;
+                                                1;
+                                        "
+                                        >cloud_upload</span
+                                    >
+                                    <p
+                                        class="text-on-surface font-medium relative z-10 group-hover:text-primary transition-colors"
+                                    >
+                                        Drag image here or click to upload
+                                    </p>
+                                    <p
+                                        class="text-on-surface-variant text-label-md mt-1 relative z-10"
+                                    >
+                                        Recommended size: 1920x1080px (JPEG or
+                                        WEBP)
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- Content Settings -->
+                            <div>
+                                <div
+                                    class="flex justify-between items-center mb-md pb-sm border-b border-outline-variant"
+                                >
+                                    <h5 class="font-label-lg text-on-surface">
+                                        Slide Content
+                                    </h5>
+                                    <div class="flex items-center gap-md">
+                                        <label
+                                            class="flex items-center gap-2 cursor-pointer"
+                                        >
+                                            <input
+                                                checked=""
+                                                class="form-checkbox bg-surface-container border-outline text-primary focus:ring-primary focus:ring-offset-surface rounded-sm h-4 w-4"
+                                                type="checkbox"
+                                            />
+                                            <span
+                                                class="text-label-md text-on-surface-variant"
+                                                >Auto-translate other
+                                                locales</span
+                                            >
+                                        </label>
+                                        <div
+                                            class="h-4 w-px bg-outline-variant"
+                                        ></div>
+                                        <select
+                                            class="form-select bg-surface border-outline-variant text-on-surface text-label-md rounded py-1 pl-2 pr-8 focus:ring-primary focus:border-primary"
+                                        >
+                                            <option>English (Source)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Locale Tabs -->
+                                <div class="flex gap-4 mb-md">
+                                    <button
+                                        class="px-3 py-1 rounded bg-surface-variant text-on-surface font-label-md border border-outline"
+                                    >
+                                        English
+                                    </button>
+                                    <button
+                                        class="px-3 py-1 rounded text-on-surface-variant hover:bg-surface-container font-label-md border border-transparent transition-colors"
+                                    >
+                                        Türkçe
+                                    </button>
+                                    <button
+                                        class="px-3 py-1 rounded text-on-surface-variant hover:bg-surface-container font-label-md border border-transparent transition-colors"
+                                    >
+                                        العربية
+                                    </button>
+                                </div>
+                                <div
+                                    class="grid grid-cols-1 md:grid-cols-2 gap-md"
+                                >
+                                    <div class="col-span-2">
+                                        <label
+                                            class="block text-label-md text-on-surface-variant mb-1"
+                                            >Title</label
+                                        >
+                                        <input
+                                            class="w-full bg-surface-container border-b-2 border-t-0 border-x-0 border-outline-variant text-on-surface focus:border-primary focus:ring-0 px-3 py-2 transition-colors"
+                                            type="text"
+                                            value="The Obsidian Residence"
+                                        />
+                                    </div>
+                                    <div class="col-span-2">
+                                        <label
+                                            class="block text-label-md text-on-surface-variant mb-1"
+                                            >Subtitle</label
+                                        >
+                                        <input
+                                            class="w-full bg-surface-container border-b-2 border-t-0 border-x-0 border-outline-variant text-on-surface focus:border-primary focus:ring-0 px-3 py-2 transition-colors"
+                                            type="text"
+                                            value="Kyoto, Japan"
+                                        />
+                                    </div>
+                                    <div class="col-span-2">
+                                        <label
+                                            class="block text-label-md text-on-surface-variant mb-1"
+                                            >Description</label
+                                        >
+                                        <textarea
+                                            class="w-full bg-surface-container border-b-2 border-t-0 border-x-0 border-outline-variant text-on-surface focus:border-primary focus:ring-0 px-3 py-2 transition-colors resize-none"
+                                            rows="3"
+                                        >
+A brutalist masterpiece integrating dark concrete with natural forest surroundings.</textarea
+                                        >
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-label-md text-on-surface-variant mb-1"
+                                            >Button Text</label
+                                        >
+                                        <input
+                                            class="w-full bg-surface-container border-b-2 border-t-0 border-x-0 border-outline-variant text-on-surface focus:border-primary focus:ring-0 px-3 py-2 transition-colors"
+                                            type="text"
+                                            value="View Project"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-label-md text-on-surface-variant mb-1"
+                                            >Button Link</label
+                                        >
+                                        <input
+                                            class="w-full bg-surface-container border-b-2 border-t-0 border-x-0 border-outline-variant text-on-surface focus:border-primary focus:ring-0 px-3 py-2 transition-colors"
+                                            type="text"
+                                            value="/projects/obsidian"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Footer Actions -->
+                            <div
+                                class="pt-md border-t border-outline-variant flex justify-between items-center bg-surface"
+                            >
+                                <div class="flex items-center gap-lg">
+                                    <div class="flex items-center gap-2">
+                                        <label
+                                            class="text-label-md text-on-surface-variant"
+                                            >Order</label
+                                        >
+                                        <input
+                                            class="w-16 bg-surface-container border-b border-t-0 border-x-0 border-outline-variant text-on-surface text-center focus:border-primary focus:ring-0 py-1"
+                                            type="number"
+                                            value="1"
+                                        />
+                                    </div>
+                                    <div
+                                        class="h-4 w-px bg-outline-variant"
+                                    ></div>
+                                    <label
+                                        class="flex items-center gap-3 cursor-pointer"
+                                    >
+                                        <span
+                                            class="text-label-md text-on-surface"
+                                            >Active</span
+                                        >
+                                        <!-- Custom Toggle Switch -->
+                                        <div
+                                            class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in"
+                                        >
+                                            <input
+                                                checked=""
+                                                class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-surface-dim border-2 border-primary appearance-none cursor-pointer translate-x-5 transition-transform duration-200 z-10 right-0"
+                                                id="toggle1"
+                                                name="toggle"
+                                                type="checkbox"
+                                            />
+                                            <label
+                                                class="toggle-label block overflow-hidden h-5 rounded-full bg-primary-container cursor-pointer"
+                                                for="toggle1"
+                                            ></label>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="flex gap-3">
+                                    <button
+                                        class="px-md py-sm rounded border border-outline text-inverse-surface font-label-md hover:bg-surface-container-high transition-colors"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        class="px-md py-sm rounded bg-primary-container text-surface-dim font-label-md hover:bg-primary transition-colors shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]"
+                                    >
+                                        Save slide
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Collapsed Slide Card 2 -->
+                    <div
+                        class="flex items-center justify-between p-md bg-surface border border-outline-variant rounded hover:bg-surface-container-high transition-colors cursor-pointer group hover:border-secondary"
+                    >
+                        <div class="flex items-center gap-md flex-1">
+                            <span
+                                class="material-symbols-outlined text-outline cursor-grab hover:text-primary transition-colors"
+                                >drag_indicator</span
+                            >
+                            <div
+                                class="w-16 h-12 rounded border border-outline-variant bg-surface-dim overflow-hidden relative"
+                            >
+                                <div
+                                    class="bg-cover bg-center w-full h-full opacity-70 group-hover:opacity-100 transition-opacity"
+                                    data-alt="A serene interior shot of an expansive art gallery with smooth curved white walls and polished concrete floors, bathed in warm afternoon sunlight casting long architectural shadows. Minimalist elegance."
+                                    style="
+                                        background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAU85UhxFspB7LKtKfT5ldjGXmHlpSFKSpQk6O9drGor31JmPUGkdW6lka_AsdPyM9XMKZdpCSSbytjzQiHHpq7kVVC1K8boC0ljxyt7dRGo9fmn6l8gyL7EQGSng1YZMpg8xW8pwzQUTCSnq5fAr0VZpDLEWefKbwpIJSIXdOVm7y-MYSfC8Rvr07Xa3kKUhq-Py1EncMREojJSzy0QoaiPSuan32IZLyUNx-4JVQxOj-h70FycpR8&quot;);
+                                    "
+                                ></div>
+                            </div>
+                            <div>
+                                <h4
+                                    class="font-label-lg text-on-surface group-hover:text-primary transition-colors"
+                                >
+                                    Echo Valley Pavilion
+                                </h4>
+                                <span
+                                    class="inline-block mt-1 text-[10px] uppercase tracking-wider font-semibold text-primary-fixed bg-primary-fixed/10 px-2 py-0.5 rounded"
+                                    >Published</span
+                                >
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-md">
+                            <!-- Custom Toggle Switch -->
+                            <div
+                                class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in mr-2"
+                            >
+                                <input
+                                    checked=""
+                                    class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-surface-dim border-2 border-primary appearance-none cursor-pointer translate-x-5 transition-transform duration-200 z-10 right-0"
+                                    id="toggle2"
+                                    name="toggle"
+                                    type="checkbox"
+                                />
+                                <label
+                                    class="toggle-label block overflow-hidden h-5 rounded-full bg-primary-container cursor-pointer"
+                                    for="toggle2"
+                                ></label>
+                            </div>
+                            <button
+                                class="p-2 text-outline hover:text-primary transition-colors"
+                            >
+                                <span
+                                    class="material-symbols-outlined text-[18px]"
+                                    >edit</span
+                                >
+                            </button>
+                            <button
+                                class="p-2 text-outline hover:text-error transition-colors"
+                            >
+                                <span
+                                    class="material-symbols-outlined text-[18px]"
+                                    >delete</span
+                                >
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Collapsed Slide Card 3 -->
+                    <div
+                        class="flex items-center justify-between p-md bg-surface border border-outline-variant rounded hover:bg-surface-container-high transition-colors cursor-pointer group hover:border-secondary"
+                    >
+                        <div class="flex items-center gap-md flex-1">
+                            <span
+                                class="material-symbols-outlined text-outline cursor-grab hover:text-primary transition-colors"
+                                >drag_indicator</span
+                            >
+                            <div
+                                class="w-16 h-12 rounded border border-outline-variant bg-surface-dim overflow-hidden relative flex items-center justify-center"
+                            >
+                                <span
+                                    class="material-symbols-outlined text-outline text-xl"
+                                    >image</span
+                                >
+                            </div>
+                            <div>
+                                <h4
+                                    class="font-label-lg text-on-surface-variant group-hover:text-primary transition-colors"
+                                >
+                                    New Year Campaign
+                                </h4>
+                                <span
+                                    class="inline-block mt-1 text-[10px] uppercase tracking-wider font-semibold text-on-surface-variant bg-surface-variant px-2 py-0.5 rounded"
+                                    >Draft</span
+                                >
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-md">
+                            <!-- Custom Toggle Switch -->
+                            <div
+                                class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in mr-2"
+                            >
+                                <input
+                                    class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-outline border-2 border-outline-variant appearance-none cursor-pointer transition-transform duration-200 z-10 left-0"
+                                    id="toggle3"
+                                    name="toggle"
+                                    type="checkbox"
+                                />
+                                <label
+                                    class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer"
+                                    for="toggle3"
+                                ></label>
+                            </div>
+                            <button
+                                class="p-2 text-outline hover:text-primary transition-colors"
+                            >
+                                <span
+                                    class="material-symbols-outlined text-[18px]"
+                                    >edit</span
+                                >
+                            </button>
+                            <button
+                                class="p-2 text-outline hover:text-error transition-colors"
+                            >
+                                <span
+                                    class="material-symbols-outlined text-[18px]"
+                                    >delete</span
+                                >
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Empty State Add Button -->
+                    <button
+                        class="mt-sm flex items-center justify-center gap-2 p-md border-2 border-dashed border-outline-variant rounded text-outline hover:text-primary hover:border-primary hover:bg-surface-container-low transition-all duration-200 w-full group"
+                    >
+                        <span
+                            class="material-symbols-outlined group-hover:scale-110 transition-transform"
+                            >add_circle</span
+                        >
+                        <span class="font-label-lg">Add new slide</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+        <style>
+            /* Custom toggle switch CSS to handle checked state styling without relying purely on inline tailwind peer classes for simplicity in this rigid structure */
+            .toggle-checkbox:checked {
+                right: 0;
+                border-color: #f9ba7f;
+                background-color: #161310;
+            }
+            .toggle-checkbox:checked + .toggle-label {
+                background-color: #bd854f;
+            }
+            .toggle-checkbox:not(:checked) {
+                transform: translateX(0);
+            }
+        </style>
+    </body>
+</html>

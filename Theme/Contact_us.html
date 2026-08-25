@@ -1,0 +1,631 @@
+<!doctype html>
+
+<html class="dark" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Contact Us - Archifyr</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "inverse-surface": "#e9e1db",
+                            "secondary-container": "#66411b",
+                            "on-primary-fixed-variant": "#673d0c",
+                            "surface-container-lowest": "#100e0b",
+                            tertiary: "#d0c5b6",
+                            "primary-fixed": "#ffdcbf",
+                            "primary-fixed-dim": "#f9ba7f",
+                            "on-tertiary-fixed-variant": "#4d463a",
+                            "surface-tint": "#f9ba7f",
+                            "tertiary-container": "#998f82",
+                            "on-secondary-fixed": "#2d1600",
+                            "on-background": "#e9e1db",
+                            "secondary-fixed": "#ffdcbf",
+                            "surface-container": "#221f1c",
+                            "surface-container-high": "#2d2926",
+                            error: "#ffb4ab",
+                            "surface-container-highest": "#383430",
+                            "on-surface": "#e9e1db",
+                            "on-primary": "#4b2800",
+                            outline: "#9e8e81",
+                            "on-surface-variant": "#d5c3b6",
+                            "on-tertiary": "#363025",
+                            "on-tertiary-container": "#2f291f",
+                            "surface-dim": "#161310",
+                            "error-container": "#93000a",
+                            primary: "#f9ba7f",
+                            "primary-container": "#bd854f",
+                            "on-secondary": "#492905",
+                            "on-tertiary-fixed": "#201b11",
+                            "on-secondary-container": "#e2ae7f",
+                            "inverse-on-surface": "#34302c",
+                            "on-secondary-fixed-variant": "#633f19",
+                            "surface-variant": "#383430",
+                            "surface-container-low": "#1e1b18",
+                            "outline-variant": "#51443a",
+                            "tertiary-fixed-dim": "#d0c5b6",
+                            secondary: "#f1bc8c",
+                            "inverse-primary": "#835422",
+                            "secondary-fixed-dim": "#f1bc8c",
+                            "on-error-container": "#ffdad6",
+                            surface: "#161310",
+                            "on-error": "#690005",
+                            "on-primary-fixed": "#2d1600",
+                            background: "#161310",
+                            "surface-bright": "#3d3835",
+                            "on-primary-container": "#412200",
+                            "tertiary-fixed": "#ede1d1",
+                        },
+                        borderRadius: {
+                            DEFAULT: "0.125rem",
+                            lg: "0.25rem",
+                            xl: "0.5rem",
+                            full: "0.75rem",
+                        },
+                        spacing: {
+                            lg: "48px",
+                            base: "8px",
+                            "margin-desktop": "64px",
+                            sm: "12px",
+                            "margin-mobile": "16px",
+                            xl: "80px",
+                            gutter: "24px",
+                            xs: "4px",
+                            md: "24px",
+                        },
+                        fontFamily: {
+                            "label-lg": ["Manrope"],
+                            "headline-lg": ["Manrope"],
+                            "display-md": ["Manrope"],
+                            "display-lg": ["Manrope"],
+                            "body-md": ["Manrope"],
+                            "label-md": ["Manrope"],
+                            "headline-lg-mobile": ["Manrope"],
+                            "body-lg": ["Manrope"],
+                        },
+                        fontSize: {
+                            "label-lg": [
+                                "14px",
+                                {
+                                    lineHeight: "1.4",
+                                    letterSpacing: "0.05em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "headline-lg": [
+                                "32px",
+                                {
+                                    lineHeight: "1.3",
+                                    letterSpacing: "-0.02em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "display-md": [
+                                "48px",
+                                {
+                                    lineHeight: "1.2",
+                                    letterSpacing: "-0.03em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "display-lg": [
+                                "64px",
+                                {
+                                    lineHeight: "1.1",
+                                    letterSpacing: "-0.04em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "body-md": [
+                                "16px",
+                                {
+                                    lineHeight: "1.6",
+                                    letterSpacing: "0em",
+                                    fontWeight: "400",
+                                },
+                            ],
+                            "label-md": [
+                                "12px",
+                                {
+                                    lineHeight: "1.4",
+                                    letterSpacing: "0.02em",
+                                    fontWeight: "500",
+                                },
+                            ],
+                            "headline-lg-mobile": [
+                                "28px",
+                                {
+                                    lineHeight: "1.3",
+                                    letterSpacing: "-0.01em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "body-lg": [
+                                "18px",
+                                {
+                                    lineHeight: "1.6",
+                                    letterSpacing: "0em",
+                                    fontWeight: "400",
+                                },
+                            ],
+                        },
+                    },
+                },
+            };
+        </script>
+        <style>
+            body {
+                background-color: theme("colors.background");
+                color: theme("colors.on-background");
+            }
+            .input-field {
+                @apply w-full bg-surface-container border-b border-outline-variant text-on-surface focus:border-primary focus:ring-0 px-4 py-3 transition-colors duration-300 placeholder:text-on-surface-variant font-body-md text-body-md;
+            }
+            .btn-primary {
+                @apply bg-primary-container text-surface-dim font-label-lg text-label-lg px-8 py-4 uppercase tracking-wider hover:bg-opacity-90 transition-all duration-300 ease-in-out inline-flex items-center justify-center;
+                background-image: radial-gradient(
+                    circle at top left,
+                    rgba(255, 255, 255, 0.1),
+                    transparent 60%
+                );
+            }
+            .social-btn {
+                @apply w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary transition-all duration-300;
+            }
+            .icon-light {
+                font-variation-settings:
+                    "FILL" 0,
+                    "wght" 200,
+                    "GRAD" 0,
+                    "opsz" 24;
+            }
+        </style>
+    </head>
+    <body
+        class="antialiased min-h-screen flex flex-col selection:bg-primary-container selection:text-surface-dim"
+    >
+        <!-- Top Navigation -->
+        <header
+            class="w-full top-0 sticky bg-background dark:bg-background border-b border-outline-variant z-50"
+        >
+            <nav
+                class="flex justify-between items-center max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-base"
+            >
+                <a
+                    class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-primary tracking-tighter"
+                    href="#"
+                >
+                    Archifyr
+                </a>
+                <div class="hidden md:flex gap-8 items-center">
+                    <a
+                        class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-label-lg text-label-lg"
+                        href="#"
+                        >Portfolio</a
+                    >
+                    <a
+                        class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-label-lg text-label-lg"
+                        href="#"
+                        >Practice</a
+                    >
+                    <a
+                        class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-label-lg text-label-lg"
+                        href="#"
+                        >Services</a
+                    >
+                    <a
+                        class="text-primary font-bold border-b-2 border-primary pb-1 font-label-lg text-label-lg"
+                        href="#"
+                        >Contact</a
+                    >
+                </div>
+                <button class="hidden md:inline-flex btn-primary">
+                    Inquire
+                </button>
+                <button class="md:hidden text-primary">
+                    <span class="material-symbols-outlined icon-light"
+                        >menu</span
+                    >
+                </button>
+            </nav>
+        </header>
+        <!-- Main Content -->
+        <main class="flex-grow flex flex-col">
+            <!-- Hero Section -->
+            <section
+                class="max-w-[1440px] w-full mx-auto px-margin-mobile md:px-margin-desktop pt-xl pb-lg"
+            >
+                <div
+                    class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md mb-8"
+                >
+                    <a class="hover:text-primary transition-colors" href="#"
+                        >Home</a
+                    >
+                    <span class="material-symbols-outlined text-[14px]"
+                        >chevron_right</span
+                    >
+                    <span class="text-primary">Contact</span>
+                </div>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-[1px] bg-primary"></div>
+                    <span
+                        class="text-primary uppercase tracking-widest font-label-lg text-label-lg"
+                        >Get in touch</span
+                    >
+                </div>
+                <h1
+                    class="font-display-md text-display-md md:font-display-lg md:text-display-lg text-inverse-surface mb-6 max-w-3xl"
+                >
+                    Contact us
+                </h1>
+                <p
+                    class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl"
+                >
+                    Whether you have a specific project in mind or are simply
+                    exploring possibilities, our atelier is open for dialogue.
+                    We approach every inquiry with the same meticulous attention
+                    to detail as our designs.
+                </p>
+            </section>
+            <!-- Contact Content -->
+            <section
+                class="max-w-[1440px] w-full mx-auto px-margin-mobile md:px-margin-desktop py-lg grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-xl"
+            >
+                <!-- Left Column: Form -->
+                <div class="lg:col-span-7">
+                    <div
+                        class="bg-surface-container border border-outline-variant p-margin-mobile md:p-margin-desktop group transition-all duration-500 hover:border-primary hover:bg-surface-container-high relative overflow-hidden"
+                    >
+                        <!-- Subtle glow effect -->
+                        <div
+                            class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary-container/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                        ></div>
+                        <form class="flex flex-col gap-8 relative z-10">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="flex flex-col gap-2">
+                                    <label
+                                        class="font-label-md text-label-md text-inverse-surface"
+                                        for="name"
+                                        >Full Name</label
+                                    >
+                                    <input
+                                        class="input-field bg-transparent"
+                                        id="name"
+                                        placeholder="John Doe"
+                                        required=""
+                                        type="text"
+                                    />
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label
+                                        class="font-label-md text-label-md text-inverse-surface"
+                                        for="email"
+                                        >Email Address</label
+                                    >
+                                    <input
+                                        class="input-field bg-transparent"
+                                        id="email"
+                                        placeholder="john@example.com"
+                                        required=""
+                                        type="email"
+                                    />
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="flex flex-col gap-2">
+                                    <label
+                                        class="font-label-md text-label-md text-inverse-surface"
+                                        for="phone"
+                                        >Phone Number (Optional)</label
+                                    >
+                                    <input
+                                        class="input-field bg-transparent"
+                                        id="phone"
+                                        placeholder="+1 (555) 000-0000"
+                                        type="tel"
+                                    />
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label
+                                        class="font-label-md text-label-md text-inverse-surface"
+                                        for="service"
+                                        >Area of Interest</label
+                                    >
+                                    <select
+                                        class="input-field bg-transparent appearance-none"
+                                        id="service"
+                                    >
+                                        <option
+                                            disabled=""
+                                            selected=""
+                                            value=""
+                                        >
+                                            Select a service
+                                        </option>
+                                        <option value="architecture">
+                                            Architecture
+                                        </option>
+                                        <option value="interior">
+                                            Interior Design
+                                        </option>
+                                        <option value="consultation">
+                                            Consultation
+                                        </option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label
+                                    class="font-label-md text-label-md text-inverse-surface"
+                                    for="message"
+                                    >Project Details</label
+                                >
+                                <textarea
+                                    class="input-field bg-transparent resize-none"
+                                    id="message"
+                                    placeholder="Tell us about your vision..."
+                                    required=""
+                                    rows="5"
+                                ></textarea>
+                            </div>
+                            <div class="mt-4">
+                                <button
+                                    class="btn-primary w-full md:w-auto"
+                                    type="submit"
+                                >
+                                    Send message
+                                    <span
+                                        class="material-symbols-outlined ml-2 text-[18px]"
+                                        >arrow_forward</span
+                                    >
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Right Column: Info -->
+                <div class="lg:col-span-5 flex flex-col gap-12">
+                    <div class="flex flex-col gap-8">
+                        <!-- Address -->
+                        <div class="flex gap-6 items-start">
+                            <div class="text-primary mt-1">
+                                <span
+                                    class="material-symbols-outlined icon-light text-[28px]"
+                                    >location_on</span
+                                >
+                            </div>
+                            <div>
+                                <h3
+                                    class="font-label-lg text-label-lg text-primary mb-2 uppercase tracking-wider"
+                                >
+                                    Atelier
+                                </h3>
+                                <p
+                                    class="font-body-md text-body-md text-on-surface-variant"
+                                >
+                                    42 Shadowfax Lane, Suite 300<br />
+                                    Design District<br />
+                                    NY 10013, United States
+                                </p>
+                            </div>
+                        </div>
+                        <div class="w-full h-[1px] bg-outline-variant"></div>
+                        <!-- Contact Details -->
+                        <div class="flex gap-6 items-start">
+                            <div class="text-primary mt-1">
+                                <span
+                                    class="material-symbols-outlined icon-light text-[28px]"
+                                    >mail</span
+                                >
+                            </div>
+                            <div>
+                                <h3
+                                    class="font-label-lg text-label-lg text-primary mb-2 uppercase tracking-wider"
+                                >
+                                    Direct Connect
+                                </h3>
+                                <a
+                                    class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors block mb-1"
+                                    href="mailto:inquiries@nocturnalatelier.com"
+                                    >inquiries@nocturnalatelier.com</a
+                                >
+                                <a
+                                    class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors block"
+                                    href="tel:+12125550199"
+                                    >+1 (212) 555-0199</a
+                                >
+                            </div>
+                        </div>
+                        <div class="w-full h-[1px] bg-outline-variant"></div>
+                        <!-- Hours -->
+                        <div class="flex gap-6 items-start">
+                            <div class="text-primary mt-1">
+                                <span
+                                    class="material-symbols-outlined icon-light text-[28px]"
+                                    >schedule</span
+                                >
+                            </div>
+                            <div>
+                                <h3
+                                    class="font-label-lg text-label-lg text-primary mb-2 uppercase tracking-wider"
+                                >
+                                    Studio Hours
+                                </h3>
+                                <p
+                                    class="font-body-md text-body-md text-on-surface-variant"
+                                >
+                                    Monday – Friday: 10:00 AM – 7:00 PM<br />
+                                    By appointment only for the quiet hours.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Socials -->
+                    <div class="mt-auto pt-8">
+                        <h3
+                            class="font-label-md text-label-md text-on-surface-variant mb-4 uppercase tracking-widest"
+                        >
+                            Connect Digitally
+                        </h3>
+                        <div class="flex gap-4">
+                            <a
+                                aria-label="Instagram"
+                                class="social-btn"
+                                href="#"
+                            >
+                                <span
+                                    class="material-symbols-outlined icon-light"
+                                    >photo_camera</span
+                                >
+                            </a>
+                            <a
+                                aria-label="LinkedIn"
+                                class="social-btn"
+                                href="#"
+                            >
+                                <span
+                                    class="material-symbols-outlined icon-light"
+                                    >work</span
+                                >
+                            </a>
+                            <a aria-label="Behance" class="social-btn" href="#">
+                                <span
+                                    class="material-symbols-outlined icon-light"
+                                    >brush</span
+                                >
+                            </a>
+                            <a aria-label="X" class="social-btn" href="#">
+                                <span
+                                    class="material-symbols-outlined icon-light"
+                                    >alternate_email</span
+                                >
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Map Section -->
+            <section
+                class="max-w-[1440px] w-full mx-auto px-margin-mobile md:px-margin-desktop pb-xl"
+            >
+                <div
+                    class="w-full h-[400px] md:h-[500px] border border-outline-variant relative overflow-hidden group"
+                >
+                    <img
+                        class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700"
+                        data-alt="A dark-themed satellite map of New York City's design district, viewed from directly above. The map uses deep charcoal and rich espresso tones, highlighting streets with faint, glowing amber lines. A stark, minimalist aesthetic with cinematic moody lighting. High-resolution architectural context."
+                        data-location="New York City"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2T2_FLEIuB9h4SQ_rIDckigzyVpG0fl3r-4XX9NQhcug9NkTyyYwElBdyKwr7GdC119MU75-QNvDd1VoOe91-gbeB12mtH3J4Q4xi-oHoldRYPEFW4ls8JDAsYEz1njVWfmEzncU-40IZkok6ipdoq22NEiArYE7C-YMdb5bUXbQsjmK1yyfShfnINqxEwaPt8hr9wSmVZ_34KUUNop3m5KVqhjJrpazXjUS_7_sWpg1hn4Bxx8vf"
+                    />
+                    <!-- Overlay map pin -->
+                    <div
+                        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center"
+                    >
+                        <div
+                            class="w-12 h-12 bg-surface-container rounded-full border-2 border-primary flex items-center justify-center shadow-lg relative"
+                        >
+                            <div
+                                class="w-4 h-4 bg-primary rounded-full animate-pulse"
+                            ></div>
+                            <div
+                                class="absolute w-full h-full rounded-full border border-primary animate-ping opacity-75"
+                            ></div>
+                        </div>
+                        <div class="w-[2px] h-8 bg-primary"></div>
+                        <div
+                            class="bg-surface-container border border-outline-variant px-4 py-2 mt-2 shadow-xl"
+                        >
+                            <span
+                                class="font-label-md text-label-md text-inverse-surface tracking-wider uppercase"
+                                >Archifyr</span
+                            >
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- Footer -->
+        <footer
+            class="w-full mt-xl bg-surface-container dark:bg-surface-container border-t border-outline-variant"
+        >
+            <div
+                class="flex flex-col md:flex-row justify-between items-start gap-md max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-xl"
+            >
+                <div class="flex flex-col gap-4">
+                    <span
+                        class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary tracking-tighter font-bold"
+                    >
+                        Archifyr
+                    </span>
+                    <p
+                        class="font-body-md text-body-md text-on-surface-variant max-w-sm"
+                    >
+                        Crafting spaces that embrace the quiet hours. A premium
+                        architectural and interior design studio.
+                    </p>
+                    <p
+                        class="font-body-md text-body-md text-secondary dark:text-secondary mt-4"
+                    >
+                        © 2024 Archifyr. Crafted for the quiet hours.
+                    </p>
+                </div>
+                <div class="flex flex-col md:flex-row gap-8 md:gap-16">
+                    <div class="flex flex-col gap-4">
+                        <span
+                            class="font-label-lg text-label-lg text-inverse-surface uppercase tracking-wider mb-2"
+                            >Connect</span
+                        >
+                        <a
+                            class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300 opacity-80 hover:opacity-100"
+                            href="#"
+                            >Instagram</a
+                        >
+                        <a
+                            class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300 opacity-80 hover:opacity-100"
+                            href="#"
+                            >LinkedIn</a
+                        >
+                        <a
+                            class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300 opacity-80 hover:opacity-100"
+                            href="#"
+                            >Pinterest</a
+                        >
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <span
+                            class="font-label-lg text-label-lg text-inverse-surface uppercase tracking-wider mb-2"
+                            >Explore</span
+                        >
+                        <a
+                            class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300 opacity-80 hover:opacity-100"
+                            href="#"
+                            >Journal</a
+                        >
+                        <a
+                            class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300 opacity-80 hover:opacity-100"
+                            href="#"
+                            >Privacy Policy</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
