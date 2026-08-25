@@ -27,6 +27,26 @@ class ServiceService
         return $this->serviceRepository->find($id);
     }
 
+    public function forHome(): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->serviceRepository->forHome();
+    }
+
+    public function all(): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->serviceRepository->all();
+    }
+
+    /**
+     * @param  array<int, int>  $orderedIds
+     */
+    public function reorder(array $orderedIds): void
+    {
+        DB::transaction(function () use ($orderedIds): void {
+            $this->serviceRepository->reorder($orderedIds);
+        });
+    }
+
     /**
      * @param  array<string, mixed>  $data
      */

@@ -7,6 +7,7 @@ use App\Http\Resources\SiteSettingResource;
 use App\Models\Language;
 use App\Repositories\Contracts\LanguageRepositoryInterface;
 use App\Repositories\Contracts\SiteSettingRepositoryInterface;
+use App\Support\UiTranslations;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -35,20 +36,12 @@ class HandleInertiaRequests extends Middleware
     /**
      * Define the props that are shared by default.
      *
+     * Locale-dependent values are lazy so they resolve after SetLocale runs.
+     *
      * @return array<string, mixed>
      */
     public function share(Request $request): array
     {
-        $locale = $this->resolveCurrentLanguage();
-        $languages = $this->languageRepository->allActive();
-        $siteSettings = $this->siteSettingRepository->getSingleton();
-
-        if ($siteSettings && $locale) {
-            $siteSettings->load([
-                'translations' => fn ($query) => $query->where('language_id', $locale->id),
-            ]);
-        }
-
         return [
             ...parent::share($request),
             'auth' => [
@@ -58,11 +51,31 @@ class HandleInertiaRequests extends Middleware
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),
             ],
-            'locale' => $locale ? (new LanguageResource($locale))->resolve() : null,
-            'languages' => LanguageResource::collection($languages)->resolve(),
-            'siteSettings' => $siteSettings
-                ? (new SiteSettingResource($siteSettings))->resolve()
-                : null,
+            'locale' => function () {
+                $language = $this->resolveCurrentLanguage();
+
+                return $language
+                    ? (new LanguageResource($language))->resolve()
+                    : null;
+            },
+            'languages' => fn () => LanguageResource::collection(
+                $this->languageRepository->allActive(),
+            )->resolve(),
+            'siteSettings' => function () {
+                $locale = $this->resolveCurrentLanguage();
+                $siteSettings = $this->siteSettingRepository->getSingleton();
+
+                if ($siteSettings && $locale) {
+                    $siteSettings->load([
+                        'translations' => fn ($query) => $query->where('language_id', $locale->id),
+                    ]);
+                }
+
+                return $siteSettings
+                    ? (new SiteSettingResource($siteSettings))->resolve()
+                    : null;
+            },
+            'ui' => fn () => UiTranslations::forLocale(app()->getLocale()),
         ];
     }
 

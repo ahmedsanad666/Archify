@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from "vue";
-import { usePage } from "@inertiajs/vue3";
+import { computed } from 'vue'
+import { Link, usePage } from '@inertiajs/vue3'
 import {
     IconBrandInstagram,
     IconBrandX,
@@ -8,64 +8,60 @@ import {
     IconMail,
     IconMapPin,
     IconPhone,
-} from "@tabler/icons-vue";
+} from '@tabler/icons-vue'
+import { useLocale } from '@/Composables/useLocale'
+import { useUiTranslations } from '@/Composables/useUiTranslations'
 
-const page = usePage();
+const page = usePage()
+const { t } = useUiTranslations()
+const { locale, languages, localePath, switchLocale } = useLocale()
 
-const siteSettings = computed(() => page.props.siteSettings);
-const languages = computed(() => page.props.languages ?? []);
-const locale = computed(() => page.props.locale);
+const siteSettings = computed(() => page.props.siteSettings)
 
-const siteName = computed(() => siteSettings.value?.name ?? "Archify");
+const siteName = computed(() => siteSettings.value?.name ?? 'Archify')
 const slogan = computed(
     () =>
         siteSettings.value?.slogan ??
-        "Crafting spaces of silent authority and nocturnal elegance.",
-);
+        t('public.footer.default_slogan'),
+)
 
-const exploreLinks = [
-    { label: "Home", href: "/" },
-    { label: "About", href: "#" },
-    { label: "Services", href: "#" },
-    { label: "Projects", href: "#" },
-    { label: "Blog", href: "#" },
-    { label: "Contact", href: "#" },
-];
-
-const categoryPlaceholders = [
-    "Architectural Design",
-    "Interior Design",
-    "Landscape Design",
-];
+const exploreLinks = computed(() => [
+    { label: t('nav.home'), routeName: 'home' },
+    { label: t('nav.about'), routeName: 'about' },
+    { label: t('nav.team'), routeName: 'team' },
+    { label: t('nav.faq'), routeName: 'faqs.index' },
+    { label: t('nav.services'), href: '#' },
+    { label: t('nav.projects'), href: '#' },
+])
 
 const socialLinks = computed(() => {
-    const settings = siteSettings.value;
+    const settings = siteSettings.value
     if (!settings) {
-        return [];
+        return []
     }
 
     return [
         {
             href: settings.instagram_url,
-            label: "Instagram",
+            label: 'Instagram',
             icon: IconBrandInstagram,
         },
         {
             href: settings.youtube_url,
-            label: "YouTube",
+            label: 'YouTube',
             icon: IconBrandYoutube,
         },
         {
             href: settings.twitter_url,
-            label: "X",
+            label: 'X',
             icon: IconBrandX,
         },
-    ].filter((link) => Boolean(link.href));
-});
+    ].filter((link) => Boolean(link.href))
+})
 
 const onNewsletterSubmit = (event) => {
-    event.preventDefault();
-};
+    event.preventDefault()
+}
 </script>
 
 <template>
@@ -119,7 +115,10 @@ const onNewsletterSubmit = (event) => {
                         <span>{{ siteSettings.email }}</span>
                     </div>
                 </div>
-                <div v-if="socialLinks.length" class="flex gap-sm pt-sm">
+                <div
+                    v-if="socialLinks.length"
+                    class="flex gap-sm pt-sm"
+                >
                     <a
                         v-for="link in socialLinks"
                         :key="link.label"
@@ -142,70 +141,58 @@ const onNewsletterSubmit = (event) => {
                 <h3
                     class="text-label-lg uppercase tracking-[0.1em] text-primary"
                 >
-                    Explore
+                    {{ t('public.footer.explore') }}
                 </h3>
                 <nav class="flex flex-col gap-sm text-body-md text-on-surface">
-                    <a
+                    <template
                         v-for="link in exploreLinks"
                         :key="link.label"
-                        :href="link.href"
-                        class="group relative w-max py-1"
                     >
-                        {{ link.label }}
+                        <Link
+                            v-if="link.routeName"
+                            :href="localePath(link.routeName)"
+                            class="group relative w-max py-1"
+                        >
+                            {{ link.label }}
+                            <span
+                                class="absolute inset-x-0 bottom-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full"
+                            />
+                        </Link>
                         <span
-                            class="absolute inset-x-0 bottom-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full"
-                        />
-                    </a>
+                            v-else
+                            class="py-1 text-on-surface-variant/50"
+                        >
+                            {{ link.label }}
+                        </span>
+                    </template>
                 </nav>
             </div>
 
-            <div class="flex flex-col gap-md">
+            <div class="flex flex-col gap-md md:col-span-2">
                 <h3
                     class="text-label-lg uppercase tracking-[0.1em] text-primary"
                 >
-                    Categories
-                </h3>
-                <nav
-                    class="flex flex-col gap-sm text-body-md text-on-surface-variant"
-                >
-                    <a
-                        v-for="category in categoryPlaceholders"
-                        :key="category"
-                        href="#"
-                        class="py-1 transition-colors duration-300 hover:text-primary"
-                    >
-                        {{ category }}
-                    </a>
-                </nav>
-            </div>
-
-            <div class="flex flex-col gap-md">
-                <h3
-                    class="text-label-lg uppercase tracking-[0.1em] text-primary"
-                >
-                    Join Our Community
+                    {{ t('public.footer.community') }}
                 </h3>
                 <p class="text-body-md text-on-surface-variant">
-                    Subscribe to receive curated insights and exclusive updates
-                    from our Archifyr.
+                    {{ t('public.footer.newsletter_blurb') }}
                 </p>
                 <form
-                    class="mt-xs flex flex-col gap-sm"
+                    class="mt-xs flex max-w-md flex-col gap-sm"
                     @submit="onNewsletterSubmit"
                 >
                     <input
                         type="email"
-                        placeholder="Email Address"
+                        :placeholder="t('public.footer.email_placeholder')"
                         class="w-full rounded-md border border-outline-variant bg-surface-container px-4 py-3 text-body-md text-on-surface outline-none transition-colors duration-300 placeholder:text-on-surface-variant/50 focus:border-primary focus:ring-1 focus:ring-primary"
                     />
                     <button
                         type="submit"
                         class="group relative w-full overflow-hidden rounded-md bg-primary px-4 py-3 text-label-lg uppercase tracking-wide text-on-primary transition-colors duration-300 hover:bg-secondary hover:text-on-secondary"
                     >
-                        <span class="relative z-10">Subscribe</span>
-                        <div
-                            class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-white/0 to-white/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                        />
+                        <span class="relative z-10">{{
+                            t('public.footer.subscribe')
+                        }}</span>
                     </button>
                 </form>
             </div>
@@ -216,8 +203,8 @@ const onNewsletterSubmit = (event) => {
                 class="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-4 px-margin-mobile py-md md:flex-row md:gap-0 md:px-margin-desktop"
             >
                 <div class="text-body-md text-on-surface-variant">
-                    © {{ new Date().getFullYear() }} {{ siteName }}. All rights
-                    reserved.
+                    © {{ new Date().getFullYear() }} {{ siteName }}.
+                    {{ t('public.footer.rights') }}
                 </div>
                 <div
                     class="flex flex-wrap items-center justify-center gap-md text-label-lg uppercase tracking-wide text-on-surface-variant"
@@ -236,6 +223,7 @@ const onNewsletterSubmit = (event) => {
                                     'text-primary':
                                         locale?.code === language.code,
                                 }"
+                                @click="switchLocale(language.code)"
                             >
                                 {{ language.code }}
                             </button>
@@ -247,18 +235,6 @@ const onNewsletterSubmit = (event) => {
                             </span>
                         </template>
                     </div>
-                    <a
-                        href="#"
-                        class="transition-colors duration-300 hover:text-primary"
-                    >
-                        Privacy Policy
-                    </a>
-                    <a
-                        href="#"
-                        class="transition-colors duration-300 hover:text-primary"
-                    >
-                        Terms of Service
-                    </a>
                 </div>
             </div>
         </div>

@@ -59,6 +59,7 @@ I am a software engineer building this project to practice and to deepen my unde
   - Forgetting to handle loading and error states in Vue components
   - Hardcoding URLs instead of using named routes via Ziggy
   - Re-implementing the translation-tabs UI instead of reusing `<TranslationTabs>`
+  - Using a native `<select>` instead of shared `<AppSelect>`
 
 ### 5. Always Suggest Improvements
 - After completing a step, if there is a better or more elegant way to write it, add:
@@ -166,7 +167,8 @@ Every response must follow this structure:
 - Never mutate props directly — use emits or local reactive copies
 - Never use `any` type without a comment explaining why
 - Always clean up event listeners/intervals in `onUnmounted()`
-- Reuse shared components (`<TranslationTabs>`, `<MediaUploader>`, `<IconPicker>`) instead of rebuilding similar UI per page
+- Reuse shared components (`<TranslationTabs>`, `<MediaUploader>`, `<IconPicker>`, `<AppSelect>`) instead of rebuilding similar UI per page
+- Always use `<AppSelect>` for dropdowns — never native `<select>` (see `system-design-rule.mdc` Dropdowns section)
 
 ### Tailwind CSS
 - Always use the dark cork design tokens from the project brief (colors, spacing, radius)

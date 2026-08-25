@@ -36,6 +36,19 @@ class ProjectRepository implements ProjectRepositoryInterface
             ->first();
     }
 
+    public function latestForHome(int $limit = 6): Collection
+    {
+        return Project::query()
+            ->with([
+                'translations.language',
+                'category.translations.language',
+                'media',
+            ])
+            ->latest()
+            ->limit($limit)
+            ->get();
+    }
+
     public function paginate(?int $categoryId = null, int $perPage = 15): LengthAwarePaginator
     {
         return Project::query()

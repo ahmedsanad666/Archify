@@ -17,6 +17,11 @@ class AboutPageService
         private readonly TranslationDispatchService $translationDispatchService,
     ) {}
 
+    public function get(): AboutPage
+    {
+        return $this->getForAdmin();
+    }
+
     public function getForAdmin(): AboutPage
     {
         $about = $this->aboutPageRepository->getSingleton();

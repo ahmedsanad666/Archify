@@ -17,10 +17,12 @@ import {
     IconPhoto,
     IconQuote,
     IconSettings,
+    IconSparkles,
     IconTags,
     IconUsersGroup,
     IconWorld,
 } from "@tabler/icons-vue";
+import { useUiTranslations } from "@/Composables/useUiTranslations";
 
 defineProps({
     mobileOpen: {
@@ -32,81 +34,106 @@ defineProps({
 defineEmits(["close-mobile"]);
 
 const page = usePage();
+const { t } = useUiTranslations();
 const collapsed = useLocalStorage("admin-sidebar-collapsed", false);
 
 const siteName = computed(() => page.props.siteSettings?.name ?? "Archifyr");
 
-const navSections = [
+const navSections = computed(() => [
     {
-        label: "Overview",
+        label: t("admin.sections.overview"),
         items: [
             {
-                label: "Dashboard",
+                label: t("admin.menu.dashboard"),
                 href: route("admin.dashboard"),
                 icon: IconLayoutDashboard,
                 routeName: "admin.dashboard",
             },
-            { label: "Leads", href: "#", icon: IconMessages },
+            { label: t("admin.menu.leads"), href: "#", icon: IconMessages },
         ],
     },
     {
-        label: "Content",
+        label: t("admin.sections.content"),
         items: [
             {
-                label: "Home Page",
+                label: t("admin.menu.home_page"),
                 href: route("admin.sliders.index"),
                 icon: IconHome,
                 routeName: "admin.sliders.*",
             },
             {
-                label: "About",
+                label: t("admin.menu.about"),
                 href: route("admin.about.edit"),
                 icon: IconInfoCircle,
                 routeName: "admin.about.*",
             },
             {
-                label: "Services",
+                label: t("admin.menu.services"),
                 href: route("admin.services.index"),
                 icon: IconCategory,
                 routeName: "admin.services.*",
             },
-            { label: "Blog", href: "#", icon: IconArticle },
-            { label: "Team", href: "#", icon: IconUsersGroup },
+            { label: t("admin.menu.blog"), href: "#", icon: IconArticle },
+            {
+                label: t("admin.menu.team"),
+                href: route("admin.team-members.index"),
+                icon: IconUsersGroup,
+                routeName: "admin.team-members.*",
+            },
         ],
     },
     {
-        label: "Projects",
+        label: t("admin.sections.projects"),
         items: [
             {
-                label: "Categories",
+                label: t("admin.menu.categories"),
                 href: route("admin.project-categories.index"),
                 icon: IconTags,
                 routeName: "admin.project-categories.*",
             },
-            { label: "Projects", href: route("admin.projects.index"), icon: IconBuildingArch, routeName: "admin.projects.*" },
-        ],
-    },
-    {
-        label: "Marketing",
-        items: [
-            { label: "Testimonials", href: "#", icon: IconQuote },
-            { label: "FAQ", href: "#", icon: IconHelp },
-        ],
-    },
-    {
-        label: "System",
-        items: [
-            { label: "Media", href: "#", icon: IconPhoto },
-            { label: "Translations", href: "#", icon: IconWorld },
             {
-                label: "Settings",
+                label: t("admin.menu.concepts"),
+                href: route("admin.concepts.index"),
+                icon: IconSparkles,
+                routeName: "admin.concepts.*",
+            },
+            {
+                label: t("admin.menu.projects"),
+                href: route("admin.projects.index"),
+                icon: IconBuildingArch,
+                routeName: "admin.projects.*",
+            },
+        ],
+    },
+    {
+        label: t("admin.sections.marketing"),
+        items: [
+            {
+                label: t("admin.menu.testimonials"),
+                href: "#",
+                icon: IconQuote,
+            },
+            { label: t("admin.menu.faq"), href: "#", icon: IconHelp },
+        ],
+    },
+    {
+        label: t("admin.sections.system"),
+        items: [
+            { label: t("admin.menu.media"), href: "#", icon: IconPhoto },
+            {
+                label: t("admin.menu.translations"),
+                href: "#",
+                icon: IconWorld,
+            },
+            {
+                label: t("admin.menu.settings"),
                 href: route("admin.settings.edit"),
                 icon: IconSettings,
                 routeName: "admin.settings.*",
             },
         ],
     },
-];
+]);
 
 const isActive = (item) => {
     if (!item.routeName) {
@@ -155,7 +182,7 @@ const logout = () => {
                     v-if="!collapsed"
                     class="mt-xs text-label-md uppercase tracking-wide text-on-surface-variant"
                 >
-                    Design CMS
+                    
                 </p>
             </div>
             <button
@@ -247,16 +274,12 @@ const logout = () => {
                 class="absolute inset-y-0 start-0 flex h-full w-64 flex-col border-e border-outline-variant bg-surface py-md px-md"
             >
                 <div class="mb-md border-b border-outline-variant pb-md">
-                    <h1
-                        class="text-headline-lg tracking-tighter text-on-surface"
+                    <!-- <h3
+                        class="text-headline-md tracking-tighter text-on-surface"
                     >
-                        {{ siteName }}
-                    </h1>
-                    <p
-                        class="mt-xs text-label-md uppercase tracking-wide text-on-surface-variant"
-                    >
-                        Design CMS
-                    </p>
+                        {{ siteName }} s
+                    </h3>
+                     -->
                 </div>
 
                 <nav class="flex flex-grow flex-col gap-md overflow-y-auto">
@@ -314,7 +337,7 @@ const logout = () => {
                     @click="logout"
                 >
                     <IconLogout :size="20" stroke-width="1.5" />
-                    Logout
+                    {{ t("admin.menu.logout") }}
                 </button>
             </aside>
         </div>

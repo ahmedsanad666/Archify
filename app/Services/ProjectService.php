@@ -33,6 +33,11 @@ class ProjectService
         return $this->projectRepository->find($id);
     }
 
+    public function latestForHome(int $limit = 6): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->projectRepository->latestForHome($limit);
+    }
+
     /**
      * @param  array<string, mixed>  $data
      */

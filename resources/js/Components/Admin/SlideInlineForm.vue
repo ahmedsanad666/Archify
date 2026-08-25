@@ -3,7 +3,7 @@ import { ref, watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import MediaUploader from '@/Components/Admin/MediaUploader.vue';
 import TranslationTabs from '@/Components/Admin/TranslationTabs.vue';
-import { IconTrash } from '@tabler/icons-vue';
+import { IconCheck } from '@tabler/icons-vue';
 
 const props = defineProps({
     slider: {
@@ -28,7 +28,7 @@ const props = defineProps({
     },
 });
 
-const emit = defineEmits(['cancel', 'delete']);
+const emit = defineEmits(['cancel', 'saved']);
 
 const buildTranslations = () => {
     const bag = {};
@@ -69,27 +69,36 @@ watch(
 const inputClass =
     'w-full rounded-md border border-outline bg-surface-container px-sm py-sm text-body-md text-on-surface outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary/20';
 
+const withFormPayload = (data) => ({
+    ...data,
+    is_active: data.is_active ? '1' : '0',
+    auto_translate: data.auto_translate ? '1' : '0',
+    remove_image: data.remove_image ? '1' : '0',
+});
+
+const submitOptions = {
+    forceFormData: true,
+    preserveScroll: true,
+    onSuccess: () => emit('saved'),
+};
+
 const submit = () => {
     form.source_locale = sourceLocale.value;
     form.auto_translate = autoTranslate.value;
 
     if (props.isDraft) {
-        form.post(route('admin.sliders.store'), {
-            forceFormData: true,
-            preserveScroll: true,
-        });
+        form
+            .transform((data) => withFormPayload(data))
+            .post(route('admin.sliders.store'), submitOptions);
         return;
     }
 
     form
         .transform((data) => ({
-            ...data,
+            ...withFormPayload(data),
             _method: 'put',
         }))
-        .post(route('admin.sliders.update', props.slider.id), {
-            forceFormData: true,
-            preserveScroll: true,
-        });
+        .post(route('admin.sliders.update', props.slider.id), submitOptions);
 };
 </script>
 
@@ -151,27 +160,29 @@ const submit = () => {
         <div
             class="flex flex-wrap items-center justify-between gap-md border-t border-outline-variant pt-md"
         >
-            <label class="flex items-center gap-sm">
+            <label class="flex cursor-pointer items-center gap-sm">
                 <span class="text-label-md uppercase tracking-wide text-on-surface">
                     Active
                 </span>
-                <input
-                    v-model="form.is_active"
-                    type="checkbox"
-                    class="rounded-sm border-outline-variant text-primary focus:ring-primary"
-                />
+                <span
+                    class="relative inline-flex size-4 shrink-0 items-center justify-center"
+                >
+                    <input
+                        type="checkbox"
+                        class="size-4 shrink-0 cursor-pointer appearance-none rounded-[3px] border-2 border-outline bg-surface-container transition-colors checked:border-primary checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        :checked="form.is_active"
+                        @change="form.is_active = $event.target.checked"
+                    />
+                    <IconCheck
+                        v-if="form.is_active"
+                        class="pointer-events-none absolute text-on-primary"
+                        :size="11"
+                        stroke-width="3"
+                    />
+                </span>
             </label>
 
             <div class="flex flex-wrap items-center gap-sm">
-                <button
-                    v-if="!isDraft"
-                    type="button"
-                    class="inline-flex items-center gap-xs rounded-md px-sm py-sm text-label-md uppercase tracking-wide text-on-surface-variant transition-colors hover:text-error"
-                    @click="emit('delete')"
-                >
-                    <IconTrash :size="16" stroke-width="1.5" />
-                    Delete
-                </button>
                 <button
                     type="button"
                     class="rounded-md border border-outline-variant px-md py-sm text-label-md uppercase tracking-wide text-on-surface transition-colors hover:bg-surface-container-high"

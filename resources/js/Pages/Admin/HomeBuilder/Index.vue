@@ -1,7 +1,7 @@
 <script setup>
 import { computed, nextTick, ref, watch } from 'vue';
 import { Head, router, usePage } from '@inertiajs/vue3';
-import { useSortable } from '@vueuse/integrations/useSortable';
+import { moveArrayElement, useSortable } from '@vueuse/integrations/useSortable';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import SlideInlineForm from '@/Components/Admin/SlideInlineForm.vue';
 import {
@@ -9,6 +9,7 @@ import {
     IconChevronUp,
     IconGripVertical,
     IconPlus,
+    IconTrash,
 } from '@tabler/icons-vue';
 
 const props = defineProps({
@@ -67,22 +68,25 @@ watch(
 useSortable(listRef, items, {
     handle: '.drag-handle',
     animation: 150,
-    onUpdate: () => {
-        const ids = items.value.map((s) => s.id).filter(Boolean);
-        if (!ids.length || reordering.value) {
-            return;
-        }
-        reordering.value = true;
-        router.post(
-            route('admin.sliders.reorder'),
-            { ids },
-            {
-                preserveScroll: true,
-                onFinish: () => {
-                    reordering.value = false;
+    onUpdate: (e) => {
+        moveArrayElement(items, e.oldIndex, e.newIndex, e);
+        nextTick(() => {
+            const ids = items.value.map((s) => s.id).filter(Boolean);
+            if (!ids.length || reordering.value) {
+                return;
+            }
+            reordering.value = true;
+            router.post(
+                route('admin.sliders.reorder'),
+                { ids },
+                {
+                    preserveScroll: true,
+                    onFinish: () => {
+                        reordering.value = false;
+                    },
                 },
-            },
-        );
+            );
+        });
     },
 });
 
@@ -121,6 +125,11 @@ const cancelExpand = () => {
         draft.value = null;
     }
     expandedId.value = null;
+};
+
+const onSlideSaved = () => {
+    expandedId.value = null;
+    draft.value = null;
 };
 
 const destroy = (id) => {
@@ -200,6 +209,7 @@ const destroy = (id) => {
                     :auto-translate-enabled="autoTranslateEnabled"
                     is-draft
                     @cancel="cancelExpand"
+                    @saved="onSlideSaved"
                 />
             </div>
 
@@ -265,26 +275,40 @@ const destroy = (id) => {
                                 </span>
                             </div>
                         </div>
-                        <button
-                            type="button"
-                            class="rounded-md p-2 text-on-surface-variant transition-colors hover:bg-surface-container-highest hover:text-primary"
-                            :class="{
-                                'bg-surface-variant text-primary':
-                                    expandedId === slider.id,
-                            }"
-                            @click.stop="toggleExpand(slider.id)"
-                        >
-                            <IconChevronUp
-                                v-if="expandedId === slider.id"
-                                :size="18"
-                                stroke-width="1.5"
-                            />
-                            <IconChevronDown
-                                v-else
-                                :size="18"
-                                stroke-width="1.5"
-                            />
-                        </button>
+                        <div class="flex items-center gap-xs">
+                            <button
+                                type="button"
+                                class="rounded-md p-2 text-on-surface-variant transition-colors hover:text-error"
+                                aria-label="Delete slide"
+                                @click.stop="destroy(slider.id)"
+                            >
+                                <IconTrash
+                                    :size="18"
+                                    stroke-width="1.5"
+                                />
+                            </button>
+                            <button
+                                type="button"
+                                class="rounded-md p-2 text-on-surface-variant transition-colors hover:bg-surface-container-highest hover:text-primary"
+                                :class="{
+                                    'bg-surface-variant text-primary':
+                                        expandedId === slider.id,
+                                }"
+                                aria-label="Expand slide"
+                                @click.stop="toggleExpand(slider.id)"
+                            >
+                                <IconChevronUp
+                                    v-if="expandedId === slider.id"
+                                    :size="18"
+                                    stroke-width="1.5"
+                                />
+                                <IconChevronDown
+                                    v-else
+                                    :size="18"
+                                    stroke-width="1.5"
+                                />
+                            </button>
+                        </div>
                     </div>
 
                     <SlideInlineForm
@@ -294,7 +318,7 @@ const destroy = (id) => {
                         :default-locale="defaultLocale"
                         :auto-translate-enabled="autoTranslateEnabled"
                         @cancel="cancelExpand"
-                        @delete="destroy(slider.id)"
+                        @saved="onSlideSaved"
                     />
                 </div>
             </div>

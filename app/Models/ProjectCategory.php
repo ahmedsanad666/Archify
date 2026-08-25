@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\Scopes\OrderedScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProjectCategory extends Model
 {
+    /** @use HasFactory<\Database\Factories\ProjectCategoryFactory> */
+    use HasFactory;
     protected $fillable = [
         'order',
     ];

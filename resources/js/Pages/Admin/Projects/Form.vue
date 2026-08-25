@@ -6,6 +6,7 @@ import GalleryUploader from "@/Components/Admin/GalleryUploader.vue";
 import MediaUploader from "@/Components/Admin/MediaUploader.vue";
 import RichTextEditor from "@/Components/Admin/RichTextEditor.vue";
 import TranslationTabs from "@/Components/Admin/TranslationTabs.vue";
+import AppSelect from "@/Components/Shared/AppSelect.vue";
 
 const props = defineProps({
     project: {
@@ -34,6 +35,13 @@ const defaultLocale = computed(
 const isEdit = computed(() => Boolean(props.project?.id));
 const pageTitle = computed(() =>
     isEdit.value ? "Edit project" : "New project",
+);
+
+const categoryOptions = computed(() =>
+    props.categories.map((category) => ({
+        value: category.id,
+        label: category.name || `Category #${category.id}`,
+    })),
 );
 
 const buildTranslations = () => {
@@ -497,29 +505,12 @@ const submit = () => {
                         </h2>
                         <div class="grid grid-cols-1 gap-md sm:grid-cols-2">
                             <div class="flex flex-col gap-xs">
-                                <label
-                                    class="text-label-md uppercase tracking-wide text-on-surface-variant"
-                                >
-                                    Category
-                                </label>
-                                <select
+                                <AppSelect
                                     v-model="form.project_category_id"
-                                    :class="inputClass"
-                                >
-                                    <option value="" disabled>
-                                        Select category
-                                    </option>
-                                    <option
-                                        v-for="category in categories"
-                                        :key="category.id"
-                                        :value="category.id"
-                                    >
-                                        {{
-                                            category.name ||
-                                            `Category #${category.id}`
-                                        }}
-                                    </option>
-                                </select>
+                                    :options="categoryOptions"
+                                    label="Category"
+                                    placeholder="Select category"
+                                />
                                 <p
                                     v-if="form.errors.project_category_id"
                                     class="text-label-md text-error"

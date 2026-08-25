@@ -1,14 +1,18 @@
 <script setup>
-import { computed, ref, watch } from 'vue';
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue';
-import { IconLanguage } from '@tabler/icons-vue';
+import { computed, ref, watch } from "vue";
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
+import { IconCheck, IconLanguage } from "@tabler/icons-vue";
+import AppSelect from "@/Components/Shared/AppSelect.vue";
+import { useUiTranslations } from "@/Composables/useUiTranslations";
+
+const { t } = useUiTranslations();
 
 const props = defineProps({
     languages: {
         type: Array,
         required: true,
     },
-    /** Global site setting — when false, auto-translate checkbox is forced off/disabled */
+    /** Global site setting — used for soft notice only; form checkbox stays usable */
     autoTranslateEnabled: {
         type: Boolean,
         default: false,
@@ -30,14 +34,21 @@ const props = defineProps({
 });
 
 const emit = defineEmits([
-    'update:sourceLocale',
-    'update:modelValue',
-    'update:autoTranslate',
+    "update:sourceLocale",
+    "update:modelValue",
+    "update:autoTranslate",
 ]);
 
 const selectedIndex = ref(0);
 
 const orderedLanguages = computed(() => props.languages ?? []);
+
+const localeOptions = computed(() =>
+    orderedLanguages.value.map((language) => ({
+        value: language.code,
+        label: `${language.name} (${language.code.toUpperCase()})`,
+    })),
+);
 
 watch(
     () => props.sourceLocale,
@@ -50,24 +61,12 @@ watch(
     { immediate: true },
 );
 
-watch(
-    () => props.autoTranslateEnabled,
-    (enabled) => {
-        if (!enabled && props.autoTranslate) {
-            emit('update:autoTranslate', false);
-        }
-    },
-);
-
-const setSourceLocale = (event) => {
-    emit('update:sourceLocale', event.target.value);
+const setSourceLocale = (code) => {
+    emit("update:sourceLocale", code);
 };
 
 const setAutoTranslate = (event) => {
-    if (!props.autoTranslateEnabled) {
-        return;
-    }
-    emit('update:autoTranslate', event.target.checked);
+    emit("update:autoTranslate", event.target.checked);
 };
 
 const statusFor = (code) => {
@@ -76,84 +75,73 @@ const statusFor = (code) => {
 
 const statusClass = (status) => {
     switch (status) {
-        case 'translated':
-            return 'bg-primary/15 text-primary';
-        case 'pending':
-            return 'bg-secondary/15 text-secondary';
-        case 'failed':
-            return 'bg-error/15 text-error';
-        case 'manual':
+        case "translated":
+            return "bg-primary/15 text-primary";
+        case "pending":
+            return "bg-secondary/15 text-secondary";
+        case "failed":
+            return "bg-error/15 text-error";
+        case "manual":
         default:
-            return 'bg-surface-container-high text-on-surface-variant';
+            return "bg-surface-container-high text-on-surface-variant";
     }
 };
 </script>
 
 <template>
-    <div class="flex flex-col gap-md">
+    <div class="flex flex-col gap-sm text-start">
         <div
-            class="flex flex-col gap-md rounded-lg border border-outline-variant bg-surface-container p-md md:flex-row md:items-end md:justify-between"
+            class="flex flex-col gap-sm rounded-lg border border-outline-variant bg-surface-container p-sm md:flex-row md:items-end md:justify-between"
         >
-            <div class="flex flex-col gap-xs">
-                <label
-                    for="source-locale"
-                    class="text-label-md uppercase tracking-wide text-on-surface"
-                >
-                    Source locale
-                </label>
-                <div class="relative">
-                    <IconLanguage
-                        class="pointer-events-none absolute start-sm top-1/2 -translate-y-1/2 text-on-surface-variant"
-                        :size="18"
-                        stroke-width="1.5"
-                    />
-                    <select
-                        id="source-locale"
-                        :value="sourceLocale"
-                        class="w-full rounded-md border border-outline bg-surface-container py-sm pe-sm ps-9 text-body-md text-on-surface outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary/20 md:min-w-[200px]"
-                        @change="setSourceLocale"
-                    >
-                        <option
-                            v-for="language in orderedLanguages"
-                            :key="language.code"
-                            :value="language.code"
-                        >
-                            {{ language.name }} ({{ language.code.toUpperCase() }})
-                        </option>
-                    </select>
-                </div>
+            <div class="min-w-0 flex-1 md:max-w-xs">
+                <AppSelect
+                    id="source-locale"
+                    :model-value="sourceLocale"
+                    :options="localeOptions"
+                    :label="t('common.source_locale')"
+                    :leading-icon="IconLanguage"
+                    @update:model-value="setSourceLocale"
+                />
             </div>
 
             <label
-                class="flex cursor-pointer items-center gap-sm"
-                :class="{ 'cursor-not-allowed opacity-50': !autoTranslateEnabled }"
+                class="flex cursor-pointer items-center gap-sm pb-0.5 md:ms-auto"
             >
-                <input
-                    type="checkbox"
-                    class="rounded-sm border-outline-variant bg-surface-container-highest text-primary focus:ring-primary focus:ring-offset-surface"
-                    :checked="autoTranslate && autoTranslateEnabled"
-                    :disabled="!autoTranslateEnabled"
-                    @change="setAutoTranslate"
-                />
                 <span
-                    class="text-label-md uppercase tracking-wide text-on-surface-variant"
+                    class="relative inline-flex size-4 shrink-0 items-center justify-center"
                 >
-                    Auto-translate other locales
+                    <input
+                        type="checkbox"
+                        class="size-4 shrink-0 cursor-pointer appearance-none rounded-[3px] border-2 border-outline bg-surface-container transition-colors checked:border-primary checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        :checked="autoTranslate"
+                        @change="setAutoTranslate"
+                    />
+                    <IconCheck
+                        v-if="autoTranslate"
+                        class="pointer-events-none absolute text-on-primary"
+                        :size="11"
+                        stroke-width="3"
+                    />
+                </span>
+                <span class="text-label-md text-on-surface-variant">
+                    {{ t("common.auto_translate") }}
                 </span>
             </label>
         </div>
 
         <p
             v-if="!autoTranslateEnabled"
-            class="text-label-md text-on-surface-variant"
+            class="text-start text-label-md leading-snug text-on-surface-variant"
         >
-            Auto-translate is disabled in site settings. Fill every locale tab
-            manually before saving.
+            {{ t("common.auto_translate_notice") }}
         </p>
 
-        <TabGroup :selected-index="selectedIndex" @change="selectedIndex = $event">
+        <TabGroup
+            :selected-index="selectedIndex"
+            @change="selectedIndex = $event"
+        >
             <TabList
-                class="flex flex-wrap gap-xs border-b border-outline-variant pb-sm"
+                class="flex flex-wrap justify-start gap-xs border-b border-outline-variant pb-sm"
             >
                 <Tab
                     v-for="language in orderedLanguages"
@@ -184,12 +172,11 @@ const statusClass = (status) => {
                 </Tab>
             </TabList>
 
-            <TabPanels class="mt-md">
+            <TabPanels class="mt-sm">
                 <TabPanel
                     v-for="language in orderedLanguages"
                     :key="`panel-${language.code}`"
                     class="focus:outline-none"
-                    :dir="language.direction ?? 'ltr'"
                 >
                     <slot
                         :locale="language.code"

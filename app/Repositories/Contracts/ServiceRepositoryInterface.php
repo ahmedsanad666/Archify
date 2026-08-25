@@ -12,6 +12,8 @@ interface ServiceRepositoryInterface
 
     public function all(): Collection;
 
+    public function forHome(): Collection;
+
     public function paginate(int $perPage = 15): LengthAwarePaginator;
 
     public function create(array $data): Service;
@@ -19,4 +21,9 @@ interface ServiceRepositoryInterface
     public function update(Service $service, array $data): Service;
 
     public function delete(Service $service): void;
+
+    /**
+     * @param  array<int, int>  $orderedIds
+     */
+    public function reorder(array $orderedIds): void;
 }

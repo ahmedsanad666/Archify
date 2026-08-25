@@ -1,0 +1,123 @@
+{
+    "common": {
+        "auto_translate": "Otomatik çeviri",
+        "source_locale": "Kaynak dil",
+        "auto_translate_notice": "Stüdyo tercihi Site Ayarları’nda kapalı — bu kayıtta yine de çeviriyi açabilirsiniz.",
+        "save": "Kaydet",
+        "cancel": "İptal",
+        "delete": "Sil",
+        "edit": "Düzenle",
+        "create": "Oluştur",
+        "back": "Geri",
+        "search": "Ara",
+        "loading": "Yükleniyor…",
+        "actions": "İşlemler",
+        "confirm": "Onayla",
+        "yes": "Evet",
+        "no": "Hayır",
+        "learn_more": "Devamını oku",
+        "view_all": "Tümünü gör",
+        "empty": "Henüz içerik yok."
+    },
+    "nav": {
+        "home": "Ana Sayfa",
+        "about": "Hakkımızda",
+        "services": "Hizmetler",
+        "projects": "Projeler",
+        "blog": "Dergi",
+        "team": "Ekip",
+        "faq": "SSS",
+        "contact": "İletişim",
+        "language": "Dil"
+    },
+    "public": {
+        "footer": {
+            "explore": "Keşfet",
+            "community": "Topluluğumuza Katılın",
+            "newsletter_blurb": "Stüdyomuzdan özenle seçilmiş içgörüler ve özel güncellemeler için abone olun.",
+            "email_placeholder": "E-posta Adresi",
+            "subscribe": "Abone Ol",
+            "rights": "Tüm hakları saklıdır.",
+            "default_slogan": "Sessiz otorite ve gece zarafetiyle mekânlar tasarlıyoruz."
+        },
+        "home": {
+            "services_title": "Uzmanlığımız",
+            "services_subtitle": "Seçkin müşteriler için kapsamlı mimari ve iç mekân tasarım hizmetleri.",
+            "projects_title": "Seçilmiş İşler",
+            "projects_subtitle": "Malzeme, ışık ve sessiz hassasiyetle şekillenen mekânlardan bir kesit.",
+            "testimonials_title": "Müşteri Sesleri",
+            "cta_title": "Aklınızda bir proje mi var?",
+            "cta_body": "Vizyonunuzu hassasiyet ve tavizsiz kaliteyle hayata geçirelim.",
+            "cta_button": "İletişim",
+            "scroll": "Kaydır",
+            "empty_hero": "Stüdyomuza hoş geldiniz."
+        },
+        "about": {
+            "eyebrow": "Tasarım Felsefesi",
+            "values_title": "Temel Değerler",
+            "empty": "Hikâyemiz yazılmaya devam ediyor."
+        },
+        "team": {
+            "title": "Ekibimiz",
+            "subtitle": "Mekânları özen ve ustalıkla şekillendiren insanlar.",
+            "empty": "Ekip profilleri yakında burada olacak."
+        },
+        "faq": {
+            "title": "Sıkça Sorulan Sorular",
+            "subtitle": "Stüdyomuzla çalışmaya dair yaygın soruların yanıtları.",
+            "empty": "SSS içeriği yakında eklenecek."
+        }
+    },
+    "admin": {
+        "sections": {
+            "overview": "Genel Bakış",
+            "content": "İçerik",
+            "projects": "Projeler",
+            "marketing": "Pazarlama",
+            "system": "Sistem"
+        },
+        "menu": {
+            "dashboard": "Panel",
+            "leads": "Talepler",
+            "home_page": "Ana Sayfa",
+            "about": "Hakkımızda",
+            "services": "Hizmetler",
+            "blog": "Blog",
+            "team": "Ekip",
+            "categories": "Kategoriler",
+            "concepts": "Konseptler",
+            "projects": "Projeler",
+            "testimonials": "Referanslar",
+            "faq": "SSS",
+            "media": "Medya",
+            "translations": "Çeviriler",
+            "settings": "Ayarlar",
+            "logout": "Çıkış"
+        },
+        "team": {
+            "title": "Ekip",
+            "subtitle": "Web sitenizde gösterilen ekip üyelerini yönetin",
+            "add": "Ekip üyesi ekle",
+            "edit": "Ekip üyesini düzenle",
+            "search_placeholder": "Ekipte ara...",
+            "col_name": "Ad",
+            "col_role": "Rol",
+            "col_order": "Sıra",
+            "col_actions": "İşlemler",
+            "empty": "Henüz ekip üyesi yok.",
+            "confirm_delete": "Bu ekip üyesi silinsin mi?",
+            "name": "Ad",
+            "role": "Rol / Ünvan",
+            "avatar": "Fotoğraf",
+            "change_photo": "Fotoğrafı değiştir",
+            "social_links": "Sosyal bağlantılar",
+            "linkedin": "LinkedIn URL",
+            "behance": "Behance URL",
+            "instagram": "Instagram URL",
+            "display_order": "Görüntüleme sırası",
+            "cancel": "İptal",
+            "save": "Üyeyi kaydet",
+            "saving": "Kaydediliyor..."
+        }
+    }
+}

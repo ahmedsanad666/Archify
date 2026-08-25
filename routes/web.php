@@ -1,18 +1,38 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+/*
+|--------------------------------------------------------------------------
+| Public locale-aware routes
+|--------------------------------------------------------------------------
+| Named routes are unprefixed (default language). Prefixed /tr|/ar duplicates
+| are unnamed; useLocale() prepends the locale segment when needed.
+*/
+
+$publicRoutes = function (): void {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/about', [AboutController::class, 'index'])->name('about');
+    Route::get('/team', [TeamController::class, 'index'])->name('team');
+    Route::get('/faq', [FaqController::class, 'index'])->name('faqs.index');
+};
+
+Route::middleware('locale')->group($publicRoutes);
+
+Route::prefix('{locale}')
+    ->where(['locale' => 'tr|ar'])
+    ->middleware('locale')
+    ->group(function () {
+        Route::get('/', [HomeController::class, 'index']);
+        Route::get('/about', [AboutController::class, 'index']);
+        Route::get('/team', [TeamController::class, 'index']);
+        Route::get('/faq', [FaqController::class, 'index']);
+    });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

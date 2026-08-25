@@ -1,7 +1,6 @@
 <script setup>
 import { computed } from 'vue';
 import { router, usePage } from '@inertiajs/vue3';
-import { useLocalStorage } from '@vueuse/core';
 import {
     IconBell,
     IconLogout,
@@ -18,7 +17,6 @@ defineProps({
 defineEmits(['toggle-mobile']);
 
 const page = usePage();
-const preferredLocale = useLocalStorage('admin-ui-locale', null);
 
 const userName = computed(() => page.props.auth?.user?.name ?? 'Admin');
 const userEmail = computed(() => page.props.auth?.user?.email ?? '');
@@ -26,7 +24,6 @@ const languages = computed(() => page.props.languages ?? []);
 
 const activeLocaleCode = computed(() => {
     return (
-        preferredLocale.value ||
         page.props.locale?.code ||
         languages.value.find((l) => l.is_default)?.code ||
         'en'
@@ -34,7 +31,15 @@ const activeLocaleCode = computed(() => {
 });
 
 const selectLocale = (code) => {
-    preferredLocale.value = code;
+    if (code === activeLocaleCode.value) {
+        return;
+    }
+
+    router.put(
+        route('admin.locale.update'),
+        { locale: code },
+        { preserveScroll: true },
+    );
 };
 
 const logout = () => {

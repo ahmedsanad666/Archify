@@ -14,6 +14,11 @@ interface ProjectRepositoryInterface
 
     public function findBySlug(string $slug, int $languageId): ?Project;
 
+    /**
+     * Latest projects for the public home portfolio strip.
+     */
+    public function latestForHome(int $limit = 6): Collection;
+
     public function paginate(?int $categoryId = null, int $perPage = 15): LengthAwarePaginator;
 
     public function create(array $data): Project;

@@ -17,6 +17,7 @@ const mobileOpen = ref(false);
 const collapsed = useLocalStorage('admin-sidebar-collapsed', false);
 
 const siteName = computed(() => page.props.siteSettings?.name ?? 'Archify');
+const direction = computed(() => page.props.locale?.direction ?? 'ltr');
 
 watch(
     () => page.url,
@@ -27,7 +28,10 @@ watch(
 </script>
 
 <template>
-    <div class="min-h-screen bg-background text-on-surface antialiased">
+    <div
+        class="min-h-screen bg-background text-on-surface antialiased"
+        :dir="direction"
+    >
         <Head
             v-if="title"
             :title="`${title} | ${siteName}`"

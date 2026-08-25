@@ -18,6 +18,11 @@ class SliderService
         private readonly TranslationDispatchService $translationDispatchService,
     ) {}
 
+    public function allActive(): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->sliderRepository->allActive();
+    }
+
     public function paginate(int $perPage = 15): LengthAwarePaginator
     {
         return $this->sliderRepository->paginate($perPage);

@@ -16,7 +16,15 @@ class ServiceRepository implements ServiceRepositoryInterface
 
     public function all(): Collection
     {
-        return Service::query()->with(['translations'])->get();
+        return Service::query()->with(['translations.language'])->get();
+    }
+
+    public function forHome(): Collection
+    {
+        return Service::query()
+            ->showOnHome()
+            ->with(['translations.language'])
+            ->get();
     }
 
     public function paginate(int $perPage = 15): LengthAwarePaginator
@@ -41,5 +49,15 @@ class ServiceRepository implements ServiceRepositoryInterface
     public function delete(Service $service): void
     {
         $service->delete();
+    }
+
+    /**
+     * @param  array<int, int>  $orderedIds
+     */
+    public function reorder(array $orderedIds): void
+    {
+        foreach ($orderedIds as $index => $id) {
+            Service::query()->whereKey($id)->update(['order' => $index]);
+        }
     }
 }

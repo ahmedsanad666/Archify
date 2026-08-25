@@ -1,0 +1,123 @@
+{
+    "common": {
+        "auto_translate": "Auto translate",
+        "source_locale": "Source locale",
+        "auto_translate_notice": "Studio preference off in Site Settings — you can still enable translate on this save.",
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "edit": "Edit",
+        "create": "Create",
+        "back": "Back",
+        "search": "Search",
+        "loading": "Loading…",
+        "actions": "Actions",
+        "confirm": "Confirm",
+        "yes": "Yes",
+        "no": "No",
+        "learn_more": "Learn more",
+        "view_all": "View all",
+        "empty": "Nothing here yet."
+    },
+    "nav": {
+        "home": "Home",
+        "about": "About",
+        "services": "Services",
+        "projects": "Projects",
+        "blog": "Journal",
+        "team": "Team",
+        "faq": "FAQ",
+        "contact": "Contact",
+        "language": "Language"
+    },
+    "public": {
+        "footer": {
+            "explore": "Explore",
+            "community": "Join Our Community",
+            "newsletter_blurb": "Subscribe to receive curated insights and exclusive updates from our studio.",
+            "email_placeholder": "Email Address",
+            "subscribe": "Subscribe",
+            "rights": "All rights reserved.",
+            "default_slogan": "Crafting spaces of silent authority and nocturnal elegance."
+        },
+        "home": {
+            "services_title": "Our Expertise",
+            "services_subtitle": "Comprehensive architectural and interior design services tailored for discerning clients.",
+            "projects_title": "Selected Work",
+            "projects_subtitle": "A glimpse of spaces shaped by material, light, and quiet precision.",
+            "testimonials_title": "Client Voices",
+            "cta_title": "Have a project in mind?",
+            "cta_body": "Let's discuss how we can bring your vision to life with precision and uncompromising quality.",
+            "cta_button": "Contact Us",
+            "scroll": "Scroll",
+            "empty_hero": "Welcome to our studio."
+        },
+        "about": {
+            "eyebrow": "Design Philosophy",
+            "values_title": "Core Values",
+            "empty": "Our story is being written."
+        },
+        "team": {
+            "title": "Our Team",
+            "subtitle": "The people shaping spaces with craft and care.",
+            "empty": "Team profiles will appear here soon."
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "subtitle": "Answers to common questions about working with our studio.",
+            "empty": "FAQ content is coming soon."
+        }
+    },
+    "admin": {
+        "sections": {
+            "overview": "Overview",
+            "content": "Content",
+            "projects": "Projects",
+            "marketing": "Marketing",
+            "system": "System"
+        },
+        "menu": {
+            "dashboard": "Dashboard",
+            "leads": "Leads",
+            "home_page": "Home Page",
+            "about": "About",
+            "services": "Services",
+            "blog": "Blog",
+            "team": "Team",
+            "categories": "Categories",
+            "concepts": "Concepts",
+            "projects": "Projects",
+            "testimonials": "Testimonials",
+            "faq": "FAQ",
+            "media": "Media",
+            "translations": "Translations",
+            "settings": "Settings",
+            "logout": "Log out"
+        },
+        "team": {
+            "title": "Team",
+            "subtitle": "Manage team members shown on your website",
+            "add": "Add team member",
+            "edit": "Edit team member",
+            "search_placeholder": "Search team...",
+            "col_name": "Name",
+            "col_role": "Role",
+            "col_order": "Order",
+            "col_actions": "Actions",
+            "empty": "No team members yet.",
+            "confirm_delete": "Delete this team member?",
+            "name": "Name",
+            "role": "Role / Title",
+            "avatar": "Photo",
+            "change_photo": "Change photo",
+            "social_links": "Social links",
+            "linkedin": "LinkedIn URL",
+            "behance": "Behance URL",
+            "instagram": "Instagram URL",
+            "display_order": "Display order",
+            "cancel": "Cancel",
+            "save": "Save member",
+            "saving": "Saving..."
+        }
+    }
+}

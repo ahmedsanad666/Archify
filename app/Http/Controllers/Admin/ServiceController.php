@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ReorderServicesRequest;
 use App\Http\Requests\Admin\StoreServiceRequest;
 use App\Http\Requests\Admin\UpdateServiceRequest;
 use App\Http\Resources\ServiceResource;
@@ -20,17 +21,10 @@ class ServiceController extends Controller
 
     public function index(): Response
     {
-        $services = $this->serviceService->paginate();
+        $services = $this->serviceService->all();
 
         return Inertia::render('Admin/Services/Index', [
-            'services' => ServiceResource::collection($services),
-        ]);
-    }
-
-    public function create(): Response
-    {
-        return Inertia::render('Admin/Services/Form', [
-            'service' => null,
+            'services' => ServiceResource::collection($services)->resolve(),
         ]);
     }
 
@@ -41,15 +35,6 @@ class ServiceController extends Controller
         return redirect()
             ->route('admin.services.index')
             ->with('success', 'Service created.');
-    }
-
-    public function edit(Service $service): Response
-    {
-        $service = $this->serviceService->find($service->id);
-
-        return Inertia::render('Admin/Services/Form', [
-            'service' => (new ServiceResource($service))->resolve(),
-        ]);
     }
 
     public function update(UpdateServiceRequest $request, Service $service): RedirectResponse
@@ -68,5 +53,14 @@ class ServiceController extends Controller
         return redirect()
             ->route('admin.services.index')
             ->with('success', 'Service deleted.');
+    }
+
+    public function reorder(ReorderServicesRequest $request): RedirectResponse
+    {
+        $this->serviceService->reorder($request->validated('ids'));
+
+        return redirect()
+            ->route('admin.services.index')
+            ->with('success', 'Service order saved.');
     }
 }

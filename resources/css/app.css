@@ -13,3 +13,47 @@
         @apply bg-surface text-on-surface;
     }
 }
+
+/*
+ * Global scrollbars — MUST stay outside @layer so they are not
+ * overridden by Tailwind base/utilities (layered CSS loses to unlayered).
+ * Thumb: primary-container; hover: primary.
+ */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #bd854f transparent;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #bd854f transparent;
+}
+
+*::-webkit-scrollbar {
+    width: 2px !important;
+    height: 2px !important;
+}
+
+*::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #bd854f !important;
+    border-radius: 9999px !important;
+    border: none !important;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: #f9ba7f !important;
+}
+
+*::-webkit-scrollbar-corner {
+    background: transparent !important;
+}

@@ -193,6 +193,44 @@ borderRadius: {
 - Radius: `rounded-md`
 - Labels: `label-lg` style, `text-on-surface`
 
+### Dropdowns / Selects (`AppSelect`)
+
+**Canonical component:** [`resources/js/Components/Shared/AppSelect.vue`](resources/js/Components/Shared/AppSelect.vue) (Headless UI `Listbox`).
+
+**Never use native `<select>`** in Vue pages or forms — always use `AppSelect` so styling, RTL, and focus behavior stay consistent.
+
+**API**
+- `v-model` / `modelValue`: `string | number | null`
+- `options`: `{ value, label }[]`
+- Optional: `label`, `placeholder`, `disabled`, `leadingIcon` (Tabler component), `id`
+
+**Visual rules (Archify tokens — do not copy light ecommerce whites)**
+- Trigger: `rounded-md border border-outline bg-surface-container`, compact `py-1.5`, `text-body-md`, `text-start`
+- Chevron: Tabler `IconChevronDown`, color `text-primary`, rotates 180° when open; position with logical `end`
+- Optional leading icon: absolute `start`, `text-on-surface-variant`, 18px stroke 1.5
+- Options panel: `rounded-md border border-outline-variant bg-surface-container-high`, `z-50`, max height with scroll
+- Selected / active option: `bg-primary/10` + **start accent bar** `border-s-2 border-primary` (use `border-s`, never `border-l`, so RTL works)
+- Unselected options keep `border-s-2 border-transparent` so text does not shift when selecting
+- Focus: `focus:border-primary focus:ring-1 focus:ring-primary/20`
+- Disabled: `opacity-50 cursor-not-allowed`
+- Label above control (when passed): `label-md` uppercase, `text-on-surface-variant`
+
+**Usage example**
+```vue
+<AppSelect
+  v-model="form.project_category_id"
+  :options="categoryOptions"
+  label="Category"
+  placeholder="Select category"
+/>
+```
+
+**Where it is already used**
+- Admin `TranslationTabs` source locale
+- Admin Projects form category field
+
+Any new filter, form field, or settings dropdown must reuse this component (or extend it) — do not invent a one-off Listbox.
+
 ### Cards
 
 - No box-shadow, ever
@@ -218,6 +256,16 @@ borderRadius: {
 - Divide items with `border-b border-outline` (not `outline-variant` — slightly more visible for list separation)
 - Generous vertical padding per row: `py-6` (24px)
 
+### Scrollbars (global)
+
+Defined in [`resources/css/app.css`](resources/css/app.css) — **outside** `@layer` so Tailwind base does not override them. Do not invent per-page scrollbar styles.
+
+- **Width:** 2px
+- **Track:** transparent; no arrow buttons
+- **Thumb:** `primary-container` (`#bd854f`), pill radius
+- **Hover thumb:** `primary` (`#f9ba7f`)
+- **Firefox:** `scrollbar-width: thin` + matching `scrollbar-color`
+
 ---
 
 ## 8. RTL Considerations
@@ -241,5 +289,5 @@ Since Arabic is a supported locale with `direction: rtl`:
 
 ---
 
-_Covers: full color system, typography scale, spacing/grid, elevation model, iconography, the updated rounder shape system, and component-level styling rules for every screen in this project._
+_Covers: full color system, typography scale, spacing/grid, elevation model, iconography, the updated rounder shape system, AppSelect dropdown standard, and component-level styling rules for every screen in this project._
 _Load alongside: `project-brief-rule.mdc` and `cursor-learning-rule.mdc`_
