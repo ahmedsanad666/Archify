@@ -10,6 +10,7 @@ import {
 } from '@tabler/icons-vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import TeamFormPanel from '@/Components/Admin/TeamFormPanel.vue';
+import { useConfirm } from '@/Composables/useConfirm';
 import { useUiTranslations } from '@/Composables/useUiTranslations';
 
 const props = defineProps({
@@ -21,6 +22,7 @@ const props = defineProps({
 
 const page = usePage();
 const { t } = useUiTranslations();
+const { confirm } = useConfirm();
 const search = ref('');
 const listRef = ref(null);
 const items = ref([]);
@@ -112,8 +114,13 @@ const openEdit = (member) => {
     panelOpen.value = true;
 };
 
-const destroy = (id) => {
-    if (!confirm(t('admin.team.confirm_delete'))) {
+const destroy = async (id) => {
+    const ok = await confirm({
+        title: t('common.confirm_title'),
+        message: t('admin.team.confirm_delete'),
+        variant: 'danger',
+    });
+    if (!ok) {
         return;
     }
     router.delete(route('admin.team-members.destroy', id), {

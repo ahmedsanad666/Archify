@@ -3,6 +3,7 @@ import { ref, watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import MediaUploader from '@/Components/Admin/MediaUploader.vue';
 import TranslationTabs from '@/Components/Admin/TranslationTabs.vue';
+import { useUiTranslations } from '@/Composables/useUiTranslations';
 import { IconCheck } from '@tabler/icons-vue';
 
 const props = defineProps({
@@ -29,6 +30,8 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['cancel', 'saved']);
+
+const { t } = useUiTranslations();
 
 const buildTranslations = () => {
     const bag = {};
@@ -106,14 +109,14 @@ const submit = () => {
     <form class="flex flex-col gap-lg bg-surface p-lg" @submit.prevent="submit">
         <div>
             <h5 class="mb-sm text-label-lg uppercase tracking-wide text-on-surface">
-                Slide Background
+                {{ t('admin.sliders.slide_background') }}
             </h5>
             <MediaUploader
                 v-model="form.image"
                 v-model:remove-existing="form.remove_image"
                 label=""
                 :existing-url="slider.image_url"
-                hint="Recommended size: 1920×1080px (JPEG or WEBP)"
+                :hint="t('admin.sliders.image_hint')"
             />
         </div>
 
@@ -121,7 +124,7 @@ const submit = () => {
             <h5
                 class="mb-md border-b border-outline-variant pb-sm text-label-lg uppercase tracking-wide text-on-surface"
             >
-                Slide Content
+                {{ t('admin.sliders.slide_content') }}
             </h5>
             <TranslationTabs
                 v-model="form.translations"
@@ -134,7 +137,7 @@ const submit = () => {
                     <div class="grid gap-md">
                         <div class="flex flex-col gap-xs">
                             <label class="text-label-md uppercase tracking-wide text-on-surface-variant">
-                                Title
+                                {{ t('admin.sliders.field_title') }}
                             </label>
                             <input
                                 v-model="form.translations[locale].title"
@@ -144,7 +147,7 @@ const submit = () => {
                         </div>
                         <div class="flex flex-col gap-xs">
                             <label class="text-label-md uppercase tracking-wide text-on-surface-variant">
-                                Description
+                                {{ t('admin.sliders.field_description') }}
                             </label>
                             <textarea
                                 v-model="form.translations[locale].description"
@@ -162,7 +165,7 @@ const submit = () => {
         >
             <label class="flex cursor-pointer items-center gap-sm">
                 <span class="text-label-md uppercase tracking-wide text-on-surface">
-                    Active
+                    {{ t('admin.sliders.active') }}
                 </span>
                 <span
                     class="relative inline-flex size-4 shrink-0 items-center justify-center"
@@ -188,14 +191,14 @@ const submit = () => {
                     class="rounded-md border border-outline-variant px-md py-sm text-label-md uppercase tracking-wide text-on-surface transition-colors hover:bg-surface-container-high"
                     @click="emit('cancel')"
                 >
-                    Cancel
+                    {{ t('common.cancel') }}
                 </button>
                 <button
                     type="submit"
                     class="rounded-md bg-primary px-md py-sm text-label-md uppercase tracking-wide text-on-primary transition-colors hover:bg-primary-container hover:text-on-primary-container disabled:opacity-50"
                     :disabled="form.processing"
                 >
-                    Save slide
+                    {{ t('admin.sliders.save') }}
                 </button>
             </div>
         </div>

@@ -11,6 +11,7 @@ import {
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import ServiceFormPanel from '@/Components/Admin/ServiceFormPanel.vue';
 import { resolveAppIcon } from '@/icons/appIcons';
+import { useConfirm } from '@/Composables/useConfirm';
 import { useUiTranslations } from '@/Composables/useUiTranslations';
 
 const props = defineProps({
@@ -22,6 +23,7 @@ const props = defineProps({
 
 const page = usePage();
 const { t } = useUiTranslations();
+const { confirm } = useConfirm();
 const search = ref('');
 const listRef = ref(null);
 const items = ref([]);
@@ -96,8 +98,13 @@ const openEdit = (service) => {
     panelOpen.value = true;
 };
 
-const destroy = (id) => {
-    if (!confirm('Delete this service?')) {
+const destroy = async (id) => {
+    const ok = await confirm({
+        title: t('common.confirm_title'),
+        message: t('admin.services.confirm_delete'),
+        variant: 'danger',
+    });
+    if (!ok) {
         return;
     }
     router.delete(route('admin.services.destroy', id), {

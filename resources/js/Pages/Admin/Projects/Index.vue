@@ -1,6 +1,8 @@
 <script setup>
 import { Link, router, Head, usePage } from "@inertiajs/vue3";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
+import { useConfirm } from "@/Composables/useConfirm";
+import { useUiTranslations } from "@/Composables/useUiTranslations";
 import { IconPencil, IconPlus, IconTrash } from "@tabler/icons-vue";
 
 defineProps({
@@ -15,9 +17,16 @@ defineProps({
 });
 
 const page = usePage();
+const { t } = useUiTranslations();
+const { confirm } = useConfirm();
 
-const destroy = (id) => {
-    if (!confirm("Delete this project?")) {
+const destroy = async (id) => {
+    const ok = await confirm({
+        title: t('common.confirm_title'),
+        message: t('admin.projects.confirm_delete'),
+        variant: 'danger',
+    });
+    if (!ok) {
         return;
     }
     router.delete(route("admin.projects.destroy", id), {

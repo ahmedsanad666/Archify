@@ -13,6 +13,8 @@
         "loading": "Loading…",
         "actions": "Actions",
         "confirm": "Confirm",
+        "confirm_title": "Are you sure?",
+        "confirm_body": "This action cannot be undone.",
         "yes": "Yes",
         "no": "No",
         "learn_more": "Learn more",
@@ -93,6 +95,85 @@
             "translations": "Translations",
             "settings": "Settings",
             "logout": "Log out"
+        },
+        "sliders": {
+            "title": "Home page",
+            "subtitle": "Manage hero slides and homepage section order",
+            "add": "Add new slide",
+            "new_slide": "New slide",
+            "draft": "Draft",
+            "published": "Published",
+            "untitled": "Untitled slide",
+            "empty": "No slides yet. Click \"Add new slide\" to create your first hero slide.",
+            "drag_reorder": "Drag to reorder",
+            "delete_slide": "Delete slide",
+            "expand_slide": "Expand slide",
+            "slide_background": "Slide Background",
+            "slide_content": "Slide Content",
+            "image_hint": "Recommended size: 1920×1080px (JPEG or WEBP)",
+            "field_title": "Title",
+            "field_description": "Description",
+            "active": "Active",
+            "save": "Save slide",
+            "confirm_delete": "Delete this slider?"
+        },
+        "services": {
+            "confirm_delete": "Delete this service?"
+        },
+        "concepts": {
+            "confirm_delete": "Delete this concept?"
+        },
+        "projects": {
+            "confirm_delete": "Delete this project?"
+        },
+        "categories": {
+            "confirm_delete": "Delete this category?"
+        },
+        "about": {
+            "title": "About page",
+            "subtitle": "Manage your company story, stats, and values",
+            "tab_story": "Our story",
+            "tab_vision": "Vision",
+            "tab_mission": "Mission",
+            "tab_statistics": "Statistics",
+            "tab_core_values": "Core values",
+            "story_image": "Story image",
+            "story_title": "Story title",
+            "story_description": "Story description",
+            "vision_title": "Vision title",
+            "vision_description": "Vision description",
+            "mission_title": "Mission title",
+            "mission_description": "Mission description",
+            "save_story": "Save story",
+            "save_vision": "Save vision",
+            "save_mission": "Save mission"
+        },
+        "statistics": {
+            "add": "Add stat",
+            "edit": "Edit stat",
+            "empty": "No statistics yet.",
+            "col_order": "Order",
+            "col_count": "Number",
+            "col_label": "Label",
+            "col_actions": "Actions",
+            "count": "Number",
+            "label": "Label",
+            "confirm_delete": "Delete this statistic?",
+            "drag_reorder": "Drag to reorder"
+        },
+        "core_values": {
+            "add": "Add core value",
+            "edit": "Edit core value",
+            "empty": "No core values yet.",
+            "col_order": "Order",
+            "col_title": "Title",
+            "col_description": "Description",
+            "col_actions": "Actions",
+            "icon": "Icon",
+            "title": "Title",
+            "description": "Description",
+            "confirm_delete": "Delete this core value?",
+            "drag_reorder": "Drag to reorder"
         },
         "team": {
             "title": "Team",

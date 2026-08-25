@@ -13,6 +13,8 @@
         "loading": "Yükleniyor…",
         "actions": "İşlemler",
         "confirm": "Onayla",
+        "confirm_title": "Emin misiniz?",
+        "confirm_body": "Bu işlem geri alınamaz.",
         "yes": "Evet",
         "no": "Hayır",
         "learn_more": "Devamını oku",
@@ -93,6 +95,85 @@
             "translations": "Çeviriler",
             "settings": "Ayarlar",
             "logout": "Çıkış"
+        },
+        "sliders": {
+            "title": "Ana Sayfa",
+            "subtitle": "Kahraman slaytlarını ve ana sayfa bölüm sırasını yönetin",
+            "add": "Yeni slayt ekle",
+            "new_slide": "Yeni slayt",
+            "draft": "Taslak",
+            "published": "Yayında",
+            "untitled": "Adsız slayt",
+            "empty": "Henüz slayt yok. İlk kahraman slaytınızı oluşturmak için \"Yeni slayt ekle\"ye tıklayın.",
+            "drag_reorder": "Sıralamak için sürükleyin",
+            "delete_slide": "Slaytı sil",
+            "expand_slide": "Slaytı genişlet",
+            "slide_background": "Slayt Arka Planı",
+            "slide_content": "Slayt İçeriği",
+            "image_hint": "Önerilen boyut: 1920×1080px (JPEG veya WEBP)",
+            "field_title": "Başlık",
+            "field_description": "Açıklama",
+            "active": "Aktif",
+            "save": "Slaytı kaydet",
+            "confirm_delete": "Bu slayt silinsin mi?"
+        },
+        "services": {
+            "confirm_delete": "Bu hizmet silinsin mi?"
+        },
+        "concepts": {
+            "confirm_delete": "Bu konsept silinsin mi?"
+        },
+        "projects": {
+            "confirm_delete": "Bu proje silinsin mi?"
+        },
+        "categories": {
+            "confirm_delete": "Bu kategori silinsin mi?"
+        },
+        "about": {
+            "title": "Hakkımızda sayfası",
+            "subtitle": "Şirket hikâyenizi, istatistiklerinizi ve değerlerinizi yönetin",
+            "tab_story": "Hikâyemiz",
+            "tab_vision": "Vizyon",
+            "tab_mission": "Misyon",
+            "tab_statistics": "İstatistikler",
+            "tab_core_values": "Temel değerler",
+            "story_image": "Hikâye görseli",
+            "story_title": "Hikâye başlığı",
+            "story_description": "Hikâye açıklaması",
+            "vision_title": "Vizyon başlığı",
+            "vision_description": "Vizyon açıklaması",
+            "mission_title": "Misyon başlığı",
+            "mission_description": "Misyon açıklaması",
+            "save_story": "Hikâyeyi kaydet",
+            "save_vision": "Vizyonu kaydet",
+            "save_mission": "Misyonu kaydet"
+        },
+        "statistics": {
+            "add": "İstatistik ekle",
+            "edit": "İstatistiği düzenle",
+            "empty": "Henüz istatistik yok.",
+            "col_order": "Sıra",
+            "col_count": "Sayı",
+            "col_label": "Etiket",
+            "col_actions": "İşlemler",
+            "count": "Sayı",
+            "label": "Etiket",
+            "confirm_delete": "Bu istatistik silinsin mi?",
+            "drag_reorder": "Sıralamak için sürükleyin"
+        },
+        "core_values": {
+            "add": "Temel değer ekle",
+            "edit": "Temel değeri düzenle",
+            "empty": "Henüz temel değer yok.",
+            "col_order": "Sıra",
+            "col_title": "Başlık",
+            "col_description": "Açıklama",
+            "col_actions": "İşlemler",
+            "icon": "İkon",
+            "title": "Başlık",
+            "description": "Açıklama",
+            "confirm_delete": "Bu temel değer silinsin mi?",
+            "drag_reorder": "Sıralamak için sürükleyin"
         },
         "team": {
             "title": "Ekip",

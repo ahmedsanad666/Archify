@@ -13,6 +13,8 @@
         "loading": "جارٍ التحميل…",
         "actions": "إجراءات",
         "confirm": "تأكيد",
+        "confirm_title": "هل أنت متأكد؟",
+        "confirm_body": "لا يمكن التراجع عن هذا الإجراء.",
         "yes": "نعم",
         "no": "لا",
         "learn_more": "اعرف المزيد",
@@ -93,6 +95,85 @@
             "translations": "الترجمات",
             "settings": "الإعدادات",
             "logout": "تسجيل الخروج"
+        },
+        "sliders": {
+            "title": "الصفحة الرئيسية",
+            "subtitle": "إدارة شرائح البطل وترتيب أقسام الصفحة الرئيسية",
+            "add": "إضافة شريحة جديدة",
+            "new_slide": "شريحة جديدة",
+            "draft": "مسودة",
+            "published": "منشور",
+            "untitled": "شريحة بدون عنوان",
+            "empty": "لا توجد شرائح بعد. انقر \"إضافة شريحة جديدة\" لإنشاء أول شريحة بطل.",
+            "drag_reorder": "اسحب لإعادة الترتيب",
+            "delete_slide": "حذف الشريحة",
+            "expand_slide": "توسيع الشريحة",
+            "slide_background": "خلفية الشريحة",
+            "slide_content": "محتوى الشريحة",
+            "image_hint": "الحجم الموصى به: 1920×1080px (JPEG أو WEBP)",
+            "field_title": "العنوان",
+            "field_description": "الوصف",
+            "active": "نشط",
+            "save": "حفظ الشريحة",
+            "confirm_delete": "حذف هذا الشريط؟"
+        },
+        "services": {
+            "confirm_delete": "حذف هذه الخدمة؟"
+        },
+        "concepts": {
+            "confirm_delete": "حذف هذا المفهوم؟"
+        },
+        "projects": {
+            "confirm_delete": "حذف هذا المشروع؟"
+        },
+        "categories": {
+            "confirm_delete": "حذف هذا التصنيف؟"
+        },
+        "about": {
+            "title": "صفحة من نحن",
+            "subtitle": "إدارة قصة شركتك وإحصائياتها وقيمها",
+            "tab_story": "قصتنا",
+            "tab_vision": "الرؤية",
+            "tab_mission": "المهمة",
+            "tab_statistics": "الإحصائيات",
+            "tab_core_values": "القيم الأساسية",
+            "story_image": "صورة القصة",
+            "story_title": "عنوان القصة",
+            "story_description": "وصف القصة",
+            "vision_title": "عنوان الرؤية",
+            "vision_description": "وصف الرؤية",
+            "mission_title": "عنوان المهمة",
+            "mission_description": "وصف المهمة",
+            "save_story": "حفظ القصة",
+            "save_vision": "حفظ الرؤية",
+            "save_mission": "حفظ المهمة"
+        },
+        "statistics": {
+            "add": "إضافة إحصائية",
+            "edit": "تعديل الإحصائية",
+            "empty": "لا توجد إحصائيات بعد.",
+            "col_order": "الترتيب",
+            "col_count": "الرقم",
+            "col_label": "التسمية",
+            "col_actions": "إجراءات",
+            "count": "الرقم",
+            "label": "التسمية",
+            "confirm_delete": "حذف هذه الإحصائية؟",
+            "drag_reorder": "اسحب لإعادة الترتيب"
+        },
+        "core_values": {
+            "add": "إضافة قيمة أساسية",
+            "edit": "تعديل القيمة الأساسية",
+            "empty": "لا توجد قيم أساسية بعد.",
+            "col_order": "الترتيب",
+            "col_title": "العنوان",
+            "col_description": "الوصف",
+            "col_actions": "إجراءات",
+            "icon": "الأيقونة",
+            "title": "العنوان",
+            "description": "الوصف",
+            "confirm_delete": "حذف هذه القيمة الأساسية؟",
+            "drag_reorder": "اسحب لإعادة الترتيب"
         },
         "team": {
             "title": "الفريق",

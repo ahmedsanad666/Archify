@@ -29,6 +29,7 @@ class UpdateAboutPageRequest extends FormRequest
             'translations.*.mission_description' => ['nullable', 'string'],
             'story_image' => ['nullable', 'image', 'max:5120'],
             'remove_story_image' => ['sometimes', 'boolean'],
+            'active_tab' => ['nullable', 'string', Rule::in(['story', 'vision', 'mission'])],
         ];
     }
 }

@@ -3,6 +3,8 @@ import { Link, Head, router, usePage } from "@inertiajs/vue3";
 import { ref } from "vue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import CategoryFormModal from "@/Components/Admin/CategoryFormModal.vue";
+import { useConfirm } from "@/Composables/useConfirm";
+import { useUiTranslations } from "@/Composables/useUiTranslations";
 import {
     IconPencil,
     IconPlus,
@@ -17,6 +19,8 @@ defineProps({
 });
 
 const page = usePage();
+const { t } = useUiTranslations();
+const { confirm } = useConfirm();
 
 const modalOpen = ref(false);
 const editingCategory = ref(null);
@@ -31,8 +35,13 @@ const openEdit = (category) => {
     modalOpen.value = true;
 };
 
-const destroy = (id) => {
-    if (!confirm("Delete this category?")) {
+const destroy = async (id) => {
+    const ok = await confirm({
+        title: t('common.confirm_title'),
+        message: t('admin.categories.confirm_delete'),
+        variant: 'danger',
+    });
+    if (!ok) {
         return;
     }
 

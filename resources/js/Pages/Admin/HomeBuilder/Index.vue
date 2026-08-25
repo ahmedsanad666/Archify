@@ -4,6 +4,8 @@ import { Head, router, usePage } from '@inertiajs/vue3';
 import { moveArrayElement, useSortable } from '@vueuse/integrations/useSortable';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import SlideInlineForm from '@/Components/Admin/SlideInlineForm.vue';
+import { useConfirm } from '@/Composables/useConfirm';
+import { useUiTranslations } from '@/Composables/useUiTranslations';
 import {
     IconChevronDown,
     IconChevronUp,
@@ -20,6 +22,8 @@ const props = defineProps({
 });
 
 const page = usePage();
+const { t } = useUiTranslations();
+const { confirm } = useConfirm();
 const languages = computed(() => page.props.languages ?? []);
 const defaultLocale = computed(
     () =>
@@ -96,7 +100,7 @@ const displayTitle = (slider) => {
         translations[defaultLocale.value] ??
         Object.values(translations)[0] ??
         {};
-    return preferred.title || 'Untitled slide';
+    return preferred.title || t('admin.sliders.untitled');
 };
 
 const toggleExpand = (id) => {
@@ -132,8 +136,13 @@ const onSlideSaved = () => {
     draft.value = null;
 };
 
-const destroy = (id) => {
-    if (!confirm('Delete this slider?')) {
+const destroy = async (id) => {
+    const ok = await confirm({
+        title: t('common.confirm_title'),
+        message: t('admin.sliders.confirm_delete'),
+        variant: 'danger',
+    });
+    if (!ok) {
         return;
     }
     router.delete(route('admin.sliders.destroy', id), {
@@ -148,16 +157,18 @@ const destroy = (id) => {
 </script>
 
 <template>
-    <AdminLayout title="Home page">
-        <Head title="Home page" />
+    <AdminLayout :title="t('admin.sliders.title')">
+        <Head :title="t('admin.sliders.title')" />
 
         <div
             class="mb-xl flex flex-wrap items-end justify-between gap-md border-b border-outline-variant pb-md"
         >
             <div>
-                <h2 class="mb-xs text-display-md text-on-surface">Home page</h2>
+                <h2 class="mb-xs text-display-md text-on-surface">
+                    {{ t('admin.sliders.title') }}
+                </h2>
                 <p class="text-body-lg text-on-surface-variant">
-                    Manage hero slides and homepage section order
+                    {{ t('admin.sliders.subtitle') }}
                 </p>
             </div>
             <button
@@ -166,7 +177,7 @@ const destroy = (id) => {
                 @click="startDraft"
             >
                 <IconPlus :size="18" stroke-width="1.5" />
-                Add new slide
+                {{ t('admin.sliders.add') }}
             </button>
         </div>
 
@@ -192,12 +203,12 @@ const destroy = (id) => {
                         />
                         <div>
                             <h4 class="text-label-lg uppercase tracking-wide text-on-surface">
-                                New slide
+                                {{ t('admin.sliders.new_slide') }}
                             </h4>
                             <span
                                 class="mt-1 inline-block rounded-sm bg-secondary/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-secondary"
                             >
-                                Draft
+                                {{ t('admin.sliders.draft') }}
                             </span>
                         </div>
                     </div>
@@ -235,7 +246,7 @@ const destroy = (id) => {
                             <button
                                 type="button"
                                 class="drag-handle cursor-grab text-outline transition-colors hover:text-primary active:cursor-grabbing"
-                                aria-label="Drag to reorder"
+                                :aria-label="t('admin.sliders.drag_reorder')"
                                 @click.stop
                             >
                                 <IconGripVertical
@@ -269,8 +280,8 @@ const destroy = (id) => {
                                 >
                                     {{
                                         slider.is_active
-                                            ? 'Published'
-                                            : 'Draft'
+                                            ? t('admin.sliders.published')
+                                            : t('admin.sliders.draft')
                                     }}
                                 </span>
                             </div>
@@ -279,7 +290,7 @@ const destroy = (id) => {
                             <button
                                 type="button"
                                 class="rounded-md p-2 text-on-surface-variant transition-colors hover:text-error"
-                                aria-label="Delete slide"
+                                :aria-label="t('admin.sliders.delete_slide')"
                                 @click.stop="destroy(slider.id)"
                             >
                                 <IconTrash
@@ -294,7 +305,7 @@ const destroy = (id) => {
                                     'bg-surface-variant text-primary':
                                         expandedId === slider.id,
                                 }"
-                                aria-label="Expand slide"
+                                :aria-label="t('admin.sliders.expand_slide')"
                                 @click.stop="toggleExpand(slider.id)"
                             >
                                 <IconChevronUp
@@ -327,8 +338,7 @@ const destroy = (id) => {
                 v-if="!items.length && !draft"
                 class="rounded-lg border border-dashed border-outline-variant px-md py-xl text-center text-body-md text-on-surface-variant"
             >
-                No slides yet. Click “Add new slide” to create your first hero
-                slide.
+                {{ t('admin.sliders.empty') }}
             </div>
         </div>
     </AdminLayout>

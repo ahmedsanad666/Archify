@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AboutPageController;
 use App\Http\Controllers\Admin\ConceptController;
+use App\Http\Controllers\Admin\CoreValueController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LocaleController;
 use App\Http\Controllers\Admin\ProjectCategoryController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\Admin\TeamMemberController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +27,16 @@ Route::middleware(['auth', 'verified', 'admin', 'locale'])
 
         Route::get('about', [AboutPageController::class, 'edit'])->name('about.edit');
         Route::put('about', [AboutPageController::class, 'update'])->name('about.update');
+
+        Route::post('statistics/reorder', [StatisticController::class, 'reorder'])
+            ->name('statistics.reorder');
+        Route::resource('statistics', StatisticController::class)
+            ->except(['index', 'show', 'create', 'edit']);
+
+        Route::post('core-values/reorder', [CoreValueController::class, 'reorder'])
+            ->name('core-values.reorder');
+        Route::resource('core-values', CoreValueController::class)
+            ->except(['index', 'show', 'create', 'edit']);
 
         Route::post('sliders/reorder', [SliderController::class, 'reorder'])
             ->name('sliders.reorder');
