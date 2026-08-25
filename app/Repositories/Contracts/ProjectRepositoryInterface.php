@@ -15,4 +15,10 @@ interface ProjectRepositoryInterface
     public function findBySlug(string $slug, int $languageId): ?Project;
 
     public function paginate(?int $categoryId = null, int $perPage = 15): LengthAwarePaginator;
+
+    public function create(array $data): Project;
+
+    public function update(Project $project, array $data): Project;
+
+    public function delete(Project $project): void;
 }

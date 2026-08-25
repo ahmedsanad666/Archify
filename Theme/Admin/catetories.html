@@ -1,0 +1,936 @@
+<!doctype html>
+<html class="dark" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Categories - Nocturnal Atelier Admin</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "surface-container": "#221f1c",
+                            "surface-tint": "#f9ba7f",
+                            "primary-container": "#bd854f",
+                            "on-tertiary-fixed": "#201b11",
+                            "primary-fixed-dim": "#f9ba7f",
+                            "surface-variant": "#383430",
+                            "on-primary-fixed": "#2d1600",
+                            "surface-dim": "#161310",
+                            "on-secondary": "#492905",
+                            "outline-variant": "#51443a",
+                            "on-surface": "#e9e1db",
+                            outline: "#9e8e81",
+                            "surface-container-highest": "#383430",
+                            "on-error-container": "#ffdad6",
+                            "on-background": "#e9e1db",
+                            "on-secondary-fixed": "#2d1600",
+                            tertiary: "#d0c5b6",
+                            "tertiary-fixed": "#ede1d1",
+                            "inverse-surface": "#e9e1db",
+                            "secondary-fixed-dim": "#f1bc8c",
+                            "on-tertiary": "#363025",
+                            "on-primary-container": "#412200",
+                            "on-primary": "#4b2800",
+                            "secondary-fixed": "#ffdcbf",
+                            secondary: "#f1bc8c",
+                            error: "#ffb4ab",
+                            "on-error": "#690005",
+                            "tertiary-container": "#998f82",
+                            "primary-fixed": "#ffdcbf",
+                            "tertiary-fixed-dim": "#d0c5b6",
+                            "error-container": "#93000a",
+                            surface: "#161310",
+                            "secondary-container": "#66411b",
+                            "on-primary-fixed-variant": "#673d0c",
+                            "surface-bright": "#3d3835",
+                            "inverse-primary": "#835422",
+                            "surface-container-high": "#2d2926",
+                            "surface-container-low": "#1e1b18",
+                            "inverse-on-surface": "#34302c",
+                            "on-tertiary-fixed-variant": "#4d463a",
+                            background: "#161310",
+                            "on-secondary-fixed-variant": "#633f19",
+                            "surface-container-lowest": "#100e0b",
+                            primary: "#f9ba7f",
+                            "on-secondary-container": "#e2ae7f",
+                            "on-tertiary-container": "#2f291f",
+                            "on-surface-variant": "#d5c3b6",
+                            // Prompt specific overrides matching the aesthetic
+                            cream: "#F2ECE3",
+                            "muted-tan": "#A69C8E",
+                            "cork-brown": "#B07A45",
+                            espresso: "#221D18",
+                            "dark-bg": "#161310",
+                        },
+                        borderRadius: {
+                            DEFAULT: "0.125rem",
+                            lg: "0.25rem",
+                            xl: "0.5rem",
+                            full: "0.75rem",
+                        },
+                        spacing: {
+                            md: "24px",
+                            lg: "48px",
+                            sm: "12px",
+                            "margin-mobile": "16px",
+                            base: "8px",
+                            xs: "4px",
+                            xl: "80px",
+                            "margin-desktop": "64px",
+                            gutter: "24px",
+                        },
+                        fontFamily: {
+                            "label-md": ["Manrope", "sans-serif"],
+                            "headline-lg-mobile": ["Manrope", "sans-serif"],
+                            "headline-lg": ["Manrope", "sans-serif"],
+                            "body-md": ["Manrope", "sans-serif"],
+                            "display-lg": ["Manrope", "sans-serif"],
+                            "label-lg": ["Manrope", "sans-serif"],
+                            "body-lg": ["Manrope", "sans-serif"],
+                            "display-md": ["Manrope", "sans-serif"],
+                            mono: [
+                                "ui-monospace",
+                                "SFMono-Regular",
+                                "Menlo",
+                                "Monaco",
+                                "Consolas",
+                                "Liberation Mono",
+                                "Courier New",
+                                "monospace",
+                            ],
+                        },
+                        fontSize: {
+                            "label-md": [
+                                "12px",
+                                {
+                                    lineHeight: "1.4",
+                                    letterSpacing: "0.02em",
+                                    fontWeight: "500",
+                                },
+                            ],
+                            "headline-lg-mobile": [
+                                "28px",
+                                {
+                                    lineHeight: "1.3",
+                                    letterSpacing: "-0.01em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "headline-lg": [
+                                "32px",
+                                {
+                                    lineHeight: "1.3",
+                                    letterSpacing: "-0.02em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "body-md": [
+                                "16px",
+                                {
+                                    lineHeight: "1.6",
+                                    letterSpacing: "0em",
+                                    fontWeight: "400",
+                                },
+                            ],
+                            "display-lg": [
+                                "64px",
+                                {
+                                    lineHeight: "1.1",
+                                    letterSpacing: "-0.04em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "label-lg": [
+                                "14px",
+                                {
+                                    lineHeight: "1.4",
+                                    letterSpacing: "0.05em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                            "body-lg": [
+                                "18px",
+                                {
+                                    lineHeight: "1.6",
+                                    letterSpacing: "0em",
+                                    fontWeight: "400",
+                                },
+                            ],
+                            "display-md": [
+                                "48px",
+                                {
+                                    lineHeight: "1.2",
+                                    letterSpacing: "-0.03em",
+                                    fontWeight: "600",
+                                },
+                            ],
+                        },
+                    },
+                },
+            };
+        </script>
+        <style>
+            .material-symbols-outlined {
+                font-variation-settings:
+                    "FILL" 0,
+                    "wght" 300,
+                    "GRAD" 0,
+                    "opsz" 24;
+            }
+            .material-symbols-outlined.fill {
+                font-variation-settings:
+                    "FILL" 1,
+                    "wght" 300;
+            }
+
+            /* Custom scrollbar for data table */
+            ::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #161310;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #3a332b;
+                border-radius: 4px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #51443a;
+            }
+
+            /* Minimalist Table styling */
+            th,
+            td {
+                border-bottom: 1px solid #3a332b;
+            }
+            tr:last-child td {
+                border-bottom: none;
+            }
+        </style>
+    </head>
+    <body
+        class="bg-dark-bg text-on-surface font-body-md antialiased min-h-screen flex selection:bg-cork-brown/30"
+    >
+        <!-- SideNavBar (Predicted Component) -->
+        <nav
+            class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container dark:bg-surface-container border-r border-outline-variant dark:border-outline-variant py-md px-sm z-40 duration-200 ease-in-out"
+        >
+            <div class="mb-lg px-sm">
+                <h1
+                    class="font-headline-lg text-headline-lg text-primary dark:text-primary tracking-tighter"
+                >
+                    Studio Admin
+                </h1>
+                <p
+                    class="font-label-md text-label-md text-on-surface-variant mt-xs"
+                >
+                    Design Workspace
+                </p>
+            </div>
+            <button
+                class="mb-lg bg-cork-brown text-dark-bg font-label-lg text-label-lg rounded py-sm px-md flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+            >
+                <span class="material-symbols-outlined text-[20px]">add</span>
+                New Project
+            </button>
+            <ul class="flex flex-col gap-xs flex-1 overflow-y-auto">
+                <li>
+                    <a
+                        class="flex items-center gap-3 px-sm py-3 rounded-md text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors font-label-lg text-label-lg"
+                        href="#"
+                    >
+                        <span class="material-symbols-outlined text-[20px]"
+                            >dashboard</span
+                        >
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a
+                        class="flex items-center gap-3 px-sm py-3 rounded-md text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors font-label-lg text-label-lg"
+                        href="#"
+                    >
+                        <span class="material-symbols-outlined text-[20px]"
+                            >home</span
+                        >
+                        Home Page
+                    </a>
+                </li>
+                <li>
+                    <a
+                        class="flex items-center gap-3 px-sm py-3 rounded-md text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors font-label-lg text-label-lg"
+                        href="#"
+                    >
+                        <span class="material-symbols-outlined text-[20px]"
+                            >person</span
+                        >
+                        About
+                    </a>
+                </li>
+                <li>
+                    <a
+                        class="flex items-center gap-3 px-sm py-3 rounded-md text-primary font-bold border-r-2 border-primary bg-surface-variant/50 font-label-lg text-label-lg"
+                        href="#"
+                    >
+                        <span class="material-symbols-outlined text-[20px] fill"
+                            >architecture</span
+                        >
+                        Services
+                    </a>
+                </li>
+                <li>
+                    <a
+                        class="flex items-center gap-3 px-sm py-3 rounded-md text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors font-label-lg text-label-lg"
+                        href="#"
+                    >
+                        <span class="material-symbols-outlined text-[20px]"
+                            >view_compact</span
+                        >
+                        Projects
+                    </a>
+                </li>
+                <li>
+                    <a
+                        class="flex items-center gap-3 px-sm py-3 rounded-md text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors font-label-lg text-label-lg"
+                        href="#"
+                    >
+                        <span class="material-symbols-outlined text-[20px]"
+                            >group</span
+                        >
+                        Team
+                    </a>
+                </li>
+                <li>
+                    <a
+                        class="flex items-center gap-3 px-sm py-3 rounded-md text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors font-label-lg text-label-lg"
+                        href="#"
+                    >
+                        <span class="material-symbols-outlined text-[20px]"
+                            >article</span
+                        >
+                        Blog
+                    </a>
+                </li>
+            </ul>
+            <div
+                class="mt-auto pt-md border-t border-outline-variant flex items-center gap-3 px-sm"
+            >
+                <img
+                    class="w-10 h-10 rounded-full object-cover border border-outline-variant"
+                    data-alt="A small, circular avatar portrait of a modern, sophisticated professional in a dimly lit studio setting. Warm amber and deep shadow lighting. High quality photography."
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnv3Xy1cAnI_WtN5Xr4F3cLd1zQ0Jze8SyZBkly1Y5GRFaRuo4bWisVrVsiC_9vso5Zo6kf99UCwyaYN4WrnBCPA_YJmywf4fQPs4RQQGZiYPpERZU8U3Rh9b3--MxZYZgt1-rl-siltB5V_4H0bODGrtxCPlzJTtBe8jpjXVjDDHGvXlaYSJGQCRl80LxYZ2iy3X6pInHJ0jt-7mzPFtdLOl4pf6kqm3PXTk5VzbtaT1f76jADd-E"
+                />
+                <div class="flex-1 min-w-0">
+                    <p
+                        class="font-label-lg text-label-lg text-on-surface truncate"
+                    >
+                        Admin User
+                    </p>
+                    <p
+                        class="font-label-md text-label-md text-on-surface-variant truncate"
+                    >
+                        admin@nocturnal.studio
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <!-- Main Wrapper -->
+        <div class="flex-1 md:ml-64 flex flex-col min-h-screen">
+            <!-- TopAppBar (Predicted Component) -->
+            <header
+                class="flex justify-between items-center h-16 px-lg bg-surface-dim dark:bg-surface-dim border-b border-outline-variant dark:border-outline-variant sticky top-0 z-30"
+            >
+                <div
+                    class="flex items-center flex-1 max-w-md focus-within:ring-1 focus-within:ring-primary rounded-md px-3 py-2 bg-surface-container border border-outline-variant"
+                >
+                    <span
+                        class="material-symbols-outlined text-on-surface-variant text-[20px] mr-2"
+                        >search</span
+                    >
+                    <input
+                        class="bg-transparent border-none outline-none text-on-surface font-body-md w-full placeholder:text-on-surface-variant/50 focus:ring-0"
+                        placeholder="Search..."
+                        type="text"
+                    />
+                </div>
+                <div class="flex items-center gap-4 ml-auto">
+                    <span
+                        class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface dark:text-on-surface hidden lg:block tracking-tighter mr-lg"
+                        >Architectural CMS</span
+                    >
+                    <button
+                        class="text-on-surface-variant hover:text-primary dark:hover:text-primary transition-opacity p-2 rounded-full hover:bg-surface-variant"
+                    >
+                        <span class="material-symbols-outlined"
+                            >notifications</span
+                        >
+                    </button>
+                    <button
+                        class="text-on-surface-variant hover:text-primary dark:hover:text-primary transition-opacity p-2 rounded-full hover:bg-surface-variant"
+                    >
+                        <span class="material-symbols-outlined">settings</span>
+                    </button>
+                    <img
+                        class="w-8 h-8 rounded-full object-cover border border-outline-variant ml-2 hidden md:block"
+                        data-alt="A small, circular avatar portrait of an administrator in a modern, moody architectural office. Deep warm tones, soft directional light. High contrast aesthetic."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuALNz1D7zseVhYD6BYzFQW1xUHUJwEScmoc4bUL3MkgNA6q49_GXOMiyXHrY9wxfjFJbSCtVNontA_r9toxl4CJHJiYJ25hyl1xsOr4_Cc6HmI512Dq7XZ3VSXo_7Y83CXsh0jKyVlSTTbeqF1F0-Nb7Io0iyNNMMXvjIU3O4ncJE6nJCxbmAaIk2YbKjtFZnYjHvfc0SHNc6tGZFH6QspzY3n5mAru5MLyNI-Qt82W7XFpWmoTfZL5"
+                    />
+                </div>
+            </header>
+            <!-- Main Content Canvas -->
+            <main
+                class="flex-1 p-margin-mobile md:p-margin-desktop max-w-[1440px] mx-auto w-full relative"
+            >
+                <!-- Page Header -->
+                <div
+                    class="flex flex-col md:flex-row md:items-end justify-between mb-xl gap-6"
+                >
+                    <div>
+                        <nav
+                            aria-label="Breadcrumb"
+                            class="flex text-muted-tan font-label-md text-label-md mb-4"
+                        >
+                            <ol
+                                class="inline-flex items-center space-x-1 md:space-x-2"
+                            >
+                                <li
+                                    class="inline-flex items-center hover:text-cream transition-colors cursor-pointer"
+                                >
+                                    Dashboard
+                                </li>
+                                <li><span class="mx-2">/</span></li>
+                                <li aria-current="page" class="text-cream">
+                                    Categories
+                                </li>
+                            </ol>
+                        </nav>
+                        <h2
+                            class="font-display-md text-display-md text-cream mb-2"
+                        >
+                            Categories
+                        </h2>
+                        <p class="font-body-md text-body-md text-muted-tan">
+                            Manage project and service categories used across
+                            the site
+                        </p>
+                    </div>
+                    <button
+                        class="bg-cork-brown text-[#161310] font-label-lg text-label-lg px-6 py-3 rounded hover:bg-opacity-90 transition-all flex items-center justify-center gap-2 group whitespace-nowrap shadow-sm"
+                        onclick="
+                            document
+                                .getElementById('add-category-modal')
+                                .classList.remove('hidden')
+                        "
+                        style="
+                            background-image: radial-gradient(
+                                circle at top left,
+                                rgba(255, 255, 255, 0.1),
+                                transparent 50%
+                            );
+                        "
+                    >
+                        <span
+                            class="material-symbols-outlined text-[20px] group-hover:rotate-90 transition-transform duration-300"
+                            >add</span
+                        >
+                        Add new category
+                    </button>
+                </div>
+                <!-- Data Table Container -->
+                <div
+                    class="bg-espresso border border-[#3A332B] rounded-lg overflow-hidden"
+                >
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr
+                                    class="bg-[#1e1b18] border-b border-[#3A332B]"
+                                >
+                                    <th
+                                        class="py-4 px-6 font-label-md text-label-md text-muted-tan font-medium uppercase tracking-wider"
+                                    >
+                                        Name
+                                    </th>
+                                    <th
+                                        class="py-4 px-6 font-label-md text-label-md text-muted-tan font-medium uppercase tracking-wider"
+                                    >
+                                        Slug
+                                    </th>
+                                    <th
+                                        class="py-4 px-6 font-label-md text-label-md text-muted-tan font-medium uppercase tracking-wider"
+                                    >
+                                        Type
+                                    </th>
+                                    <th
+                                        class="py-4 px-6 font-label-md text-label-md text-muted-tan font-medium uppercase tracking-wider text-right"
+                                    >
+                                        Items
+                                    </th>
+                                    <th
+                                        class="py-4 px-6 font-label-md text-label-md text-muted-tan font-medium uppercase tracking-wider text-right"
+                                    >
+                                        Actions
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="font-body-md text-body-md">
+                                <tr
+                                    class="hover:bg-[#2E2822] hover:border-l-2 hover:border-l-cork-brown transition-colors group"
+                                >
+                                    <td class="py-4 px-6 text-cream">
+                                        Architectural Design
+                                    </td>
+                                    <td
+                                        class="py-4 px-6 text-muted-tan font-mono text-[14px]"
+                                    >
+                                        architectural-design
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-medium border border-[#3A332B] bg-[#2E2822] text-cream"
+                                            >Service</span
+                                        >
+                                    </td>
+                                    <td class="py-4 px-6 text-cream text-right">
+                                        12
+                                    </td>
+                                    <td class="py-4 px-6 text-right">
+                                        <div
+                                            class="flex justify-end gap-3 opacity-50 group-hover:opacity-100 transition-opacity"
+                                        >
+                                            <button
+                                                class="text-muted-tan hover:text-cork-brown transition-colors"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[20px]"
+                                                    >edit</span
+                                                >
+                                            </button>
+                                            <button
+                                                class="text-muted-tan hover:text-error transition-colors"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[20px]"
+                                                    >delete</span
+                                                >
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr
+                                    class="bg-[#1a1714] hover:bg-[#2E2822] hover:border-l-2 hover:border-l-cork-brown transition-colors group"
+                                >
+                                    <td class="py-4 px-6 text-cream">
+                                        Interior Design
+                                    </td>
+                                    <td
+                                        class="py-4 px-6 text-muted-tan font-mono text-[14px]"
+                                    >
+                                        interior-design
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-medium border border-[#3A332B] bg-[#2E2822] text-cream"
+                                            >Service</span
+                                        >
+                                    </td>
+                                    <td class="py-4 px-6 text-cream text-right">
+                                        8
+                                    </td>
+                                    <td class="py-4 px-6 text-right">
+                                        <div
+                                            class="flex justify-end gap-3 opacity-50 group-hover:opacity-100 transition-opacity"
+                                        >
+                                            <button
+                                                class="text-muted-tan hover:text-cork-brown transition-colors"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[20px]"
+                                                    >edit</span
+                                                >
+                                            </button>
+                                            <button
+                                                class="text-muted-tan hover:text-error transition-colors"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[20px]"
+                                                    >delete</span
+                                                >
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr
+                                    class="hover:bg-[#2E2822] hover:border-l-2 hover:border-l-cork-brown transition-colors group"
+                                >
+                                    <td class="py-4 px-6 text-cream">
+                                        Landscape Design
+                                    </td>
+                                    <td
+                                        class="py-4 px-6 text-muted-tan font-mono text-[14px]"
+                                    >
+                                        landscape-design
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-medium border border-[#3A332B] bg-[#2E2822] text-cream"
+                                            >Service</span
+                                        >
+                                    </td>
+                                    <td class="py-4 px-6 text-cream text-right">
+                                        4
+                                    </td>
+                                    <td class="py-4 px-6 text-right">
+                                        <div
+                                            class="flex justify-end gap-3 opacity-50 group-hover:opacity-100 transition-opacity"
+                                        >
+                                            <button
+                                                class="text-muted-tan hover:text-cork-brown transition-colors"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[20px]"
+                                                    >edit</span
+                                                >
+                                            </button>
+                                            <button
+                                                class="text-muted-tan hover:text-error transition-colors"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[20px]"
+                                                    >delete</span
+                                                >
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr
+                                    class="bg-[#1a1714] hover:bg-[#2E2822] hover:border-l-2 hover:border-l-cork-brown transition-colors group"
+                                >
+                                    <td class="py-4 px-6 text-cream">
+                                        Residential
+                                    </td>
+                                    <td
+                                        class="py-4 px-6 text-muted-tan font-mono text-[14px]"
+                                    >
+                                        residential
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-medium border border-[#3A332B] bg-surface-container-high text-on-surface-variant"
+                                            >Project</span
+                                        >
+                                    </td>
+                                    <td class="py-4 px-6 text-cream text-right">
+                                        24
+                                    </td>
+                                    <td class="py-4 px-6 text-right">
+                                        <div
+                                            class="flex justify-end gap-3 opacity-50 group-hover:opacity-100 transition-opacity"
+                                        >
+                                            <button
+                                                class="text-muted-tan hover:text-cork-brown transition-colors"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[20px]"
+                                                    >edit</span
+                                                >
+                                            </button>
+                                            <button
+                                                class="text-muted-tan hover:text-error transition-colors"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[20px]"
+                                                    >delete</span
+                                                >
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr
+                                    class="hover:bg-[#2E2822] hover:border-l-2 hover:border-l-cork-brown transition-colors group"
+                                >
+                                    <td class="py-4 px-6 text-cream">
+                                        Commercial
+                                    </td>
+                                    <td
+                                        class="py-4 px-6 text-muted-tan font-mono text-[14px]"
+                                    >
+                                        commercial
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-medium border border-[#3A332B] bg-surface-container-high text-on-surface-variant"
+                                            >Project</span
+                                        >
+                                    </td>
+                                    <td class="py-4 px-6 text-cream text-right">
+                                        15
+                                    </td>
+                                    <td class="py-4 px-6 text-right">
+                                        <div
+                                            class="flex justify-end gap-3 opacity-50 group-hover:opacity-100 transition-opacity"
+                                        >
+                                            <button
+                                                class="text-muted-tan hover:text-cork-brown transition-colors"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[20px]"
+                                                    >edit</span
+                                                >
+                                            </button>
+                                            <button
+                                                class="text-muted-tan hover:text-error transition-colors"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[20px]"
+                                                    >delete</span
+                                                >
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr
+                                    class="bg-[#1a1714] hover:bg-[#2E2822] hover:border-l-2 hover:border-l-cork-brown transition-colors group border-b-0"
+                                >
+                                    <td class="py-4 px-6 text-cream">
+                                        Hospitality
+                                    </td>
+                                    <td
+                                        class="py-4 px-6 text-muted-tan font-mono text-[14px]"
+                                    >
+                                        hospitality
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-medium border border-[#3A332B] bg-surface-container-high text-on-surface-variant"
+                                            >Project</span
+                                        >
+                                    </td>
+                                    <td class="py-4 px-6 text-cream text-right">
+                                        9
+                                    </td>
+                                    <td class="py-4 px-6 text-right">
+                                        <div
+                                            class="flex justify-end gap-3 opacity-50 group-hover:opacity-100 transition-opacity"
+                                        >
+                                            <button
+                                                class="text-muted-tan hover:text-cork-brown transition-colors"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[20px]"
+                                                    >edit</span
+                                                >
+                                            </button>
+                                            <button
+                                                class="text-muted-tan hover:text-error transition-colors"
+                                            >
+                                                <span
+                                                    class="material-symbols-outlined text-[20px]"
+                                                    >delete</span
+                                                >
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- Modal Overlay ("Add Category") -->
+        <div class="fixed inset-0 z-50 hidden" id="add-category-modal">
+            <!-- Backdrop -->
+            <div
+                class="absolute inset-0 bg-dark-bg/80 backdrop-blur-sm transition-opacity"
+            ></div>
+            <!-- Modal Content -->
+            <div class="absolute inset-0 z-10 overflow-y-auto">
+                <div
+                    class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
+                >
+                    <div
+                        class="relative transform overflow-hidden rounded-lg bg-espresso text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-xl border border-[#3A332B] border-t-4 border-t-cork-brown"
+                    >
+                        <div class="px-6 py-5 sm:p-8">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3
+                                    class="font-headline-lg-mobile text-headline-lg-mobile text-cream"
+                                    id="modal-title"
+                                >
+                                    Add category
+                                </h3>
+                                <button
+                                    class="text-muted-tan hover:text-cream transition-colors"
+                                    onclick="
+                                        document
+                                            .getElementById(
+                                                'add-category-modal',
+                                            )
+                                            .classList.add('hidden')
+                                    "
+                                >
+                                    <span class="material-symbols-outlined"
+                                        >close</span
+                                    >
+                                </button>
+                            </div>
+                            <!-- Translation Pattern Area -->
+                            <div
+                                class="bg-[#1e1b18] p-4 rounded-md border border-[#3A332B] mb-6"
+                            >
+                                <div
+                                    class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4"
+                                >
+                                    <div class="w-full sm:w-auto">
+                                        <label
+                                            class="block text-xs font-label-md text-muted-tan mb-1"
+                                            >Source Locale</label
+                                        >
+                                        <select
+                                            class="block w-full bg-surface-container border border-[#3A332B] rounded text-cream text-sm focus:border-cork-brown focus:ring-0 py-1.5 px-3"
+                                        >
+                                            <option>English</option>
+                                        </select>
+                                    </div>
+                                    <div
+                                        class="flex items-center gap-2 mt-2 sm:mt-0"
+                                    >
+                                        <input
+                                            class="w-4 h-4 rounded border-[#3A332B] bg-surface-container text-cork-brown focus:ring-cork-brown focus:ring-offset-espresso"
+                                            id="auto-translate"
+                                            type="checkbox"
+                                        />
+                                        <label
+                                            class="font-label-md text-label-md text-muted-tan cursor-pointer"
+                                            for="auto-translate"
+                                            >Auto-translate other locales
+                                            (AI)</label
+                                        >
+                                    </div>
+                                </div>
+                                <!-- Locale Tabs -->
+                                <div class="border-b border-[#3A332B]">
+                                    <nav
+                                        aria-label="Tabs"
+                                        class="-mb-px flex space-x-6"
+                                    >
+                                        <button
+                                            class="border-cork-brown text-cream whitespace-nowrap border-b-2 py-2 px-1 font-label-md text-label-md"
+                                        >
+                                            English
+                                        </button>
+                                        <button
+                                            class="border-transparent text-muted-tan hover:border-[#51443a] hover:text-cream whitespace-nowrap border-b-2 py-2 px-1 font-label-md text-label-md transition-colors"
+                                        >
+                                            Türkçe
+                                        </button>
+                                        <button
+                                            class="border-transparent text-muted-tan hover:border-[#51443a] hover:text-cream whitespace-nowrap border-b-2 py-2 px-1 font-label-md text-label-md transition-colors"
+                                        >
+                                            العربية
+                                        </button>
+                                    </nav>
+                                </div>
+                            </div>
+                            <!-- Form Fields -->
+                            <div class="space-y-6">
+                                <div>
+                                    <label
+                                        class="block font-label-md text-label-md text-muted-tan mb-2"
+                                        >Category name</label
+                                    >
+                                    <input
+                                        class="block w-full bg-surface-container border border-[#3A332B] rounded-md text-cream py-2.5 px-3 focus:border-cork-brown focus:ring-1 focus:ring-cork-brown transition-colors outline-none"
+                                        type="text"
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        class="block font-label-md text-label-md text-muted-tan mb-2"
+                                        >Slug</label
+                                    >
+                                    <input
+                                        class="block w-full bg-[#1e1b18] border border-[#3A332B] rounded-md text-muted-tan font-mono py-2.5 px-3 focus:border-cork-brown focus:ring-1 focus:ring-cork-brown transition-colors outline-none"
+                                        type="text"
+                                    />
+                                    <p
+                                        class="mt-1.5 text-xs text-muted-tan/70 font-label-md"
+                                    >
+                                        Auto-generates from name
+                                    </p>
+                                </div>
+                                <div>
+                                    <label
+                                        class="block font-label-md text-label-md text-muted-tan mb-2"
+                                        >Type</label
+                                    >
+                                    <div class="relative">
+                                        <select
+                                            class="block w-full appearance-none bg-surface-container border border-[#3A332B] rounded-md text-cream py-2.5 pl-3 pr-10 focus:border-cork-brown focus:ring-1 focus:ring-cork-brown transition-colors outline-none"
+                                        >
+                                            <option>Service</option>
+                                            <option>Project</option>
+                                        </select>
+                                        <div
+                                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-muted-tan"
+                                        >
+                                            <span
+                                                class="material-symbols-outlined text-[20px]"
+                                                >expand_more</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-[#1e1b18] px-6 py-4 border-t border-[#3A332B] sm:flex sm:flex-row-reverse gap-3"
+                        >
+                            <button
+                                class="inline-flex w-full justify-center rounded-md bg-cork-brown px-6 py-2.5 font-label-lg text-label-lg text-[#161310] hover:bg-opacity-90 sm:w-auto shadow-sm"
+                                style="
+                                    background-image: radial-gradient(
+                                        circle at top left,
+                                        rgba(255, 255, 255, 0.1),
+                                        transparent 50%
+                                    );
+                                "
+                                type="button"
+                            >
+                                Save
+                            </button>
+                            <button
+                                class="mt-3 inline-flex w-full justify-center rounded-md border border-[#3A332B] bg-transparent px-6 py-2.5 font-label-lg text-label-lg text-cream hover:bg-[#2E2822] sm:mt-0 sm:w-auto transition-colors"
+                                onclick="
+                                    document
+                                        .getElementById('add-category-modal')
+                                        .classList.add('hidden')
+                                "
+                                type="button"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

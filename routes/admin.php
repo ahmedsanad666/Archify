@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\AboutPageController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProjectCategoryController;
+use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
@@ -24,4 +26,11 @@ Route::middleware(['auth', 'verified', 'admin'])
         Route::resource('sliders', SliderController::class)
             ->except(['show', 'create', 'edit']);
         Route::resource('services', ServiceController::class)->except(['show']);
+
+        Route::post('project-categories/reorder', [ProjectCategoryController::class, 'reorder'])
+            ->name('project-categories.reorder');
+        Route::resource('project-categories', ProjectCategoryController::class)
+            ->except(['show', 'create', 'edit']);
+
+        Route::resource('projects', ProjectController::class)->except(['show']);
     });

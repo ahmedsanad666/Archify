@@ -16,6 +16,6 @@ class ConceptRepository implements ConceptRepositoryInterface
 
     public function all(): Collection
     {
-        return Concept::query()->get();
+        return Concept::query()->with(['translations.language'])->get();
     }
 }

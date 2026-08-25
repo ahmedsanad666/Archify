@@ -17,6 +17,7 @@ import {
     IconPhoto,
     IconQuote,
     IconSettings,
+    IconTags,
     IconUsersGroup,
     IconWorld,
 } from "@tabler/icons-vue";
@@ -69,9 +70,20 @@ const navSections = [
                 icon: IconCategory,
                 routeName: "admin.services.*",
             },
-            { label: "Projects", href: "#", icon: IconBuildingArch },
             { label: "Blog", href: "#", icon: IconArticle },
             { label: "Team", href: "#", icon: IconUsersGroup },
+        ],
+    },
+    {
+        label: "Projects",
+        items: [
+            {
+                label: "Categories",
+                href: route("admin.project-categories.index"),
+                icon: IconTags,
+                routeName: "admin.project-categories.*",
+            },
+            { label: "Projects", href: route("admin.projects.index"), icon: IconBuildingArch, routeName: "admin.projects.*" },
         ],
     },
     {
