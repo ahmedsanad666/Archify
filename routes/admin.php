@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\Admin\TeamMemberController;
 use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\TranslationController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified', 'admin', 'locale'])
@@ -91,4 +92,9 @@ Route::middleware(['auth', 'verified', 'admin', 'locale'])
         Route::get('media', [MediaLibraryController::class, 'index'])->name('media.index');
         Route::delete('media/{medium}', [MediaLibraryController::class, 'destroy'])
             ->name('media.destroy');
+
+        Route::get('translations', [TranslationController::class, 'index'])
+            ->name('translations.index');
+        Route::put('translations', [TranslationController::class, 'update'])
+            ->name('translations.update');
     });

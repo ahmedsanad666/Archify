@@ -27,7 +27,9 @@
         "@vueuse/core": "^14.4.0",
         "@vueuse/integrations": "^14.4.0",
         "chart.js": "^4.5.1",
+        "libphonenumber-js": "^1.13.11",
         "sortablejs": "^1.15.7",
-        "vue-chartjs": "^5.3.4"
+        "vue-chartjs": "^5.3.4",
+        "vue-tel-input": "^9.8.0"
     }
 }

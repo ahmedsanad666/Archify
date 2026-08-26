@@ -149,8 +149,9 @@ const navSections = computed(() => [
             },
             {
                 label: t("admin.menu.translations"),
-                href: "#",
+                href: route("admin.translations.index"),
                 icon: IconWorld,
+                routeName: "admin.translations.*",
             },
             {
                 label: t("admin.menu.settings"),

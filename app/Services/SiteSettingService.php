@@ -24,6 +24,7 @@ class SiteSettingService
         if (! $settings) {
             $settings = SiteSetting::query()->create([
                 'auto_translate_enabled' => false,
+                'robots_txt' => SiteSetting::defaultRobotsTxt(),
             ]);
         }
 

@@ -18,8 +18,15 @@ class SiteSettingSeeder extends Seeder
             [
                 'email' => 'hello@archify.com',
                 'auto_translate_enabled' => false,
+                'robots_txt' => SiteSetting::defaultRobotsTxt(),
             ]
         );
+
+        if (blank($setting->robots_txt)) {
+            $setting->update([
+                'robots_txt' => SiteSetting::defaultRobotsTxt(),
+            ]);
+        }
 
         $translations = [
             'en' => [

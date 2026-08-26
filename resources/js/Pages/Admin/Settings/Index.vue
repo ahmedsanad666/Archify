@@ -1,9 +1,18 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { Head, useForm, usePage } from '@inertiajs/vue3';
+import {
+    IconBrandInstagram,
+    IconBrandX,
+    IconBrandYoutube,
+    IconMail,
+} from '@tabler/icons-vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import MediaUploader from '@/Components/Admin/MediaUploader.vue';
 import TranslationTabs from '@/Components/Admin/TranslationTabs.vue';
+import AppInput from '@/Components/Shared/AppInput.vue';
+import AppPhoneInput from '@/Components/Shared/AppPhoneInput.vue';
+import { useUiTranslations } from '@/Composables/useUiTranslations';
 
 const props = defineProps({
     settings: {
@@ -12,6 +21,7 @@ const props = defineProps({
     },
 });
 
+const { t } = useUiTranslations();
 const page = usePage();
 const languages = computed(() => page.props.languages ?? []);
 const defaultLocale = computed(
@@ -57,7 +67,7 @@ const form = useForm({
     gtm_id: props.settings.gtm_id ?? '',
     facebook_pixel_id: props.settings.facebook_pixel_id ?? '',
     google_site_verification: props.settings.google_site_verification ?? '',
-    robots_txt: props.settings.robots_txt ?? '',
+    robots_txt: props.settings.robots_txt || '',
     auto_translate_enabled: props.settings.auto_translate_enabled ?? false,
     source_locale: defaultLocale.value,
     auto_translate: false,
@@ -71,7 +81,7 @@ const form = useForm({
 });
 
 const inputClass =
-    'w-full rounded-md border border-outline bg-surface-container px-sm py-sm text-body-md text-on-surface outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary/20';
+    'w-full rounded-md border border-outline bg-surface-container px-sm py-sm text-start text-body-md text-on-surface outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary/20';
 
 const submit = () => {
     form.source_locale = sourceLocale.value;
@@ -89,20 +99,22 @@ const submit = () => {
 </script>
 
 <template>
-    <AdminLayout title="Settings">
-        <Head title="Settings" />
+    <AdminLayout :title="t('admin.settings.title')">
+        <Head :title="t('admin.settings.title')" />
 
-        <div class="mb-xl">
-            <h2 class="mb-xs text-display-md text-on-surface">Site Settings</h2>
+        <div class="mb-xl text-start">
+            <h2 class="mb-xs text-display-md text-on-surface">
+                {{ t('admin.settings.title') }}
+            </h2>
             <p class="text-body-md text-on-surface-variant">
-                Brand contact, SEO, analytics, and auto-translate.
+                {{ t('admin.settings.subtitle') }}
             </p>
         </div>
 
         <form class="flex flex-col gap-md" @submit.prevent="submit">
             <div
                 v-if="page.props.flash?.success"
-                class="rounded-md bg-primary/15 px-md py-sm text-body-md text-primary"
+                class="rounded-md bg-primary/15 px-md py-sm text-start text-body-md text-primary"
             >
                 {{ page.props.flash.success }}
             </div>
@@ -111,33 +123,29 @@ const submit = () => {
                 class="rounded-lg border border-outline-variant bg-surface-container p-md"
             >
                 <h3
-                    class="mb-md text-label-lg uppercase tracking-wide text-primary"
+                    class="mb-md text-start text-label-lg uppercase tracking-wide text-primary"
                 >
-                    Contact
+                    {{ t('admin.settings.section_contact') }}
                 </h3>
                 <div class="grid gap-md md:grid-cols-2">
-                    <div class="flex flex-col gap-xs">
-                        <label class="text-label-md uppercase tracking-wide"
-                            >Email</label
-                        >
-                        <input v-model="form.email" type="email" :class="inputClass" />
-                    </div>
-                    <div class="flex flex-col gap-xs">
-                        <label class="text-label-md uppercase tracking-wide"
-                            >Phone</label
-                        >
-                        <input v-model="form.phone" type="text" :class="inputClass" />
-                    </div>
-                    <div class="flex flex-col gap-xs">
-                        <label class="text-label-md uppercase tracking-wide"
-                            >WhatsApp</label
-                        >
-                        <input
-                            v-model="form.whatsapp"
-                            type="text"
-                            :class="inputClass"
-                        />
-                    </div>
+                    <AppInput
+                        v-model="form.email"
+                        type="email"
+                        :label="t('admin.settings.email')"
+                        autocomplete="email"
+                        :leading-icon="IconMail"
+                        :error="form.errors.email"
+                    />
+                    <AppPhoneInput
+                        v-model="form.phone"
+                        :label="t('admin.settings.phone')"
+                        :error="form.errors.phone"
+                    />
+                    <AppPhoneInput
+                        v-model="form.whatsapp"
+                        :label="t('admin.settings.whatsapp')"
+                        :error="form.errors.whatsapp"
+                    />
                 </div>
             </section>
 
@@ -145,41 +153,35 @@ const submit = () => {
                 class="rounded-lg border border-outline-variant bg-surface-container p-md"
             >
                 <h3
-                    class="mb-md text-label-lg uppercase tracking-wide text-primary"
+                    class="mb-md text-start text-label-lg uppercase tracking-wide text-primary"
                 >
-                    Social
+                    {{ t('admin.settings.section_social') }}
                 </h3>
                 <div class="grid gap-md md:grid-cols-2">
-                    <div class="flex flex-col gap-xs">
-                        <label class="text-label-md uppercase tracking-wide"
-                            >Instagram</label
-                        >
-                        <input
-                            v-model="form.instagram_url"
-                            type="url"
-                            :class="inputClass"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-xs">
-                        <label class="text-label-md uppercase tracking-wide"
-                            >YouTube</label
-                        >
-                        <input
-                            v-model="form.youtube_url"
-                            type="url"
-                            :class="inputClass"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-xs">
-                        <label class="text-label-md uppercase tracking-wide"
-                            >X / Twitter</label
-                        >
-                        <input
-                            v-model="form.twitter_url"
-                            type="url"
-                            :class="inputClass"
-                        />
-                    </div>
+                    <AppInput
+                        v-model="form.instagram_url"
+                        type="url"
+                        :label="t('admin.settings.instagram')"
+                        :placeholder="t('admin.settings.instagram_placeholder')"
+                        :leading-icon="IconBrandInstagram"
+                        :error="form.errors.instagram_url"
+                    />
+                    <AppInput
+                        v-model="form.youtube_url"
+                        type="url"
+                        :label="t('admin.settings.youtube')"
+                        :placeholder="t('admin.settings.youtube_placeholder')"
+                        :leading-icon="IconBrandYoutube"
+                        :error="form.errors.youtube_url"
+                    />
+                    <AppInput
+                        v-model="form.twitter_url"
+                        type="url"
+                        :label="t('admin.settings.twitter')"
+                        :placeholder="t('admin.settings.twitter_placeholder')"
+                        :leading-icon="IconBrandX"
+                        :error="form.errors.twitter_url"
+                    />
                 </div>
             </section>
 
@@ -187,27 +189,27 @@ const submit = () => {
                 class="rounded-lg border border-outline-variant bg-surface-container p-md"
             >
                 <h3
-                    class="mb-md text-label-lg uppercase tracking-wide text-primary"
+                    class="mb-md text-start text-label-lg uppercase tracking-wide text-primary"
                 >
-                    Brand media
+                    {{ t('admin.settings.section_media') }}
                 </h3>
                 <div class="grid gap-md md:grid-cols-3">
                     <MediaUploader
                         v-model="form.logo"
                         v-model:remove-existing="form.remove_logo"
-                        label="Logo"
+                        :label="t('admin.settings.logo')"
                         :existing-url="settings.media?.logo"
                     />
                     <MediaUploader
                         v-model="form.favicon"
                         v-model:remove-existing="form.remove_favicon"
-                        label="Favicon"
+                        :label="t('admin.settings.favicon')"
                         :existing-url="settings.media?.favicon"
                     />
                     <MediaUploader
                         v-model="form.og_image"
                         v-model:remove-existing="form.remove_og_image"
-                        label="OG Image"
+                        :label="t('admin.settings.og_image')"
                         :existing-url="settings.media?.og_image"
                     />
                 </div>
@@ -217,9 +219,9 @@ const submit = () => {
                 class="rounded-lg border border-outline-variant bg-surface-container p-md"
             >
                 <h3
-                    class="mb-md text-label-lg uppercase tracking-wide text-primary"
+                    class="mb-md text-start text-label-lg uppercase tracking-wide text-primary"
                 >
-                    Localized content & SEO
+                    {{ t('admin.settings.section_localized') }}
                 </h3>
                 <TranslationTabs
                     v-model="form.translations"
@@ -230,57 +232,53 @@ const submit = () => {
                 >
                     <template #default="{ locale }">
                         <div class="grid gap-md">
-                            <div class="flex flex-col gap-xs">
-                                <label
-                                    class="text-label-md uppercase tracking-wide"
-                                    >Site name</label
-                                >
-                                <input
+                            <div class="grid gap-md md:grid-cols-2">
+                                <AppInput
                                     v-model="form.translations[locale].name"
-                                    type="text"
-                                    :class="inputClass"
+                                    :label="t('admin.settings.site_name')"
+                                    :error="
+                                        form.errors[
+                                            `translations.${locale}.name`
+                                        ]
+                                    "
                                 />
-                            </div>
-                            <div class="flex flex-col gap-xs">
-                                <label
-                                    class="text-label-md uppercase tracking-wide"
-                                    >Slogan</label
-                                >
-                                <input
+                                <AppInput
                                     v-model="form.translations[locale].slogan"
-                                    type="text"
-                                    :class="inputClass"
+                                    :label="t('admin.settings.slogan')"
+                                    :error="
+                                        form.errors[
+                                            `translations.${locale}.slogan`
+                                        ]
+                                    "
                                 />
                             </div>
                             <div class="flex flex-col gap-xs">
                                 <label
-                                    class="text-label-md uppercase tracking-wide"
-                                    >Address</label
+                                    class="text-start text-label-md uppercase tracking-wide text-on-surface-variant"
                                 >
+                                    {{ t('admin.settings.address') }}
+                                </label>
                                 <textarea
                                     v-model="form.translations[locale].address"
                                     rows="2"
                                     :class="inputClass"
                                 />
                             </div>
+                            <AppInput
+                                v-model="form.translations[locale].meta_title"
+                                :label="t('admin.settings.meta_title')"
+                                :error="
+                                    form.errors[
+                                        `translations.${locale}.meta_title`
+                                    ]
+                                "
+                            />
                             <div class="flex flex-col gap-xs">
                                 <label
-                                    class="text-label-md uppercase tracking-wide"
-                                    >Meta title</label
+                                    class="text-start text-label-md uppercase tracking-wide text-on-surface-variant"
                                 >
-                                <input
-                                    v-model="
-                                        form.translations[locale].meta_title
-                                    "
-                                    type="text"
-                                    :class="inputClass"
-                                />
-                            </div>
-                            <div class="flex flex-col gap-xs">
-                                <label
-                                    class="text-label-md uppercase tracking-wide"
-                                    >Meta description</label
-                                >
+                                    {{ t('admin.settings.meta_description') }}
+                                </label>
                                 <textarea
                                     v-model="
                                         form.translations[locale]
@@ -290,19 +288,17 @@ const submit = () => {
                                     :class="inputClass"
                                 />
                             </div>
-                            <div class="flex flex-col gap-xs">
-                                <label
-                                    class="text-label-md uppercase tracking-wide"
-                                    >Meta keywords</label
-                                >
-                                <input
-                                    v-model="
-                                        form.translations[locale].meta_keywords
-                                    "
-                                    type="text"
-                                    :class="inputClass"
-                                />
-                            </div>
+                            <AppInput
+                                v-model="
+                                    form.translations[locale].meta_keywords
+                                "
+                                :label="t('admin.settings.meta_keywords')"
+                                :error="
+                                    form.errors[
+                                        `translations.${locale}.meta_keywords`
+                                    ]
+                                "
+                            />
                         </div>
                     </template>
                 </TranslationTabs>
@@ -312,69 +308,43 @@ const submit = () => {
                 class="rounded-lg border border-outline-variant bg-surface-container p-md"
             >
                 <h3
-                    class="mb-md text-label-lg uppercase tracking-wide text-primary"
+                    class="mb-md text-start text-label-lg uppercase tracking-wide text-primary"
                 >
-                    Analytics & robots
+                    {{ t('admin.settings.section_analytics') }}
                 </h3>
                 <div class="grid gap-md md:grid-cols-2">
-                    <div class="flex flex-col gap-xs">
-                        <label class="text-label-md uppercase tracking-wide"
-                            >Google Analytics ID</label
-                        >
-                        <input
-                            v-model="form.google_analytics_id"
-                            type="text"
-                            :class="inputClass"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-xs">
-                        <label class="text-label-md uppercase tracking-wide"
-                            >GTM ID</label
-                        >
-                        <input v-model="form.gtm_id" type="text" :class="inputClass" />
-                    </div>
-                    <div class="flex flex-col gap-xs">
-                        <label class="text-label-md uppercase tracking-wide"
-                            >Facebook Pixel</label
-                        >
-                        <input
-                            v-model="form.facebook_pixel_id"
-                            type="text"
-                            :class="inputClass"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-xs">
-                        <label class="text-label-md uppercase tracking-wide"
-                            >Search Console verification</label
-                        >
-                        <input
-                            v-model="form.google_site_verification"
-                            type="text"
-                            :class="inputClass"
-                        />
-                    </div>
+                    <AppInput
+                        v-model="form.google_analytics_id"
+                        :label="t('admin.settings.ga_id')"
+                        :error="form.errors.google_analytics_id"
+                    />
+                    <AppInput
+                        v-model="form.gtm_id"
+                        :label="t('admin.settings.gtm_id')"
+                        :error="form.errors.gtm_id"
+                    />
+                    <AppInput
+                        v-model="form.facebook_pixel_id"
+                        :label="t('admin.settings.facebook_pixel')"
+                        :error="form.errors.facebook_pixel_id"
+                    />
+                    <AppInput
+                        v-model="form.google_site_verification"
+                        :label="t('admin.settings.search_console')"
+                        :error="form.errors.google_site_verification"
+                    />
                     <div class="flex flex-col gap-xs md:col-span-2">
-                        <label class="text-label-md uppercase tracking-wide"
-                            >robots.txt</label
+                        <label
+                            class="text-start text-label-md uppercase tracking-wide text-on-surface-variant"
                         >
+                            {{ t('admin.settings.robots_txt') }}
+                        </label>
                         <textarea
                             v-model="form.robots_txt"
                             rows="4"
                             :class="inputClass"
                         />
                     </div>
-                    <label class="flex items-center gap-sm md:col-span-2">
-                        <input
-                            v-model="form.auto_translate_enabled"
-                            type="checkbox"
-                            class="rounded-sm border-outline-variant text-primary focus:ring-primary"
-                        />
-                        <span
-                            class="text-label-md uppercase tracking-wide text-on-surface-variant"
-                        >
-                            Enable auto-translate (DeepL) globally
-                        </span>
-                    </label>
                 </div>
             </section>
 
@@ -384,7 +354,7 @@ const submit = () => {
                     class="rounded-md bg-primary px-md py-sm text-label-lg uppercase tracking-wide text-on-primary transition-colors hover:bg-primary-container hover:text-on-primary-container disabled:opacity-50"
                     :disabled="form.processing"
                 >
-                    Save settings
+                    {{ t('admin.settings.save') }}
                 </button>
             </div>
         </form>

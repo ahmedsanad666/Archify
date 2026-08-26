@@ -57,4 +57,27 @@ class SiteSetting extends Model implements HasMedia
 
         return $this->translations()->where('language_id', $languageId)->first();
     }
+
+    /**
+     * Sensible robots.txt for Archify public site + admin CMS.
+     * Blocks private admin/auth paths and direct storage/API while allowing the rest.
+     */
+    public static function defaultRobotsTxt(): string
+    {
+        return implode("\n", [
+            'User-agent: *',
+            'Allow: /',
+            'Disallow: /admin',
+            'Disallow: /login',
+            'Disallow: /storage/',
+            'Disallow: /api/',
+        ]);
+    }
+
+    public function resolvedRobotsTxt(): string
+    {
+        $value = is_string($this->robots_txt) ? trim($this->robots_txt) : '';
+
+        return $value !== '' ? $this->robots_txt : static::defaultRobotsTxt();
+    }
 }

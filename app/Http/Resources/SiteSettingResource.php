@@ -52,7 +52,7 @@ class SiteSettingResource extends JsonResource
             'gtm_id' => $this->gtm_id,
             'facebook_pixel_id' => $this->facebook_pixel_id,
             'google_site_verification' => $this->google_site_verification,
-            'robots_txt' => $this->robots_txt,
+            'robots_txt' => $this->resolvedRobotsTxt(),
             'auto_translate_enabled' => $this->auto_translate_enabled,
             'name' => $translation?->name,
             'slogan' => $translation?->slogan,
