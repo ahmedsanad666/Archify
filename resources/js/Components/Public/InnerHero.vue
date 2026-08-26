@@ -45,7 +45,7 @@ defineProps({
         </div>
 
         <div
-            class="relative z-20 mx-auto flex h-full w-full max-w-[1440px] flex-col justify-end px-margin-mobile pb-margin-desktop text-start md:px-margin-desktop"
+            class="relative z-20 mx-auto flex h-full w-full max-w-[1440px] flex-col justify-end px-margin-mobile pb-margin-desktop pt-24 text-start md:px-margin-desktop md:pt-28"
         >
             <div class="max-w-2xl min-w-0">
                 <nav

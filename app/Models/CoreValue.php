@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\Scopes\OrderedScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CoreValue extends Model
 {
+    /** @use HasFactory<\Database\Factories\CoreValueFactory> */
+    use HasFactory;
     protected $fillable = [
         'icon',
         'order',

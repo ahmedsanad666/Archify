@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,7 @@ $publicRoutes = function (): void {
     Route::get('/team', [TeamController::class, 'index'])->name('team');
     Route::get('/faq', [FaqController::class, 'index'])->name('faqs.index');
     Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+    Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
     Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 };
@@ -39,6 +41,7 @@ Route::prefix('{locale}')
         Route::get('/team', [TeamController::class, 'index']);
         Route::get('/faq', [FaqController::class, 'index']);
         Route::get('/services', [ServiceController::class, 'index']);
+        Route::get('/projects', [ProjectController::class, 'index']);
         Route::get('/blogs', [BlogController::class, 'index']);
         Route::get('/contact', [ContactController::class, 'index']);
     });

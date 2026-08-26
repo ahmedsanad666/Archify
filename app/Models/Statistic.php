@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\Scopes\OrderedScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Statistic extends Model
 {
+    /** @use HasFactory<\Database\Factories\StatisticFactory> */
+    use HasFactory;
     protected $fillable = [
         'count',
         'order',

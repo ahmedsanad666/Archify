@@ -7,10 +7,20 @@ import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import ConfirmDialog from '@/Components/Shared/ConfirmDialog.vue';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Archify';
 
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
+    title: (title) => {
+        if (!title) {
+            return appName;
+        }
+
+        if (title === appName || title.includes(appName)) {
+            return title;
+        }
+
+        return `${title} - ${appName}`;
+    },
     resolve: (name) =>
         resolvePageComponent(
             `./Pages/${name}.vue`,

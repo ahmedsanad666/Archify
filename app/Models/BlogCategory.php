@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\Scopes\OrderedScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class BlogCategory extends Model
 {
+    /** @use HasFactory<\Database\Factories\BlogCategoryFactory> */
+    use HasFactory;
     protected $fillable = [
         'color',
         'order',

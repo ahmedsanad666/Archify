@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 
 class BlogResource extends JsonResource
 {
@@ -41,7 +42,7 @@ class BlogResource extends JsonResource
         $localized = $translations[$locale]
             ?? $translations['en']
             ?? collect($translations)->first(fn ($t) => filled($t['title'] ?? null))
-            ?? ['title' => null, 'slug' => null, 'read_time' => null];
+            ?? ['title' => null, 'slug' => null, 'read_time' => null, 'content' => null];
 
         $category = null;
         if ($this->relationLoaded('category') && $this->category) {
@@ -69,6 +70,8 @@ class BlogResource extends JsonResource
             ];
         }
 
+        $plainContent = trim(preg_replace('/\s+/', ' ', strip_tags((string) ($localized['content'] ?? ''))) ?? '');
+
         return [
             'id' => $this->id,
             'blog_category_id' => $this->blog_category_id,
@@ -78,6 +81,8 @@ class BlogResource extends JsonResource
             'title' => $localized['title'] ?? null,
             'slug' => $localized['slug'] ?? null,
             'read_time' => $localized['read_time'] ?? null,
+            'excerpt' => $plainContent !== '' ? Str::limit($plainContent, 160) : null,
+            'created_at' => $this->created_at?->toIso8601String(),
             'thumbnail_url' => $this->getFirstMediaUrl('thumbnail') ?: null,
             'cover_url' => $this->getFirstMediaUrl('cover') ?: null,
         ];

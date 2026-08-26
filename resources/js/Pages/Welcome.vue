@@ -25,7 +25,7 @@ defineProps({
         <Head title="Welcome" />
 
         <section
-            class="mx-auto flex min-h-[60vh] max-w-[1440px] flex-col justify-center px-margin-mobile py-xl md:px-margin-desktop"
+            class="mx-auto flex min-h-[60vh] max-w-[1440px] flex-col justify-center px-margin-mobile pb-xl pt-24 md:px-margin-desktop md:pt-28"
         >
             <p
                 class="mb-sm text-label-md uppercase tracking-wide text-on-surface-variant"

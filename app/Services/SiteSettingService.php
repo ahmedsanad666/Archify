@@ -78,6 +78,93 @@ class SiteSettingService
     }
 
     /**
+     * Resolve a title template with placeholders (%site_name%, %tagline%, %slogan%, %page_title%).
+     *
+     * @param  array{site_name?: string, tagline?: string, slogan?: string, page_title?: string}  $replacements
+     */
+    public function resolveTitleTemplate(string $template, array $replacements = []): string
+    {
+        $map = [
+            '%site_name%' => (string) ($replacements['site_name'] ?? ''),
+            '%tagline%' => (string) ($replacements['tagline'] ?? $replacements['slogan'] ?? ''),
+            '%slogan%' => (string) ($replacements['slogan'] ?? $replacements['tagline'] ?? ''),
+            '%page_title%' => (string) ($replacements['page_title'] ?? ''),
+        ];
+
+        $resolved = str_ireplace(array_keys($map), array_values($map), $template);
+        $resolved = preg_replace('/%[a-z0-9_]+%/i', '', $resolved) ?? $resolved;
+        $resolved = preg_replace('/\s+/', ' ', $resolved) ?? $resolved;
+        $resolved = preg_replace('/\s*[\|\-–—]\s*[\|\-–—]+\s*/u', ' | ', $resolved) ?? $resolved;
+        $resolved = preg_replace('/^[\s\|\-–—]+|[\s\|\-–—]+$/u', '', $resolved) ?? $resolved;
+
+        return trim($resolved);
+    }
+
+    /**
+     * Document-level SEO for Blade View Source and Inertia Head mirroring.
+     *
+     * @param  array{site_name?: string, tagline?: string, slogan?: string, page_title?: string}  $replacements
+     * @return array{title: string, description: string, keywords: string}
+     */
+    public function documentSeo(array $replacements = []): array
+    {
+        $settings = $this->siteSettingRepository->getSingleton();
+
+        $locale = app()->getLocale();
+        $language = $this->languageRepository->findByCode($locale)
+            ?? $this->languageRepository->allActive()->firstWhere('is_default', true);
+
+        $translation = null;
+        if ($settings && $language) {
+            $settings->loadMissing('translations');
+            $translation = $settings->translations->firstWhere('language_id', $language->id);
+        }
+
+        $siteName = (string) ($replacements['site_name']
+            ?? $translation?->name
+            ?? config('app.name', 'Archify'));
+        $slogan = (string) ($replacements['slogan']
+            ?? $replacements['tagline']
+            ?? $translation?->slogan
+            ?? '');
+        $pageTitle = isset($replacements['page_title'])
+            ? trim((string) $replacements['page_title'])
+            : '';
+
+        $template = trim((string) ($translation?->meta_title ?? ''));
+        $merge = [
+            'site_name' => $siteName,
+            'tagline' => $slogan,
+            'slogan' => $slogan,
+            'page_title' => $pageTitle,
+        ];
+
+        if ($template !== '') {
+            if ($pageTitle !== '' && ! str_contains(strtolower($template), '%page_title%')) {
+                $title = trim($pageTitle.' - '.$siteName);
+            } else {
+                $title = $this->resolveTitleTemplate($template, $merge);
+            }
+        } elseif ($pageTitle !== '') {
+            $title = trim($pageTitle.' - '.$siteName);
+        } elseif ($slogan !== '') {
+            $title = trim($siteName.' | '.$slogan);
+        } else {
+            $title = $siteName;
+        }
+
+        if ($title === '') {
+            $title = $siteName;
+        }
+
+        return [
+            'title' => $title,
+            'description' => trim((string) ($translation?->meta_description ?? '')),
+            'keywords' => trim((string) ($translation?->meta_keywords ?? '')),
+        ];
+    }
+
+    /**
      * @param  array<string, array<string, mixed>>  $translations
      */
     private function syncTranslations(SiteSetting $settings, array $translations): void

@@ -8,15 +8,15 @@ use App\Models\Project;
 use App\Models\ProjectCategory;
 use App\Models\ProjectCategoryTranslation;
 use App\Models\ProjectTranslation;
+use Database\Seeders\Concerns\AttachesRemoteMedia;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Throwable;
 
 class PortfolioDemoSeeder extends Seeder
 {
+    use AttachesRemoteMedia;
+
     /**
      * Seed demo categories, concepts, and projects with real Unsplash images.
      */
@@ -583,47 +583,6 @@ class PortfolioDemoSeeder extends Seeder
 
         foreach ($urls as $url) {
             $this->attachRemoteImage($model, $url, $collection);
-        }
-    }
-
-    private function attachRemoteImage(Model $model, string $url, string $collection): void
-    {
-        $tmp = tempnam(sys_get_temp_dir(), 'seed_img_');
-
-        if ($tmp === false) {
-            Log::warning('PortfolioDemoSeeder: unable to create temp file', ['url' => $url]);
-
-            return;
-        }
-
-        $path = $tmp.'.jpg';
-        @rename($tmp, $path);
-
-        try {
-            $response = Http::timeout(45)
-                ->withHeaders(['User-Agent' => 'ArchifyPortfolioSeeder/1.0'])
-                ->sink($path)
-                ->get($url);
-
-            if (! $response->successful() || ! is_file($path) || filesize($path) < 1000) {
-                Log::warning('PortfolioDemoSeeder: image download failed', [
-                    'url' => $url,
-                    'status' => $response->status(),
-                ]);
-
-                return;
-            }
-
-            /** @var Project $model */
-            $model->addMedia($path)
-                ->usingFileName(Str::slug(pathinfo(parse_url($url, PHP_URL_PATH) ?: 'image', PATHINFO_FILENAME)).'.jpg')
-                ->toMediaCollection($collection);
-        } catch (Throwable $e) {
-            Log::warning('PortfolioDemoSeeder: '.$e->getMessage(), ['url' => $url]);
-        } finally {
-            if (is_file($path)) {
-                @unlink($path);
-            }
         }
     }
 }

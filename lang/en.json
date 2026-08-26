@@ -30,11 +30,14 @@
         "about": "About",
         "services": "Services",
         "projects": "Projects",
+        "work": "Work",
         "blog": "Journal",
         "team": "Team",
         "faq": "FAQ",
         "contact": "Contact",
-        "language": "Language"
+        "language": "Language",
+        "menu": "Menu",
+        "all": "All"
     },
     "public": {
         "footer": {
@@ -46,6 +49,7 @@
             "email_placeholder": "Email Address",
             "subscribe": "Subscribe",
             "rights": "All rights reserved.",
+            "developed_by": "Developed By TechSquare",
             "default_slogan": "Crafting spaces of silent authority and nocturnal elegance."
         },
         "home": {
@@ -68,6 +72,9 @@
             "empty_blogs": "Journal posts will appear here soon.",
             "empty_faqs": "FAQs will appear here soon."
         },
+        "blog": {
+            "min_read": "{n} min read"
+        },
         "services": {
             "title": "Services",
             "eyebrow": "What we offer",
@@ -77,6 +84,11 @@
             "title": "Journal",
             "eyebrow": "Insights",
             "empty": "Journal posts will appear here soon."
+        },
+        "projects": {
+            "title": "Our Work",
+            "eyebrow": "Portfolio",
+            "empty": "Projects will appear here soon."
         },
         "contact": {
             "title": "Contact",

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Http\Resources\LanguageResource;
 use App\Http\Resources\SiteSettingResource;
 use App\Models\Language;
+use App\Repositories\Contracts\BlogCategoryRepositoryInterface;
 use App\Repositories\Contracts\LanguageRepositoryInterface;
 use App\Repositories\Contracts\ProjectCategoryRepositoryInterface;
 use App\Repositories\Contracts\SiteSettingRepositoryInterface;
@@ -25,6 +26,7 @@ class HandleInertiaRequests extends Middleware
         private readonly LanguageRepositoryInterface $languageRepository,
         private readonly SiteSettingRepositoryInterface $siteSettingRepository,
         private readonly ProjectCategoryRepositoryInterface $projectCategoryRepository,
+        private readonly BlogCategoryRepositoryInterface $blogCategoryRepository,
     ) {}
 
     /**
@@ -79,6 +81,26 @@ class HandleInertiaRequests extends Middleware
             },
             'projectCategories' => function () {
                 return $this->projectCategoryRepository->all()->map(function ($category) {
+                    $translations = [];
+                    foreach ($category->translations as $row) {
+                        $code = $row->language?->code;
+                        if (! $code) {
+                            continue;
+                        }
+                        $translations[$code] = [
+                            'name' => $row->name,
+                            'slug' => $row->slug,
+                        ];
+                    }
+
+                    return [
+                        'id' => $category->id,
+                        'translations' => $translations,
+                    ];
+                })->values()->all();
+            },
+            'blogCategories' => function () {
+                return $this->blogCategoryRepository->all()->map(function ($category) {
                     $translations = [];
                     foreach ($category->translations as $row) {
                         $code = $row->language?->code;

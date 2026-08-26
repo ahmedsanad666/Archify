@@ -14,6 +14,7 @@ use App\Services\BlogService;
 use App\Services\FaqService;
 use App\Services\ProjectService;
 use App\Services\ServiceService;
+use App\Services\SiteSettingService;
 use App\Services\SliderService;
 use App\Services\StatisticService;
 use Inertia\Inertia;
@@ -29,6 +30,7 @@ class HomeController extends Controller
         private readonly StatisticService $statisticService,
         private readonly BlogService $blogService,
         private readonly FaqService $faqService,
+        private readonly SiteSettingService $siteSettingService,
     ) {}
 
     public function index(): Response
@@ -41,6 +43,8 @@ class HomeController extends Controller
             'statistics' => StatisticResource::collection($this->statisticService->all())->resolve(),
             'blogs' => BlogResource::collection($this->blogService->latestForHome(3))->resolve(),
             'faqs' => FaqResource::collection($this->faqService->all())->resolve(),
+        ])->withViewData([
+            'seo' => $this->siteSettingService->documentSeo(),
         ]);
     }
 }

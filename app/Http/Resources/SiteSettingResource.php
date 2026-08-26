@@ -60,6 +60,11 @@ class SiteSettingResource extends JsonResource
             'meta_title' => $translation?->meta_title,
             'meta_description' => $translation?->meta_description,
             'meta_keywords' => $translation?->meta_keywords,
+            'seo' => [
+                'title_template' => $translation?->meta_title,
+                'description' => $translation?->meta_description,
+                'keywords' => $translation?->meta_keywords,
+            ],
             'translations' => $translationsByLocale,
             'media' => [
                 'logo' => $this->getFirstMediaUrl('logo') ?: null,

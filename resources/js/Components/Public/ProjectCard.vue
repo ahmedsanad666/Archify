@@ -1,5 +1,7 @@
 <script setup>
 import { computed } from 'vue'
+import { Link } from '@inertiajs/vue3'
+import { IconArrowUpRight } from '@tabler/icons-vue'
 import { useLocale } from '@/Composables/useLocale'
 
 const props = defineProps({
@@ -7,52 +9,62 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    href: {
+        type: String,
+        default: null,
+    },
 })
 
 const { localized } = useLocale()
 
 const name = computed(() => localized(props.project, 'name'))
-const shortDescription = computed(() =>
-    localized(props.project, 'short_description'),
-)
+const categoryName = computed(() => props.project?.category?.name ?? null)
+const isLinkable = computed(() => Boolean(props.href))
 </script>
 
 <template>
-    <article
-        class="group overflow-hidden rounded-lg border border-outline-variant bg-surface-container transition-colors duration-200 hover:border-secondary hover:bg-surface-container-high"
+    <component
+        :is="isLinkable ? Link : 'article'"
+        v-bind="isLinkable ? { href } : {}"
+        class="group relative aspect-[4/5] overflow-hidden rounded-lg border border-outline-variant bg-surface-container transition-colors duration-500 hover:border-secondary"
+        :class="isLinkable ? 'cursor-pointer' : ''"
     >
-        <div class="aspect-[4/3] overflow-hidden bg-surface-container-low">
-            <img
-                v-if="project.thumbnail_url"
-                :src="project.thumbnail_url"
-                :alt="name"
-                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-        </div>
-        <div class="flex flex-col gap-2 p-md">
+        <img
+            v-if="project.thumbnail_url"
+            :src="project.thumbnail_url"
+            :alt="name || ''"
+            class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80"
+        />
+
+        <div
+            class="absolute end-md top-md translate-y-2 opacity-0 transition-all duration-500 ltr:-translate-x-2 rtl:translate-x-2 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100"
+        >
             <div
-                class="flex items-center justify-between gap-2 text-label-md uppercase tracking-wide text-on-surface-variant"
+                class="flex h-10 w-10 items-center justify-center rounded-full border border-outline-variant bg-surface/80 text-primary backdrop-blur-sm"
             >
-                <span v-if="project.category?.name">{{
-                    project.category.name
-                }}</span>
-                <span v-if="project.year">{{ project.year }}</span>
+                <IconArrowUpRight
+                    :size="20"
+                    stroke-width="1.5"
+                />
             </div>
-            <h3 class="text-headline-lg-mobile text-on-surface">
+        </div>
+
+        <div class="absolute inset-x-0 bottom-0 w-full p-lg text-start">
+            <span
+                v-if="categoryName"
+                class="mb-sm inline-block rounded-sm bg-primary-container px-3 py-1 text-label-md text-on-primary-container"
+            >
+                {{ categoryName }}
+            </span>
+            <h3
+                class="text-headline-lg-mobile text-on-surface transition-colors duration-300 group-hover:text-primary md:text-headline-lg"
+            >
                 {{ name }}
             </h3>
-            <p
-                v-if="shortDescription"
-                class="line-clamp-2 text-body-md text-on-surface-variant"
-            >
-                {{ shortDescription }}
-            </p>
-            <p
-                v-if="project.location"
-                class="text-label-md text-outline"
-            >
-                {{ project.location }}
-            </p>
         </div>
-    </article>
+    </component>
 </template>

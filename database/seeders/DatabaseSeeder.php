@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             AboutPageSeeder::class,
             AdminUserSeeder::class,
             PortfolioDemoSeeder::class,
+            ContentDemoSeeder::class,
         ]);
     }
 }

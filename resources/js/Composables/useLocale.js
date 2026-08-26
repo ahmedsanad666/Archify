@@ -7,6 +7,7 @@ const PUBLIC_PATH_TO_ROUTE = {
     '/team': 'team',
     '/faq': 'faqs.index',
     '/services': 'services.index',
+    '/projects': 'projects.index',
     '/blogs': 'blogs.index',
     '/contact': 'contact',
 }

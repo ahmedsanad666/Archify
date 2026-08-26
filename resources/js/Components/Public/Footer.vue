@@ -14,14 +14,23 @@ import { useUiTranslations } from '@/Composables/useUiTranslations'
 
 const page = usePage()
 const { t } = useUiTranslations()
-const { locale, languages, localePath, switchLocale, localized } = useLocale()
+const { localePath, localized } = useLocale()
 
 const siteSettings = computed(() => page.props.siteSettings)
 
 const siteName = computed(() => siteSettings.value?.name ?? 'Archify')
-const slogan = computed(
-    () => siteSettings.value?.slogan ?? t('public.footer.default_slogan'),
-)
+const slogan = computed(() => {
+    const value = siteSettings.value?.slogan
+    return typeof value === 'string' && value.trim() !== '' ? value.trim() : null
+})
+const logoUrl = computed(() => siteSettings.value?.media?.logo ?? null)
+const metaDescription = computed(() => {
+    const value =
+        siteSettings.value?.meta_description ??
+        siteSettings.value?.seo?.description ??
+        ''
+    return typeof value === 'string' && value.trim() !== '' ? value.trim() : null
+})
 
 const exploreLinks = computed(() => [
     { label: t('nav.home'), routeName: 'home' },
@@ -29,7 +38,6 @@ const exploreLinks = computed(() => [
     { label: t('nav.services'), routeName: 'services.index' },
     { label: t('nav.blog'), routeName: 'blogs.index' },
     { label: t('nav.contact'), routeName: 'contact' },
-    { label: t('nav.team'), routeName: 'team' },
 ])
 
 const projectCategories = computed(() => page.props.projectCategories ?? [])
@@ -72,15 +80,39 @@ const onNewsletterSubmit = (event) => {
             class="relative z-10 mx-auto grid max-w-[1440px] grid-cols-1 gap-gutter px-margin-mobile pb-lg pt-xl md:grid-cols-4 md:px-margin-desktop"
         >
             <!-- Brand -->
-            <div class="flex min-w-0 flex-col gap-md">
-                <h2
-                    class="truncate text-display-md tracking-tighter text-on-surface"
+            <div class="flex min-w-0 flex-col gap-md text-start">
+                <Link
+                    :href="localePath('home')"
+                    class="flex min-w-0 items-center gap-sm"
                 >
-                    {{ siteName }}
-                </h2>
-                <p class="max-w-xs text-body-md text-on-surface-variant">
-                    {{ slogan }}
+                    <img
+                        v-if="logoUrl"
+                        :src="logoUrl"
+                        :alt="siteName"
+                        class="h-8 w-auto shrink-0 object-contain md:h-10"
+                    />
+                    <span class="flex min-w-0 flex-col text-start">
+                        <span
+                            class="truncate text-[23px] font-semibold leading-tight tracking-tight text-primary"
+                        >
+                            {{ siteName }}
+                        </span>
+                        <span
+                            v-if="slogan"
+                            class="truncate text-label-md font-normal text-on-surface-variant"
+                        >
+                            {{ slogan }}
+                        </span>
+                    </span>
+                </Link>
+
+                <p
+                    v-if="metaDescription"
+                    class="max-w-xs text-body-md text-on-surface-variant"
+                >
+                    {{ metaDescription }}
                 </p>
+
                 <div
                     class="flex flex-col gap-sm pt-sm text-label-lg uppercase tracking-wide text-on-surface-variant"
                 >
@@ -93,7 +125,7 @@ const onNewsletterSubmit = (event) => {
                             :size="18"
                             stroke-width="1.5"
                         />
-                        <span class="min-w-0 break-words">{{
+                        <span class="min-w-0 break-words normal-case tracking-normal">{{
                             siteSettings.address
                         }}</span>
                     </div>
@@ -225,35 +257,20 @@ const onNewsletterSubmit = (event) => {
             <div
                 class="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-4 px-margin-mobile py-md md:flex-row md:gap-0 md:px-margin-desktop"
             >
-                <div class="text-center text-body-md text-on-surface-variant md:text-start">
+                <div
+                    class="text-center text-body-md text-on-surface-variant md:text-start"
+                >
                     © {{ new Date().getFullYear() }} {{ siteName }}.
                     {{ t('public.footer.rights') }}
                 </div>
-                <div
-                    class="flex flex-wrap items-center justify-center gap-2 text-label-lg uppercase tracking-wide text-on-surface-variant"
+                <a
+                    href="https://www.techsquare.dev/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-label-md text-on-surface-variant transition-colors duration-300 hover:text-primary"
                 >
-                    <template
-                        v-for="(language, index) in languages"
-                        :key="language.code"
-                    >
-                        <button
-                            type="button"
-                            class="uppercase transition-colors duration-300 hover:text-primary"
-                            :class="{
-                                'text-primary': locale?.code === language.code,
-                            }"
-                            @click="switchLocale(language.code)"
-                        >
-                            {{ language.code }}
-                        </button>
-                        <span
-                            v-if="index < languages.length - 1"
-                            class="text-outline-variant"
-                        >
-                            /
-                        </span>
-                    </template>
-                </div>
+                    {{ t('public.footer.developed_by') }}
+                </a>
             </div>
         </div>
     </footer>

@@ -30,11 +30,14 @@
         "about": "Hakkımızda",
         "services": "Hizmetler",
         "projects": "Projeler",
+        "work": "İşler",
         "blog": "Dergi",
         "team": "Ekip",
         "faq": "SSS",
         "contact": "İletişim",
-        "language": "Dil"
+        "language": "Dil",
+        "menu": "Menü",
+        "all": "Tümü"
     },
     "public": {
         "footer": {
@@ -46,6 +49,7 @@
             "email_placeholder": "E-posta Adresi",
             "subscribe": "Abone Ol",
             "rights": "Tüm hakları saklıdır.",
+            "developed_by": "TechSquare tarafından geliştirildi",
             "default_slogan": "Sessiz otorite ve gece zarafetiyle mekânlar tasarlıyoruz."
         },
         "home": {
@@ -68,6 +72,9 @@
             "empty_blogs": "Yazılar yakında burada olacak.",
             "empty_faqs": "SSS yakında burada olacak."
         },
+        "blog": {
+            "min_read": "{n} dk okuma"
+        },
         "services": {
             "title": "Hizmetler",
             "eyebrow": "Neler sunuyoruz",
@@ -77,6 +84,11 @@
             "title": "Dergi",
             "eyebrow": "İçgörüler",
             "empty": "Yazılar yakında burada olacak."
+        },
+        "projects": {
+            "title": "İşlerimiz",
+            "eyebrow": "Portföy",
+            "empty": "Projeler yakında burada olacak."
         },
         "contact": {
             "title": "İletişim",
