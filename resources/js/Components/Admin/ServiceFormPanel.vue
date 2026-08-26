@@ -3,14 +3,14 @@ import { computed, ref, watch } from 'vue';
 import {
     Dialog,
     DialogPanel,
-    DialogTitle,
     TransitionChild,
     TransitionRoot,
 } from '@headlessui/vue';
 import { useForm, usePage } from '@inertiajs/vue3';
-import IconPicker from '@/Components/Admin/IconPicker.vue';
+import AdminDrawerHeader from '@/Components/Admin/AdminDrawerHeader.vue';
+import IconPicker from '@/Components/Shared/IconPicker.vue';
 import TranslationTabs from '@/Components/Admin/TranslationTabs.vue';
-import { IconPlus, IconTrash, IconX } from '@tabler/icons-vue';
+import { IconPlus, IconTrash } from '@tabler/icons-vue';
 import { useUiTranslations } from '@/Composables/useUiTranslations';
 
 const props = defineProps({
@@ -171,41 +171,22 @@ const submit = () => {
                             leave-to="translate-x-full rtl:-translate-x-full"
                         >
                             <DialogPanel
-                                class="pointer-events-auto flex h-full w-screen max-w-xl flex-col border-s border-primary-container bg-surface-container shadow-none md:max-w-[600px]"
+                                class="pointer-events-auto flex h-full w-screen max-w-md flex-col border-s border-outline-variant bg-surface-container shadow-none"
                             >
                                 <form
                                     class="flex h-full flex-col"
                                     @submit.prevent="submit"
                                 >
-                                    <div
-                                        class="sticky top-0 z-10 flex items-center justify-between border-b border-outline-variant bg-surface-container-low px-md py-sm"
-                                    >
-                                        <DialogTitle
-                                            class="text-headline-lg-mobile font-semibold text-on-surface md:text-headline-lg"
-                                        >
-                                            {{ title }}
-                                        </DialogTitle>
-                                        <button
-                                            type="button"
-                                            class="rounded-md p-1 text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-on-surface"
-                                            :disabled="form.processing"
-                                            @click="close"
-                                        >
-                                            <IconX
-                                                :size="20"
-                                                stroke-width="1.5"
-                                            />
-                                            <span class="sr-only">Close</span>
-                                        </button>
-                                    </div>
+                                    <AdminDrawerHeader
+                                        :title="title"
+                                        :disabled="form.processing"
+                                        @close="close"
+                                    />
 
                                     <div
                                         class="flex-1 space-y-md overflow-y-auto px-md py-md"
                                     >
-                                        <IconPicker
-                                            v-model="form.icon"
-                                            variant="grid"
-                                        />
+                                        <IconPicker v-model="form.icon" />
                                         <p
                                             v-if="form.errors.icon"
                                             class="text-label-md text-error"

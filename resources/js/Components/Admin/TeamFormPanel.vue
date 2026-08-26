@@ -3,13 +3,13 @@ import { computed, ref, watch } from 'vue';
 import {
     Dialog,
     DialogPanel,
-    DialogTitle,
     TransitionChild,
     TransitionRoot,
 } from '@headlessui/vue';
 import { useForm, usePage } from '@inertiajs/vue3';
+import AdminDrawerHeader from '@/Components/Admin/AdminDrawerHeader.vue';
 import TranslationTabs from '@/Components/Admin/TranslationTabs.vue';
-import { IconBrandBehance, IconBrandInstagram, IconBrandLinkedin, IconUpload, IconX } from '@tabler/icons-vue';
+import { IconBrandBehance, IconBrandInstagram, IconBrandLinkedin, IconUpload } from '@tabler/icons-vue';
 import { useUiTranslations } from '@/Composables/useUiTranslations';
 
 const props = defineProps({
@@ -230,27 +230,11 @@ const submit = () => {
                                     class="flex h-full flex-col"
                                     @submit.prevent="submit"
                                 >
-                                    <div
-                                        class="relative sticky top-0 z-10 border-b border-outline-variant bg-surface-container-low px-md py-sm"
-                                    >
-                                        <DialogTitle
-                                            class="px-8 text-center text-body-lg font-semibold text-on-surface"
-                                        >
-                                            {{ title }}
-                                        </DialogTitle>
-                                        <button
-                                            type="button"
-                                            class="absolute end-md top-1/2 -translate-y-1/2 rounded-md p-1 text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-on-surface"
-                                            :disabled="form.processing"
-                                            @click="close"
-                                        >
-                                            <IconX
-                                                :size="20"
-                                                stroke-width="1.5"
-                                            />
-                                            <span class="sr-only">{{ t('admin.team.cancel') }}</span>
-                                        </button>
-                                    </div>
+                                    <AdminDrawerHeader
+                                        :title="title"
+                                        :disabled="form.processing"
+                                        @close="close"
+                                    />
 
                                     <div
                                         class="flex-1 space-y-sm overflow-y-auto px-md py-sm"

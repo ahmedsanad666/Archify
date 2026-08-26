@@ -49,7 +49,12 @@ const navSections = computed(() => [
                 icon: IconLayoutDashboard,
                 routeName: "admin.dashboard",
             },
-            { label: t("admin.menu.leads"), href: "#", icon: IconMessages },
+            {
+                label: t("admin.menu.leads"),
+                href: route("admin.leads.index"),
+                icon: IconMessages,
+                routeName: "admin.leads.*",
+            },
         ],
     },
     {
@@ -73,12 +78,28 @@ const navSections = computed(() => [
                 icon: IconCategory,
                 routeName: "admin.services.*",
             },
-            { label: t("admin.menu.blog"), href: "#", icon: IconArticle },
             {
                 label: t("admin.menu.team"),
                 href: route("admin.team-members.index"),
                 icon: IconUsersGroup,
                 routeName: "admin.team-members.*",
+            },
+        ],
+    },
+    {
+        label: t("admin.sections.blogs"),
+        items: [
+            {
+                label: t("admin.menu.blog_categories"),
+                href: route("admin.blog-categories.index"),
+                icon: IconTags,
+                routeName: "admin.blog-categories.*",
+            },
+            {
+                label: t("admin.menu.blogs"),
+                href: route("admin.blogs.index"),
+                icon: IconArticle,
+                routeName: "admin.blogs.*",
             },
         ],
     },
@@ -110,16 +131,22 @@ const navSections = computed(() => [
         items: [
             {
                 label: t("admin.menu.testimonials"),
-                href: "#",
+                href: route("admin.testimonials.index"),
                 icon: IconQuote,
+                routeName: "admin.testimonials.*",
             },
-            { label: t("admin.menu.faq"), href: "#", icon: IconHelp },
+            { label: t("admin.menu.faq"), href: route("admin.faqs.index"), icon: IconHelp, routeName: "admin.faqs.*" },
         ],
     },
     {
         label: t("admin.sections.system"),
         items: [
-            { label: t("admin.menu.media"), href: "#", icon: IconPhoto },
+            {
+                label: t("admin.menu.media"),
+                href: route("admin.media.index"),
+                icon: IconPhoto,
+                routeName: "admin.media.*",
+            },
             {
                 label: t("admin.menu.translations"),
                 href: "#",

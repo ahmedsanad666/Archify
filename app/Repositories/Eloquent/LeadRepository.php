@@ -22,8 +22,16 @@ class LeadRepository implements LeadRepositoryInterface
     public function paginateByStatus(?string $status = null, int $perPage = 15): LengthAwarePaginator
     {
         return Lead::query()
+            ->with(['service.translations.language', 'language'])
             ->when($status, fn ($query) => $query->where('status', $status))
             ->latest()
             ->paginate($perPage);
+    }
+
+    public function update(Lead $lead, array $data): Lead
+    {
+        $lead->update($data);
+
+        return $lead->fresh(['service.translations.language', 'language']);
     }
 }

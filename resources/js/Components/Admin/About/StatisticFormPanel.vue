@@ -3,13 +3,12 @@ import { computed, ref, watch } from 'vue';
 import {
     Dialog,
     DialogPanel,
-    DialogTitle,
     TransitionChild,
     TransitionRoot,
 } from '@headlessui/vue';
 import { useForm, usePage } from '@inertiajs/vue3';
+import AdminDrawerHeader from '@/Components/Admin/AdminDrawerHeader.vue';
 import TranslationTabs from '@/Components/Admin/TranslationTabs.vue';
-import { IconX } from '@tabler/icons-vue';
 import { useUiTranslations } from '@/Composables/useUiTranslations';
 
 const props = defineProps({
@@ -150,26 +149,11 @@ const submit = () => {
                                     class="flex h-full flex-col"
                                     @submit.prevent="submit"
                                 >
-                                    <div
-                                        class="flex items-center justify-between border-b border-outline-variant px-md py-sm"
-                                    >
-                                        <DialogTitle
-                                            class="text-headline-lg-mobile font-semibold text-on-surface"
-                                        >
-                                            {{ title }}
-                                        </DialogTitle>
-                                        <button
-                                            type="button"
-                                            class="rounded-md p-1 text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-on-surface"
-                                            :disabled="form.processing"
-                                            @click="close"
-                                        >
-                                            <IconX
-                                                :size="20"
-                                                stroke-width="1.5"
-                                            />
-                                        </button>
-                                    </div>
+                                    <AdminDrawerHeader
+                                        :title="title"
+                                        :disabled="form.processing"
+                                        @close="close"
+                                    />
 
                                     <div
                                         class="flex-1 space-y-md overflow-y-auto px-md py-md"

@@ -10,6 +10,7 @@ use App\Repositories\Contracts\CoreValueRepositoryInterface;
 use App\Repositories\Contracts\FaqRepositoryInterface;
 use App\Repositories\Contracts\LanguageRepositoryInterface;
 use App\Repositories\Contracts\LeadRepositoryInterface;
+use App\Repositories\Contracts\MediaRepositoryInterface;
 use App\Repositories\Contracts\ProjectCategoryRepositoryInterface;
 use App\Repositories\Contracts\ProjectRepositoryInterface;
 use App\Repositories\Contracts\ServiceRepositoryInterface;
@@ -26,6 +27,7 @@ use App\Repositories\Eloquent\CoreValueRepository;
 use App\Repositories\Eloquent\FaqRepository;
 use App\Repositories\Eloquent\LanguageRepository;
 use App\Repositories\Eloquent\LeadRepository;
+use App\Repositories\Eloquent\MediaRepository;
 use App\Repositories\Eloquent\ProjectCategoryRepository;
 use App\Repositories\Eloquent\ProjectRepository;
 use App\Repositories\Eloquent\ServiceRepository;
@@ -58,5 +60,6 @@ class RepositoryServiceProvider extends ServiceProvider
         TeamMemberRepositoryInterface::class => TeamMemberRepository::class,
         TestimonialRepositoryInterface::class => TestimonialRepository::class,
         LeadRepositoryInterface::class => LeadRepository::class,
+        MediaRepositoryInterface::class => MediaRepository::class,
     ];
 }

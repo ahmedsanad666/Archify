@@ -13,4 +13,6 @@ interface LeadRepositoryInterface
     public function all(): Collection;
 
     public function paginateByStatus(?string $status = null, int $perPage = 15): LengthAwarePaginator;
+
+    public function update(Lead $lead, array $data): Lead;
 }

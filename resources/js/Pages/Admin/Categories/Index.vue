@@ -2,7 +2,7 @@
 import { Link, Head, router, usePage } from "@inertiajs/vue3";
 import { ref } from "vue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
-import CategoryFormModal from "@/Components/Admin/CategoryFormModal.vue";
+import CategoryFormPanel from "@/Components/Admin/CategoryFormPanel.vue";
 import { useConfirm } from "@/Composables/useConfirm";
 import { useUiTranslations } from "@/Composables/useUiTranslations";
 import {
@@ -22,17 +22,17 @@ const page = usePage();
 const { t } = useUiTranslations();
 const { confirm } = useConfirm();
 
-const modalOpen = ref(false);
+const panelOpen = ref(false);
 const editingCategory = ref(null);
 
 const openCreate = () => {
     editingCategory.value = null;
-    modalOpen.value = true;
+    panelOpen.value = true;
 };
 
 const openEdit = (category) => {
     editingCategory.value = category;
-    modalOpen.value = true;
+    panelOpen.value = true;
 };
 
 const destroy = async (id) => {
@@ -227,8 +227,8 @@ const destroy = async (id) => {
             </div>
         </div>
 
-        <CategoryFormModal
-            v-model:open="modalOpen"
+        <CategoryFormPanel
+            v-model:open="panelOpen"
             :category="editingCategory"
         />
     </AdminLayout>

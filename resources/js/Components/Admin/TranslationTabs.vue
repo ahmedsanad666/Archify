@@ -73,7 +73,21 @@ const statusFor = (code) => {
     return props.modelValue?.[code]?.translation_status ?? null;
 };
 
-const statusClass = (status) => {
+const statusClass = (status, selected = false) => {
+    // Active tab uses primary fill — status chip must stay readable on that surface.
+    if (selected) {
+        switch (status) {
+            case "failed":
+                return "bg-on-primary/25 text-on-primary";
+            case "pending":
+                return "bg-on-primary/20 text-on-primary";
+            case "translated":
+            case "manual":
+            default:
+                return "bg-on-primary/20 text-on-primary";
+        }
+    }
+
     switch (status) {
         case "translated":
             return "bg-primary/15 text-primary";
@@ -163,7 +177,12 @@ const statusClass = (status) => {
                             <span
                                 v-if="statusFor(language.code)"
                                 class="rounded-sm px-1.5 py-0.5 text-[10px] normal-case tracking-normal"
-                                :class="statusClass(statusFor(language.code))"
+                                :class="
+                                    statusClass(
+                                        statusFor(language.code),
+                                        selected,
+                                    )
+                                "
                             >
                                 {{ statusFor(language.code) }}
                             </span>
