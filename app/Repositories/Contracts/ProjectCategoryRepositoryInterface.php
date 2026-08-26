@@ -12,6 +12,8 @@ interface ProjectCategoryRepositoryInterface
 
     public function all(): Collection;
 
+    public function findIdBySlug(string $slug, int $languageId): ?int;
+
     public function paginate(int $perPage = 15): LengthAwarePaginator;
 
     public function create(array $data): ProjectCategory;

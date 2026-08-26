@@ -6,6 +6,7 @@ use App\Models\Language;
 use App\Models\Project;
 use App\Models\ProjectTranslation;
 use App\Repositories\Contracts\LanguageRepositoryInterface;
+use App\Repositories\Contracts\ProjectCategoryRepositoryInterface;
 use App\Repositories\Contracts\ProjectRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\UploadedFile;
@@ -19,6 +20,7 @@ class ProjectService
 {
     public function __construct(
         private readonly ProjectRepositoryInterface $projectRepository,
+        private readonly ProjectCategoryRepositoryInterface $projectCategoryRepository,
         private readonly LanguageRepositoryInterface $languageRepository,
         private readonly TranslationDispatchService $translationDispatchService,
     ) {}
@@ -28,9 +30,58 @@ class ProjectService
         return $this->projectRepository->paginate($categoryId, $perPage);
     }
 
+    public function paginatePublic(?string $categorySlug = null, int $perPage = 6): LengthAwarePaginator
+    {
+        $categoryId = null;
+
+        if (filled($categorySlug)) {
+            $language = $this->languageRepository->findByCode(app()->getLocale());
+            $categoryId = $language
+                ? $this->projectCategoryRepository->findIdBySlug($categorySlug, (int) $language->id)
+                : null;
+
+            if ($categoryId === null) {
+                return new \Illuminate\Pagination\LengthAwarePaginator(
+                    [],
+                    0,
+                    $perPage,
+                    1,
+                    [
+                        'path' => request()->url(),
+                        'query' => request()->query(),
+                    ],
+                );
+            }
+        }
+
+        return $this->projectRepository->paginate($categoryId, $perPage);
+    }
+
     public function find(int $id): ?Project
     {
         return $this->projectRepository->find($id);
+    }
+
+    public function findBySlugOrFail(string $slug): Project
+    {
+        $language = $this->languageRepository->findByCode(app()->getLocale());
+
+        if (! $language) {
+            abort(404);
+        }
+
+        $project = $this->projectRepository->findBySlug($slug, (int) $language->id);
+
+        if (! $project) {
+            abort(404);
+        }
+
+        return $project;
+    }
+
+    public function recordView(Project $project): void
+    {
+        $project->increment('views_count');
     }
 
     public function latestForHome(int $limit = 6): \Illuminate\Database\Eloquent\Collection

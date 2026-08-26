@@ -26,6 +26,7 @@ $publicRoutes = function (): void {
     Route::get('/faq', [FaqController::class, 'index'])->name('faqs.index');
     Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
     Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
+    Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.show');
     Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 };
@@ -42,6 +43,7 @@ Route::prefix('{locale}')
         Route::get('/faq', [FaqController::class, 'index']);
         Route::get('/services', [ServiceController::class, 'index']);
         Route::get('/projects', [ProjectController::class, 'index']);
+        Route::get('/projects/{slug}', [ProjectController::class, 'show']);
         Route::get('/blogs', [BlogController::class, 'index']);
         Route::get('/contact', [ContactController::class, 'index']);
     });

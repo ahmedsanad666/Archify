@@ -25,6 +25,17 @@ class ProjectCategoryRepository implements ProjectCategoryRepositoryInterface
             ->get();
     }
 
+    public function findIdBySlug(string $slug, int $languageId): ?int
+    {
+        $id = ProjectCategory::query()
+            ->whereHas('translations', function ($query) use ($slug, $languageId) {
+                $query->where('slug', $slug)->where('language_id', $languageId);
+            })
+            ->value('id');
+
+        return $id !== null ? (int) $id : null;
+    }
+
     public function paginate(int $perPage = 15): LengthAwarePaginator
     {
         return ProjectCategory::query()

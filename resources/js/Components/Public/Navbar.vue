@@ -61,6 +61,7 @@ const navLinks = computed(() => [
     { label: t('nav.home'), routeName: 'home' },
     { label: t('nav.about'), routeName: 'about' },
     { label: t('nav.services'), routeName: 'services.index' },
+    { label: t('nav.work'), routeName: 'projects.index' },
     { label: t('nav.blog'), routeName: 'blogs.index' },
     { label: t('nav.contact'), routeName: 'contact' },
 ])

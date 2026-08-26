@@ -78,6 +78,7 @@
         "services": {
             "title": "Services",
             "eyebrow": "What we offer",
+            "intro": "A sophisticated, comprehensive approach to design. We blend architectural rigor with intuitive craftsmanship to create spaces that endure. From conception to realization, our studio offers a curated suite of services tailored to visionary clients.",
             "empty": "Our services page is being prepared."
         },
         "blogs": {
@@ -88,7 +89,16 @@
         "projects": {
             "title": "Our Work",
             "eyebrow": "Portfolio",
-            "empty": "Projects will appear here soon."
+            "filter": "Filter",
+            "empty": "Projects will appear here soon.",
+            "client": "Client",
+            "location": "Location",
+            "year": "Year",
+            "gallery_2d": "2D Images",
+            "gallery_3d": "3D Images",
+            "gallery_landscape": "Landscape",
+            "preview_video": "Preview",
+            "youtube": "Video"
         },
         "contact": {
             "title": "Contact",

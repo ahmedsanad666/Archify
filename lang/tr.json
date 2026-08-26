@@ -78,6 +78,7 @@
         "services": {
             "title": "Hizmetler",
             "eyebrow": "Neler sunuyoruz",
+            "intro": "Tasarıma sofistike ve kapsamlı bir yaklaşım. Mimari titizliği sezgisel zanaatla birleştirerek kalıcı mekânlar yaratıyoruz. Konseptten uygulamaya, stüdyomuz vizyoner müşterilere özel bir hizmet yelpazesi sunar.",
             "empty": "Hizmetler sayfası hazırlanıyor."
         },
         "blogs": {
@@ -88,7 +89,16 @@
         "projects": {
             "title": "İşlerimiz",
             "eyebrow": "Portföy",
-            "empty": "Projeler yakında burada olacak."
+            "filter": "Filtre",
+            "empty": "Projeler yakında burada olacak.",
+            "client": "Müşteri",
+            "location": "Konum",
+            "year": "Yıl",
+            "gallery_2d": "2D Görseller",
+            "gallery_3d": "3D Görseller",
+            "gallery_landscape": "Manzara",
+            "preview_video": "Önizleme",
+            "youtube": "Video"
         },
         "contact": {
             "title": "İletişim",

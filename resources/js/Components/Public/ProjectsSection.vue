@@ -1,5 +1,6 @@
 <script setup>
 import ProjectCard from '@/Components/Public/ProjectCard.vue'
+import { useLocale } from '@/Composables/useLocale'
 import { useUiTranslations } from '@/Composables/useUiTranslations'
 
 defineProps({
@@ -10,6 +11,7 @@ defineProps({
 })
 
 const { t } = useUiTranslations()
+const { localePath, localized } = useLocale()
 </script>
 
 <template>
@@ -32,6 +34,11 @@ const { t } = useUiTranslations()
                 v-for="(project, index) in projects"
                 :key="project.id"
                 :project="project"
+                :href="
+                    localePath('projects.show', {
+                        slug: localized(project, 'slug'),
+                    })
+                "
                 :class="index % 2 === 1 ? 'md:mt-xl' : ''"
             />
         </div>

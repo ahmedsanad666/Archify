@@ -67,7 +67,7 @@ const isEllipsis = (label) => String(label ?? '').includes('...');
 <template>
     <nav
         v-if="show"
-        class="rounded-md border border-outline-variant bg-surface-container px-md py-sm"
+        class="inline-flex w-fit max-w-full rounded-md border border-outline-variant bg-surface-container px-md py-sm"
         aria-label="Pagination"
     >
         <div class="flex flex-wrap items-center justify-start gap-md">

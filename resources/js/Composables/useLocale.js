@@ -89,10 +89,30 @@ export function useLocale() {
 
     /**
      * Visit the same named route in another locale.
+     * On project show, prefer the sibling locale's slug when available.
      */
     function switchLocale(code) {
         const target = languages.value.find((l) => l.code === code)
         if (!target || target.code === localeCode.value) {
+            return
+        }
+
+        const path = stripLocalePrefix(page.url.split('?')[0] || '/')
+        const projectShowMatch = path.match(/^\/projects\/([^/]+)$/)
+
+        if (projectShowMatch) {
+            const siblingSlug = page.props.project?.translations?.[code]?.slug
+            if (siblingSlug) {
+                router.visit(
+                    localePath('projects.show', { slug: siblingSlug }, target),
+                    { preserveScroll: true },
+                )
+                return
+            }
+
+            router.visit(localePath('projects.index', {}, target), {
+                preserveScroll: true,
+            })
             return
         }
 
