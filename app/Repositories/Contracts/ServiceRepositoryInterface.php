@@ -5,6 +5,7 @@ namespace App\Repositories\Contracts;
 use App\Models\Service;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Carbon;
 
 interface ServiceRepositoryInterface
 {
@@ -26,4 +27,8 @@ interface ServiceRepositoryInterface
      * @param  array<int, int>  $orderedIds
      */
     public function reorder(array $orderedIds): void;
+
+    public function count(): int;
+
+    public function countCreatedBetween(Carbon $from, Carbon $to): int;
 }

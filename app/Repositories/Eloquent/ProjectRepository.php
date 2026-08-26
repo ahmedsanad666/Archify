@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Repositories\Contracts\ProjectRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Carbon;
 
 class ProjectRepository implements ProjectRepositoryInterface
 {
@@ -73,5 +74,35 @@ class ProjectRepository implements ProjectRepositoryInterface
     public function delete(Project $project): void
     {
         $project->delete();
+    }
+
+    public function count(): int
+    {
+        return Project::query()->count();
+    }
+
+    public function countCreatedBetween(Carbon $from, Carbon $to): int
+    {
+        return Project::query()
+            ->whereBetween('created_at', [$from, $to])
+            ->count();
+    }
+
+    public function sumViews(): int
+    {
+        return (int) Project::query()->sum('views_count');
+    }
+
+    public function latestWithRelations(int $limit = 3): Collection
+    {
+        return Project::query()
+            ->with([
+                'translations.language',
+                'category.translations.language',
+                'media',
+            ])
+            ->latest('updated_at')
+            ->limit($limit)
+            ->get();
     }
 }

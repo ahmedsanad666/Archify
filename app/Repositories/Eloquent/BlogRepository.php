@@ -60,4 +60,9 @@ class BlogRepository implements BlogRepositoryInterface
     {
         $blog->delete();
     }
+
+    public function sumViews(): int
+    {
+        return (int) Blog::query()->sum('views_count');
+    }
 }

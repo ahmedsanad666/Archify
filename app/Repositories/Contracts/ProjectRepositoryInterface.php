@@ -5,6 +5,7 @@ namespace App\Repositories\Contracts;
 use App\Models\Project;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Carbon;
 
 interface ProjectRepositoryInterface
 {
@@ -26,4 +27,12 @@ interface ProjectRepositoryInterface
     public function update(Project $project, array $data): Project;
 
     public function delete(Project $project): void;
+
+    public function count(): int;
+
+    public function countCreatedBetween(Carbon $from, Carbon $to): int;
+
+    public function sumViews(): int;
+
+    public function latestWithRelations(int $limit = 3): Collection;
 }

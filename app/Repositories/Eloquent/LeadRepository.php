@@ -6,6 +6,7 @@ use App\Models\Lead;
 use App\Repositories\Contracts\LeadRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Carbon;
 
 class LeadRepository implements LeadRepositoryInterface
 {
@@ -33,5 +34,26 @@ class LeadRepository implements LeadRepositoryInterface
         $lead->update($data);
 
         return $lead->fresh(['service.translations.language', 'language']);
+    }
+
+    public function countCreatedBetween(Carbon $from, Carbon $to): int
+    {
+        return Lead::query()
+            ->whereBetween('created_at', [$from, $to])
+            ->count();
+    }
+
+    public function countPending(): int
+    {
+        return Lead::query()->pending()->count();
+    }
+
+    public function latest(int $limit = 5): Collection
+    {
+        return Lead::query()
+            ->with(['service.translations.language'])
+            ->latest()
+            ->limit($limit)
+            ->get();
     }
 }

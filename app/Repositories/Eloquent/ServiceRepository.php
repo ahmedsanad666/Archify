@@ -6,6 +6,7 @@ use App\Models\Service;
 use App\Repositories\Contracts\ServiceRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Carbon;
 
 class ServiceRepository implements ServiceRepositoryInterface
 {
@@ -59,5 +60,17 @@ class ServiceRepository implements ServiceRepositoryInterface
         foreach ($orderedIds as $index => $id) {
             Service::query()->whereKey($id)->update(['order' => $index]);
         }
+    }
+
+    public function count(): int
+    {
+        return Service::query()->count();
+    }
+
+    public function countCreatedBetween(Carbon $from, Carbon $to): int
+    {
+        return Service::query()
+            ->whereBetween('created_at', [$from, $to])
+            ->count();
     }
 }

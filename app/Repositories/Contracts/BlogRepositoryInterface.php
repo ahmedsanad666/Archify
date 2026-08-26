@@ -21,4 +21,6 @@ interface BlogRepositoryInterface
     public function update(Blog $blog, array $data): Blog;
 
     public function delete(Blog $blog): void;
+
+    public function sumViews(): int;
 }
