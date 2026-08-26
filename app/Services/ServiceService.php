@@ -32,6 +32,11 @@ class ServiceService
         return $this->serviceRepository->forHome();
     }
 
+    public function forHomeLimited(int $limit = 3): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->serviceRepository->forHomeLimited($limit);
+    }
+
     public function all(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->serviceRepository->all();

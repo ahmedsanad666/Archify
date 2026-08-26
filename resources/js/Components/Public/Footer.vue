@@ -14,25 +14,25 @@ import { useUiTranslations } from '@/Composables/useUiTranslations'
 
 const page = usePage()
 const { t } = useUiTranslations()
-const { locale, languages, localePath, switchLocale } = useLocale()
+const { locale, languages, localePath, switchLocale, localized } = useLocale()
 
 const siteSettings = computed(() => page.props.siteSettings)
 
 const siteName = computed(() => siteSettings.value?.name ?? 'Archify')
 const slogan = computed(
-    () =>
-        siteSettings.value?.slogan ??
-        t('public.footer.default_slogan'),
+    () => siteSettings.value?.slogan ?? t('public.footer.default_slogan'),
 )
 
 const exploreLinks = computed(() => [
     { label: t('nav.home'), routeName: 'home' },
     { label: t('nav.about'), routeName: 'about' },
+    { label: t('nav.services'), routeName: 'services.index' },
+    { label: t('nav.blog'), routeName: 'blogs.index' },
+    { label: t('nav.contact'), routeName: 'contact' },
     { label: t('nav.team'), routeName: 'team' },
-    { label: t('nav.faq'), routeName: 'faqs.index' },
-    { label: t('nav.services'), href: '#' },
-    { label: t('nav.projects'), href: '#' },
 ])
+
+const projectCategories = computed(() => page.props.projectCategories ?? [])
 
 const socialLinks = computed(() => {
     const settings = siteSettings.value
@@ -71,8 +71,11 @@ const onNewsletterSubmit = (event) => {
         <div
             class="relative z-10 mx-auto grid max-w-[1440px] grid-cols-1 gap-gutter px-margin-mobile pb-lg pt-xl md:grid-cols-4 md:px-margin-desktop"
         >
-            <div class="flex flex-col gap-md">
-                <h2 class="text-display-md tracking-tighter text-on-surface">
+            <!-- Brand -->
+            <div class="flex min-w-0 flex-col gap-md">
+                <h2
+                    class="truncate text-display-md tracking-tighter text-on-surface"
+                >
                     {{ siteName }}
                 </h2>
                 <p class="max-w-xs text-body-md text-on-surface-variant">
@@ -83,14 +86,16 @@ const onNewsletterSubmit = (event) => {
                 >
                     <div
                         v-if="siteSettings?.address"
-                        class="flex items-center gap-sm transition-colors duration-300 hover:text-primary"
+                        class="flex items-start gap-sm transition-colors duration-300 hover:text-primary"
                     >
                         <IconMapPin
-                            class="shrink-0 text-primary"
+                            class="mt-0.5 shrink-0 text-primary"
                             :size="18"
                             stroke-width="1.5"
                         />
-                        <span>{{ siteSettings.address }}</span>
+                        <span class="min-w-0 break-words">{{
+                            siteSettings.address
+                        }}</span>
                     </div>
                     <div
                         v-if="siteSettings?.phone"
@@ -101,7 +106,7 @@ const onNewsletterSubmit = (event) => {
                             :size="18"
                             stroke-width="1.5"
                         />
-                        <span>{{ siteSettings.phone }}</span>
+                        <span class="truncate">{{ siteSettings.phone }}</span>
                     </div>
                     <div
                         v-if="siteSettings?.email"
@@ -112,7 +117,7 @@ const onNewsletterSubmit = (event) => {
                             :size="18"
                             stroke-width="1.5"
                         />
-                        <span>{{ siteSettings.email }}</span>
+                        <span class="truncate">{{ siteSettings.email }}</span>
                     </div>
                 </div>
                 <div
@@ -137,38 +142,58 @@ const onNewsletterSubmit = (event) => {
                 </div>
             </div>
 
-            <div class="flex flex-col gap-md">
+            <!-- Explore -->
+            <div class="flex min-w-0 flex-col gap-md">
                 <h3
                     class="text-label-lg uppercase tracking-[0.1em] text-primary"
                 >
                     {{ t('public.footer.explore') }}
                 </h3>
                 <nav class="flex flex-col gap-sm text-body-md text-on-surface">
-                    <template
+                    <Link
                         v-for="link in exploreLinks"
-                        :key="link.label"
+                        :key="link.routeName"
+                        :href="localePath(link.routeName)"
+                        class="group relative w-max max-w-full py-1"
                     >
-                        <Link
-                            v-if="link.routeName"
-                            :href="localePath(link.routeName)"
-                            class="group relative w-max py-1"
-                        >
-                            {{ link.label }}
-                            <span
-                                class="absolute inset-x-0 bottom-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full"
-                            />
-                        </Link>
+                        <span class="truncate">{{ link.label }}</span>
                         <span
-                            v-else
-                            class="py-1 text-on-surface-variant/50"
-                        >
-                            {{ link.label }}
-                        </span>
-                    </template>
+                            class="absolute inset-x-0 bottom-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full"
+                        />
+                    </Link>
                 </nav>
             </div>
 
-            <div class="flex flex-col gap-md md:col-span-2">
+            <!-- Categories -->
+            <div class="flex min-w-0 flex-col gap-md">
+                <h3
+                    class="text-label-lg uppercase tracking-[0.1em] text-primary"
+                >
+                    {{ t('public.footer.categories') }}
+                </h3>
+                <nav
+                    v-if="projectCategories.length"
+                    class="flex flex-col gap-sm text-body-md text-on-surface"
+                >
+                    <span
+                        v-for="category in projectCategories"
+                        :key="category.id"
+                        class="truncate py-1 text-on-surface-variant"
+                        :title="localized(category, 'name')"
+                    >
+                        {{ localized(category, 'name') }}
+                    </span>
+                </nav>
+                <p
+                    v-else
+                    class="text-body-md text-on-surface-variant"
+                >
+                    {{ t('public.footer.categories_empty') }}
+                </p>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="flex min-w-0 flex-col gap-md">
                 <h3
                     class="text-label-lg uppercase tracking-[0.1em] text-primary"
                 >
@@ -188,11 +213,9 @@ const onNewsletterSubmit = (event) => {
                     />
                     <button
                         type="submit"
-                        class="group relative w-full overflow-hidden rounded-md bg-primary px-4 py-3 text-label-lg uppercase tracking-wide text-on-primary transition-colors duration-300 hover:bg-secondary hover:text-on-secondary"
+                        class="w-full rounded-md bg-primary px-4 py-3 text-label-lg uppercase tracking-wide text-on-primary transition-colors duration-300 hover:bg-secondary hover:text-on-secondary"
                     >
-                        <span class="relative z-10">{{
-                            t('public.footer.subscribe')
-                        }}</span>
+                        {{ t('public.footer.subscribe') }}
                     </button>
                 </form>
             </div>
@@ -202,39 +225,34 @@ const onNewsletterSubmit = (event) => {
             <div
                 class="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-4 px-margin-mobile py-md md:flex-row md:gap-0 md:px-margin-desktop"
             >
-                <div class="text-body-md text-on-surface-variant">
+                <div class="text-center text-body-md text-on-surface-variant md:text-start">
                     © {{ new Date().getFullYear() }} {{ siteName }}.
                     {{ t('public.footer.rights') }}
                 </div>
                 <div
-                    class="flex flex-wrap items-center justify-center gap-md text-label-lg uppercase tracking-wide text-on-surface-variant"
+                    class="flex flex-wrap items-center justify-center gap-2 text-label-lg uppercase tracking-wide text-on-surface-variant"
                 >
-                    <div
-                        class="flex items-center gap-2 border-e border-outline-variant pe-md"
+                    <template
+                        v-for="(language, index) in languages"
+                        :key="language.code"
                     >
-                        <template
-                            v-for="(language, index) in languages"
-                            :key="language.code"
+                        <button
+                            type="button"
+                            class="uppercase transition-colors duration-300 hover:text-primary"
+                            :class="{
+                                'text-primary': locale?.code === language.code,
+                            }"
+                            @click="switchLocale(language.code)"
                         >
-                            <button
-                                type="button"
-                                class="uppercase transition-colors duration-300 hover:text-primary"
-                                :class="{
-                                    'text-primary':
-                                        locale?.code === language.code,
-                                }"
-                                @click="switchLocale(language.code)"
-                            >
-                                {{ language.code }}
-                            </button>
-                            <span
-                                v-if="index < languages.length - 1"
-                                class="text-outline-variant"
-                            >
-                                /
-                            </span>
-                        </template>
-                    </div>
+                            {{ language.code }}
+                        </button>
+                        <span
+                            v-if="index < languages.length - 1"
+                            class="text-outline-variant"
+                        >
+                            /
+                        </span>
+                    </template>
                 </div>
             </div>
         </div>

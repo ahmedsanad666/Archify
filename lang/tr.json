@@ -39,6 +39,8 @@
     "public": {
         "footer": {
             "explore": "Keşfet",
+            "categories": "Kategoriler",
+            "categories_empty": "Kategoriler yakında.",
             "community": "Topluluğumuza Katılın",
             "newsletter_blurb": "Stüdyomuzdan özenle seçilmiş içgörüler ve özel güncellemeler için abone olun.",
             "email_placeholder": "E-posta Adresi",
@@ -51,12 +53,35 @@
             "services_subtitle": "Seçkin müşteriler için kapsamlı mimari ve iç mekân tasarım hizmetleri.",
             "projects_title": "Seçilmiş İşler",
             "projects_subtitle": "Malzeme, ışık ve sessiz hassasiyetle şekillenen mekânlardan bir kesit.",
-            "testimonials_title": "Müşteri Sesleri",
+            "blogs_title": "Dergiden",
+            "blogs_subtitle": "Mekân, malzeme ve tasarım zanaatı üzerine notlar.",
+            "faqs_title": "Sorular, yanıtlar",
+            "faqs_subtitle": "Nasıl çalıştığımıza dair net cevaplar.",
+            "stats_title": "Rakamlarla",
             "cta_title": "Aklınızda bir proje mi var?",
             "cta_body": "Vizyonunuzu hassasiyet ve tavizsiz kaliteyle hayata geçirelim.",
             "cta_button": "İletişim",
             "scroll": "Kaydır",
-            "empty_hero": "Stüdyomuza hoş geldiniz."
+            "empty_hero": "Stüdyomuza hoş geldiniz.",
+            "empty_projects": "Projeler yakında burada olacak.",
+            "empty_services": "Hizmetler yakında burada olacak.",
+            "empty_blogs": "Yazılar yakında burada olacak.",
+            "empty_faqs": "SSS yakında burada olacak."
+        },
+        "services": {
+            "title": "Hizmetler",
+            "eyebrow": "Neler sunuyoruz",
+            "empty": "Hizmetler sayfası hazırlanıyor."
+        },
+        "blogs": {
+            "title": "Dergi",
+            "eyebrow": "İçgörüler",
+            "empty": "Yazılar yakında burada olacak."
+        },
+        "contact": {
+            "title": "İletişim",
+            "eyebrow": "Bize ulaşın",
+            "empty": "İletişim formu yakında."
         },
         "about": {
             "eyebrow": "Tasarım Felsefesi",

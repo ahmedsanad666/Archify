@@ -6,6 +6,7 @@ use App\Http\Resources\LanguageResource;
 use App\Http\Resources\SiteSettingResource;
 use App\Models\Language;
 use App\Repositories\Contracts\LanguageRepositoryInterface;
+use App\Repositories\Contracts\ProjectCategoryRepositoryInterface;
 use App\Repositories\Contracts\SiteSettingRepositoryInterface;
 use App\Support\UiTranslations;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ class HandleInertiaRequests extends Middleware
     public function __construct(
         private readonly LanguageRepositoryInterface $languageRepository,
         private readonly SiteSettingRepositoryInterface $siteSettingRepository,
+        private readonly ProjectCategoryRepositoryInterface $projectCategoryRepository,
     ) {}
 
     /**
@@ -74,6 +76,26 @@ class HandleInertiaRequests extends Middleware
                 return $siteSettings
                     ? (new SiteSettingResource($siteSettings))->resolve()
                     : null;
+            },
+            'projectCategories' => function () {
+                return $this->projectCategoryRepository->all()->map(function ($category) {
+                    $translations = [];
+                    foreach ($category->translations as $row) {
+                        $code = $row->language?->code;
+                        if (! $code) {
+                            continue;
+                        }
+                        $translations[$code] = [
+                            'name' => $row->name,
+                            'slug' => $row->slug,
+                        ];
+                    }
+
+                    return [
+                        'id' => $category->id,
+                        'translations' => $translations,
+                    ];
+                })->values()->all();
             },
             'ui' => fn () => UiTranslations::forLocale(app()->getLocale()),
         ];

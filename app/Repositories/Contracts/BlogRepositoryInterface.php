@@ -23,4 +23,6 @@ interface BlogRepositoryInterface
     public function delete(Blog $blog): void;
 
     public function sumViews(): int;
+
+    public function latestForHome(int $limit = 3): Collection;
 }

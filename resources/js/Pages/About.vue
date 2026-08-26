@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { IconCompass } from '@tabler/icons-vue'
 import AppLayout from '@/Layouts/AppLayout.vue'
+import InnerHero from '@/Components/Public/InnerHero.vue'
 import StatBlock from '@/Components/Public/StatBlock.vue'
 import { resolveAppIcon } from '@/icons/appIcons'
 import { useLocale } from '@/Composables/useLocale'
@@ -14,7 +15,7 @@ const props = defineProps({
 })
 
 const { t } = useUiTranslations()
-const { localized } = useLocale()
+const { localized, localePath } = useLocale()
 
 const resolveIcon = (name) => resolveAppIcon(name, IconCompass)
 
@@ -39,10 +40,24 @@ const hasContent = computed(
         props.coreValues.length ||
         props.statistics.length,
 )
+
+const breadcrumbs = computed(() => [
+    { label: t('nav.home'), href: localePath('home') },
+    { label: t('nav.about') },
+])
+
+const heroTitle = computed(() => storyTitle.value || t('nav.about'))
 </script>
 
 <template>
     <AppLayout :title="t('nav.about')">
+        <InnerHero
+            :title="heroTitle"
+            :eyebrow="t('public.about.eyebrow')"
+            :breadcrumbs="breadcrumbs"
+            :background-image="about?.story_image_url"
+        />
+
         <section
             class="mx-auto max-w-[1440px] px-margin-mobile py-xl md:px-margin-desktop"
         >
@@ -55,48 +70,19 @@ const hasContent = computed(
 
             <template v-else>
                 <div
-                    class="grid grid-cols-1 items-center gap-gutter md:grid-cols-12"
+                    v-if="storyDescription"
+                    class="mx-auto mb-xl max-w-3xl text-start"
                 >
-                    <div
-                        v-if="about?.story_image_url"
-                        class="relative md:col-span-5"
+                    <p
+                        class="whitespace-pre-line text-body-lg text-on-surface-variant"
                     >
-                        <img
-                            :src="about.story_image_url"
-                            :alt="storyTitle"
-                            class="aspect-[3/4] w-full rounded-lg object-cover"
-                        />
-                    </div>
-                    <div
-                        class="md:col-span-6 md:col-start-7"
-                        :class="{
-                            'md:col-span-12 md:col-start-1':
-                                !about?.story_image_url,
-                        }"
-                    >
-                        <span
-                            class="mb-4 block text-label-lg uppercase tracking-widest text-secondary"
-                        >
-                            {{ t('public.about.eyebrow') }}
-                        </span>
-                        <h1
-                            v-if="storyTitle"
-                            class="mb-md text-display-md text-on-surface"
-                        >
-                            {{ storyTitle }}
-                        </h1>
-                        <p
-                            v-if="storyDescription"
-                            class="whitespace-pre-line text-body-md text-on-surface-variant"
-                        >
-                            {{ storyDescription }}
-                        </p>
-                    </div>
+                        {{ storyDescription }}
+                    </p>
                 </div>
 
                 <div
                     v-if="statistics.length"
-                    class="mt-xl flex flex-wrap items-center justify-center gap-xl border-y border-outline-variant py-lg"
+                    class="flex flex-wrap items-center justify-center gap-xl border-y border-outline-variant py-lg"
                 >
                     <StatBlock
                         v-for="stat in statistics"

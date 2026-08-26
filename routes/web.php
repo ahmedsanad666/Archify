@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +23,9 @@ $publicRoutes = function (): void {
     Route::get('/about', [AboutController::class, 'index'])->name('about');
     Route::get('/team', [TeamController::class, 'index'])->name('team');
     Route::get('/faq', [FaqController::class, 'index'])->name('faqs.index');
+    Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+    Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 };
 
 Route::middleware('locale')->group($publicRoutes);
@@ -32,6 +38,9 @@ Route::prefix('{locale}')
         Route::get('/about', [AboutController::class, 'index']);
         Route::get('/team', [TeamController::class, 'index']);
         Route::get('/faq', [FaqController::class, 'index']);
+        Route::get('/services', [ServiceController::class, 'index']);
+        Route::get('/blogs', [BlogController::class, 'index']);
+        Route::get('/contact', [ContactController::class, 'index']);
     });
 
 Route::middleware('auth')->group(function () {

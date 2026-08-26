@@ -32,6 +32,11 @@ class BlogService
         return $this->blogRepository->find($id);
     }
 
+    public function latestForHome(int $limit = 3): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->blogRepository->latestForHome($limit);
+    }
+
     /**
      * @param  array<string, mixed>  $data
      */

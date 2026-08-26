@@ -39,6 +39,8 @@
     "public": {
         "footer": {
             "explore": "Explore",
+            "categories": "Categories",
+            "categories_empty": "Categories coming soon.",
             "community": "Join Our Community",
             "newsletter_blurb": "Subscribe to receive curated insights and exclusive updates from our studio.",
             "email_placeholder": "Email Address",
@@ -51,12 +53,35 @@
             "services_subtitle": "Comprehensive architectural and interior design services tailored for discerning clients.",
             "projects_title": "Selected Work",
             "projects_subtitle": "A glimpse of spaces shaped by material, light, and quiet precision.",
-            "testimonials_title": "Client Voices",
+            "blogs_title": "From the Journal",
+            "blogs_subtitle": "Insights on space, material, and the craft of design.",
+            "faqs_title": "Questions, answered",
+            "faqs_subtitle": "Clear answers about how we work with clients.",
+            "stats_title": "By the numbers",
             "cta_title": "Have a project in mind?",
             "cta_body": "Let's discuss how we can bring your vision to life with precision and uncompromising quality.",
             "cta_button": "Contact Us",
             "scroll": "Scroll",
-            "empty_hero": "Welcome to our studio."
+            "empty_hero": "Welcome to our studio.",
+            "empty_projects": "Projects will appear here soon.",
+            "empty_services": "Services will appear here soon.",
+            "empty_blogs": "Journal posts will appear here soon.",
+            "empty_faqs": "FAQs will appear here soon."
+        },
+        "services": {
+            "title": "Services",
+            "eyebrow": "What we offer",
+            "empty": "Our services page is being prepared."
+        },
+        "blogs": {
+            "title": "Journal",
+            "eyebrow": "Insights",
+            "empty": "Journal posts will appear here soon."
+        },
+        "contact": {
+            "title": "Contact",
+            "eyebrow": "Get in touch",
+            "empty": "Contact form coming soon."
         },
         "about": {
             "eyebrow": "Design Philosophy",

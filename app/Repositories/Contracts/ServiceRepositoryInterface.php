@@ -15,6 +15,8 @@ interface ServiceRepositoryInterface
 
     public function forHome(): Collection;
 
+    public function forHomeLimited(int $limit = 3): Collection;
+
     public function paginate(int $perPage = 15): LengthAwarePaginator;
 
     public function create(array $data): Service;

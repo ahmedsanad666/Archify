@@ -6,6 +6,9 @@ const PUBLIC_PATH_TO_ROUTE = {
     '/about': 'about',
     '/team': 'team',
     '/faq': 'faqs.index',
+    '/services': 'services.index',
+    '/blogs': 'blogs.index',
+    '/contact': 'contact',
 }
 
 /**

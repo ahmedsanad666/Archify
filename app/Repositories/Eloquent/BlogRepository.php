@@ -65,4 +65,13 @@ class BlogRepository implements BlogRepositoryInterface
     {
         return (int) Blog::query()->sum('views_count');
     }
+
+    public function latestForHome(int $limit = 3): Collection
+    {
+        return Blog::query()
+            ->with(self::ADMIN_WITH)
+            ->latest()
+            ->limit($limit)
+            ->get();
+    }
 }

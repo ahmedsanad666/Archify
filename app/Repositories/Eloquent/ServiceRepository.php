@@ -28,6 +28,15 @@ class ServiceRepository implements ServiceRepositoryInterface
             ->get();
     }
 
+    public function forHomeLimited(int $limit = 3): Collection
+    {
+        return Service::query()
+            ->showOnHome()
+            ->with(['translations.language'])
+            ->limit($limit)
+            ->get();
+    }
+
     public function paginate(int $perPage = 15): LengthAwarePaginator
     {
         return Service::query()
