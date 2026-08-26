@@ -28,30 +28,30 @@ defineProps({
 
 <template>
     <header
-        class="relative flex min-h-[400px] w-full flex-col justify-end overflow-hidden"
+        class="relative flex min-h-[280px] w-full flex-col justify-end overflow-hidden sm:min-h-[340px] md:min-h-[400px]"
         style="height: 40vh"
     >
         <div class="absolute inset-0 z-0">
             <div
                 v-if="backgroundImage"
-                class="absolute inset-0 bg-cover bg-center"
+                class="absolute inset-0 bg-cover bg-center bg-scroll md:bg-fixed"
                 :style="{ backgroundImage: `url('${backgroundImage}')` }"
             />
             <div
                 v-else
                 class="absolute inset-0 bg-surface-container-high"
             />
-            <div class="scrim-overlay absolute inset-0 z-10 opacity-90" />
+            <div class="scrim-overlay absolute inset-0 z-10" />
         </div>
 
         <div
-            class="relative z-20 mx-auto flex h-full w-full max-w-[1440px] flex-col justify-end px-margin-mobile pb-margin-desktop pt-24 text-start md:px-margin-desktop md:pt-28"
+            class="relative z-20 mx-auto flex h-full w-full max-w-[1440px] flex-col justify-end px-margin-mobile pb-lg pt-20 text-start sm:pb-margin-desktop sm:pt-24 md:px-margin-desktop md:pt-28"
         >
             <div class="max-w-2xl min-w-0">
                 <nav
                     v-if="breadcrumbs.length"
                     aria-label="Breadcrumb"
-                    class="mb-md flex flex-wrap items-center gap-xs text-label-md text-on-surface-variant opacity-80"
+                    class="mb-sm flex flex-wrap items-center gap-xs text-label-md text-on-surface-variant opacity-80 sm:mb-md"
                 >
                     <template
                         v-for="(crumb, index) in breadcrumbs"
@@ -82,18 +82,18 @@ defineProps({
 
                 <div
                     v-if="eyebrow"
-                    class="mb-sm flex items-center gap-sm"
+                    class="mb-xs flex items-center gap-sm sm:mb-sm"
                 >
-                    <div class="h-[2px] w-8 shrink-0 bg-primary" />
+                    <div class="h-[2px] w-6 shrink-0 bg-primary sm:w-8" />
                     <span
-                        class="text-label-lg uppercase tracking-widest text-primary"
+                        class="text-label-md uppercase tracking-widest text-primary sm:text-label-lg"
                     >
                         {{ eyebrow }}
                     </span>
                 </div>
 
                 <h1
-                    class="mb-lg min-w-0 text-display-md text-on-surface md:text-display-lg"
+                    class="mb-md min-w-0 text-headline-lg leading-tight text-on-surface sm:mb-lg sm:text-display-md md:text-display-lg"
                 >
                     {{ title }}
                 </h1>
@@ -111,10 +111,14 @@ defineProps({
 
 <style scoped>
 .scrim-overlay {
+    /* Dual scrim: dark top for navbar contrast + dark bottom for title */
     background: linear-gradient(
         to bottom,
-        rgba(22, 19, 16, 0.4) 0%,
-        rgba(22, 19, 16, 0.9) 100%
+        rgba(22, 19, 16, 0.88) 0%,
+        rgba(22, 19, 16, 0.45) 32%,
+        rgba(22, 19, 16, 0.7) 68%,
+        rgba(22, 19, 16, 0.92) 100%
     );
+    box-shadow: inset 0 100px 70px -30px rgba(22, 19, 16, 0.95);
 }
 </style>

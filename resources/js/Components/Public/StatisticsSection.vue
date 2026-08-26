@@ -1,6 +1,5 @@
 <script setup>
 import StatBlock from '@/Components/Public/StatBlock.vue'
-import { useUiTranslations } from '@/Composables/useUiTranslations'
 
 defineProps({
     statistics: {
@@ -8,8 +7,6 @@ defineProps({
         default: () => [],
     },
 })
-
-const { t } = useUiTranslations()
 </script>
 
 <template>
@@ -17,9 +14,6 @@ const { t } = useUiTranslations()
         v-if="statistics.length"
         class="mx-auto max-w-[1440px] px-margin-mobile py-xl md:px-margin-desktop"
     >
-        <!-- <h2 class="mb-lg text-center text-display-md text-on-surface">
-            {{ t('public.home.stats_title') }}
-        </h2> -->
         <div
             class="flex flex-wrap items-center justify-center gap-xl border-y border-outline-variant py-lg"
         >

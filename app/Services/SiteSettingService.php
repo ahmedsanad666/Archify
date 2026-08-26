@@ -195,7 +195,18 @@ class SiteSettingService
      */
     private function syncMedia(SiteSetting $settings, array $data): void
     {
-        foreach (['logo', 'favicon', 'og_image'] as $collection) {
+        $collections = [
+            'logo',
+            'favicon',
+            'og_image',
+            'banner_about',
+            'banner_services',
+            'banner_projects',
+            'banner_blogs',
+            'banner_contact',
+        ];
+
+        foreach ($collections as $collection) {
             if (! empty($data["remove_{$collection}"])) {
                 $settings->clearMediaCollection($collection);
             }

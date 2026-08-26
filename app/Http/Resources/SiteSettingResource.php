@@ -70,6 +70,11 @@ class SiteSettingResource extends JsonResource
                 'logo' => $this->getFirstMediaUrl('logo') ?: null,
                 'favicon' => $this->getFirstMediaUrl('favicon') ?: null,
                 'og_image' => $this->getFirstMediaUrl('og_image') ?: null,
+                'banner_about' => $this->getFirstMediaUrl('banner_about') ?: null,
+                'banner_services' => $this->getFirstMediaUrl('banner_services') ?: null,
+                'banner_projects' => $this->getFirstMediaUrl('banner_projects') ?: null,
+                'banner_blogs' => $this->getFirstMediaUrl('banner_blogs') ?: null,
+                'banner_contact' => $this->getFirstMediaUrl('banner_contact') ?: null,
             ],
         ];
     }

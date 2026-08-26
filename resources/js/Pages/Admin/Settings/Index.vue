@@ -78,7 +78,26 @@ const form = useForm({
     remove_logo: false,
     remove_favicon: false,
     remove_og_image: false,
+    banner_about: null,
+    banner_services: null,
+    banner_projects: null,
+    banner_blogs: null,
+    banner_contact: null,
+    remove_banner_about: false,
+    remove_banner_services: false,
+    remove_banner_projects: false,
+    remove_banner_blogs: false,
+    remove_banner_contact: false,
 });
+
+const bannerHint = computed(() => t('admin.settings.banners_hint'));
+const bannerFields = [
+    'banner_about',
+    'banner_services',
+    'banner_projects',
+    'banner_blogs',
+    'banner_contact',
+];
 
 const inputClass =
     'w-full rounded-md border border-outline bg-surface-container px-sm py-sm text-start text-body-md text-on-surface outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary/20';
@@ -212,6 +231,40 @@ const submit = () => {
                         :label="t('admin.settings.og_image')"
                         :existing-url="settings.media?.og_image"
                     />
+                </div>
+            </section>
+
+            <section
+                class="rounded-lg border border-outline-variant bg-surface-container p-md"
+            >
+                <h3
+                    class="mb-xs text-start text-label-lg uppercase tracking-wide text-primary"
+                >
+                    {{ t('admin.settings.section_banners') }}
+                </h3>
+                <p class="mb-md text-start text-body-md text-on-surface-variant">
+                    {{ t('admin.settings.banners_intro') }}
+                </p>
+                <div class="grid gap-md sm:grid-cols-2 lg:grid-cols-3">
+                    <div
+                        v-for="field in bannerFields"
+                        :key="field"
+                    >
+                        <MediaUploader
+                            v-model="form[field]"
+                            v-model:remove-existing="form[`remove_${field}`]"
+                            :label="t(`admin.settings.${field}`)"
+                            :hint="bannerHint"
+                            accept="image/jpeg,image/png,image/webp,image/jpg"
+                            :existing-url="settings.media?.[field]"
+                        />
+                        <p
+                            v-if="form.errors[field]"
+                            class="mt-xs text-start text-label-md text-error"
+                        >
+                            {{ form.errors[field] }}
+                        </p>
+                    </div>
                 </div>
             </section>
 

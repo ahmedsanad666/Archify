@@ -1,11 +1,15 @@
 <script setup>
 import { computed } from 'vue'
-import { IconCompass } from '@tabler/icons-vue'
+import { Head, usePage } from '@inertiajs/vue3'
+import { IconCompass, IconEye, IconFlag } from '@tabler/icons-vue'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import InnerHero from '@/Components/Public/InnerHero.vue'
-import StatBlock from '@/Components/Public/StatBlock.vue'
+import AboutStorySection from '@/Components/Public/AboutStorySection.vue'
+import StatisticsSection from '@/Components/Public/StatisticsSection.vue'
+import ContactCtaSection from '@/Components/Public/ContactCtaSection.vue'
 import { resolveAppIcon } from '@/icons/appIcons'
 import { useLocale } from '@/Composables/useLocale'
+import { useSiteSeo } from '@/Composables/useSiteSeo'
 import { useUiTranslations } from '@/Composables/useUiTranslations'
 
 const props = defineProps({
@@ -16,6 +20,13 @@ const props = defineProps({
 
 const { t } = useUiTranslations()
 const { localized, localePath } = useLocale()
+const page = usePage()
+const heroBanner = computed(
+    () => page.props.siteSettings?.media?.banner_about ?? null,
+)
+const { headTitle, title, description, keywords } = useSiteSeo({
+    pageTitle: t('nav.about'),
+})
 
 const resolveIcon = (name) => resolveAppIcon(name, IconCompass)
 
@@ -32,9 +43,16 @@ const missionDescription = computed(() =>
     localized(props.about, 'mission_description'),
 )
 
+const hasStory = computed(
+    () =>
+        Boolean(storyTitle.value) ||
+        Boolean(storyDescription.value) ||
+        Boolean(props.about?.story_image_url),
+)
+
 const hasContent = computed(
     () =>
-        storyTitle.value ||
+        hasStory.value ||
         visionTitle.value ||
         missionTitle.value ||
         props.coreValues.length ||
@@ -45,61 +63,80 @@ const breadcrumbs = computed(() => [
     { label: t('nav.home'), href: localePath('home') },
     { label: t('nav.about') },
 ])
-
-const heroTitle = computed(() => storyTitle.value || t('nav.about'))
 </script>
 
 <template>
-    <AppLayout :title="t('nav.about')">
+    <AppLayout>
+        <Head>
+            <title>{{ headTitle }}</title>
+            <meta
+                v-if="description"
+                head-key="description"
+                name="description"
+                :content="description"
+            />
+            <meta
+                v-if="keywords"
+                head-key="keywords"
+                name="keywords"
+                :content="keywords"
+            />
+            <meta
+                head-key="og:title"
+                property="og:title"
+                :content="title"
+            />
+            <meta
+                v-if="description"
+                head-key="og:description"
+                property="og:description"
+                :content="description"
+            />
+        </Head>
+
         <InnerHero
-            :title="heroTitle"
+            :title="t('nav.about')"
             :eyebrow="t('public.about.eyebrow')"
             :breadcrumbs="breadcrumbs"
-            :background-image="about?.story_image_url"
+            :background-image="heroBanner"
         />
 
-        <section
-            class="mx-auto max-w-[1440px] px-margin-mobile py-xl md:px-margin-desktop"
-        >
-            <p
-                v-if="!hasContent"
-                class="text-center text-body-lg text-on-surface-variant"
+        <template v-if="!hasContent">
+            <section
+                class="mx-auto max-w-[1440px] px-margin-mobile py-xl md:px-margin-desktop"
             >
-                {{ t('public.about.empty') }}
-            </p>
+                <p class="text-center text-body-lg text-on-surface-variant">
+                    {{ t('public.about.empty') }}
+                </p>
+            </section>
+        </template>
 
-            <template v-else>
-                <div
-                    v-if="storyDescription"
-                    class="mx-auto mb-xl max-w-3xl text-start"
-                >
-                    <p
-                        class="whitespace-pre-line text-body-lg text-on-surface-variant"
-                    >
-                        {{ storyDescription }}
-                    </p>
-                </div>
+        <template v-else>
+            <AboutStorySection
+                v-if="hasStory"
+                :about="about"
+                :show-learn-more="false"
+            />
 
-                <div
-                    v-if="statistics.length"
-                    class="flex flex-wrap items-center justify-center gap-xl border-y border-outline-variant py-lg"
-                >
-                    <StatBlock
-                        v-for="stat in statistics"
-                        :key="stat.id"
-                        :statistic="stat"
-                    />
-                </div>
+            <StatisticsSection :statistics="statistics" />
 
-                <div
-                    v-if="visionTitle || missionTitle"
-                    class="mt-xl grid grid-cols-1 gap-gutter md:grid-cols-2"
-                >
+            <section
+                v-if="visionTitle || missionTitle"
+                class="mx-auto max-w-[1440px] px-margin-mobile py-xl md:px-margin-desktop"
+            >
+                <div class="grid grid-cols-1 gap-gutter md:grid-cols-2">
                     <article
                         v-if="visionTitle"
-                        class="rounded-lg border border-outline-variant bg-surface-container p-lg"
+                        class="group rounded-lg border border-outline-variant bg-surface-container p-md transition-all duration-300 hover:border-secondary hover:bg-surface-container-high sm:p-lg md:p-xl"
                     >
-                        <h2 class="mb-sm text-headline-lg text-on-surface">
+                        <IconEye
+                            class="mb-6 block text-primary-container transition-transform duration-300 group-hover:scale-110"
+                            :size="40"
+                            stroke-width="1.5"
+                        />
+                        <h2
+                            class="mb-4 text-headline-lg-mobile text-on-surface sm:text-headline-lg"
+                        >
                             {{ visionTitle }}
                         </h2>
                         <p
@@ -110,9 +147,16 @@ const heroTitle = computed(() => storyTitle.value || t('nav.about'))
                     </article>
                     <article
                         v-if="missionTitle"
-                        class="rounded-lg border border-outline-variant bg-surface-container p-lg"
+                        class="group rounded-lg border border-outline-variant bg-surface-container p-md transition-all duration-300 hover:border-secondary hover:bg-surface-container-high sm:p-lg md:p-xl"
                     >
-                        <h2 class="mb-sm text-headline-lg text-on-surface">
+                        <IconFlag
+                            class="mb-6 block text-primary-container transition-transform duration-300 group-hover:scale-110"
+                            :size="40"
+                            stroke-width="1.5"
+                        />
+                        <h2
+                            class="mb-4 text-headline-lg-mobile text-on-surface sm:text-headline-lg"
+                        >
                             {{ missionTitle }}
                         </h2>
                         <p
@@ -122,38 +166,52 @@ const heroTitle = computed(() => storyTitle.value || t('nav.about'))
                         </p>
                     </article>
                 </div>
+            </section>
 
+            <section
+                v-if="coreValues.length"
+                class="mx-auto max-w-[1440px] px-margin-mobile py-xl md:px-margin-desktop"
+            >
                 <div
-                    v-if="coreValues.length"
-                    class="mt-xl"
+                    class="mb-8 flex items-center justify-center gap-4 sm:mb-12"
                 >
-                    <h2 class="mb-lg text-center text-display-md text-on-surface">
-                        {{ t('public.about.values_title') }}
-                    </h2>
-                    <div
-                        class="grid grid-cols-1 gap-gutter sm:grid-cols-2 lg:grid-cols-3"
+                    <div class="h-px w-8 bg-primary-container sm:w-12" />
+                    <span
+                        class="text-label-md uppercase tracking-widest text-primary-container sm:text-label-lg"
                     >
-                        <article
-                            v-for="value in coreValues"
-                            :key="value.id"
-                            class="rounded-lg border border-outline-variant bg-surface-container p-lg transition-colors hover:border-secondary hover:bg-surface-container-high"
-                        >
-                            <component
-                                :is="resolveIcon(value.icon)"
-                                class="mb-md text-primary"
-                                :size="32"
-                                stroke-width="1.5"
-                            />
-                            <h3 class="mb-2 text-headline-lg-mobile text-on-surface">
-                                {{ localized(value, 'title') }}
-                            </h3>
-                            <p class="text-body-md text-on-surface-variant">
-                                {{ localized(value, 'short_description') }}
-                            </p>
-                        </article>
-                    </div>
+                        {{ t('public.about.values_title') }}
+                    </span>
+                    <div class="h-px w-8 bg-primary-container sm:w-12" />
                 </div>
-            </template>
-        </section>
+                <div
+                    class="grid grid-cols-1 gap-gutter sm:grid-cols-2 lg:grid-cols-4"
+                >
+                    <article
+                        v-for="value in coreValues"
+                        :key="value.id"
+                        class="flex flex-col items-center rounded-lg border border-outline-variant bg-surface p-4 text-center transition-colors duration-300 hover:bg-surface-container sm:p-6 md:p-8"
+                    >
+                        <component
+                            :is="resolveIcon(value.icon)"
+                            class="mb-3 text-primary-container sm:mb-4"
+                            :size="28"
+                            stroke-width="1.5"
+                        />
+                        <h3
+                            class="mb-1 text-body-md font-semibold text-on-surface sm:mb-2 sm:text-body-lg"
+                        >
+                            {{ localized(value, 'title') }}
+                        </h3>
+                        <p
+                            class="text-label-md leading-relaxed text-on-surface-variant sm:text-body-md"
+                        >
+                            {{ localized(value, 'short_description') }}
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <ContactCtaSection />
+        </template>
     </AppLayout>
 </template>

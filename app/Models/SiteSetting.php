@@ -39,6 +39,11 @@ class SiteSetting extends Model implements HasMedia
         $this->addMediaCollection('logo')->singleFile();
         $this->addMediaCollection('favicon')->singleFile();
         $this->addMediaCollection('og_image')->singleFile();
+        $this->addMediaCollection('banner_about')->singleFile();
+        $this->addMediaCollection('banner_services')->singleFile();
+        $this->addMediaCollection('banner_projects')->singleFile();
+        $this->addMediaCollection('banner_blogs')->singleFile();
+        $this->addMediaCollection('banner_contact')->singleFile();
     }
 
     public function translations(): HasMany

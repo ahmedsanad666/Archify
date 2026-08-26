@@ -12,7 +12,7 @@ const { localePath } = useLocale()
         class="mx-auto max-w-[1440px] px-margin-mobile py-xl md:px-margin-desktop"
     >
         <div
-            class="relative overflow-hidden rounded-xl border border-outline-variant p-xl text-center"
+            class="relative overflow-hidden rounded-xl border border-outline-variant p-md text-center sm:p-lg md:p-xl"
         >
             <div
                 class="absolute inset-0 bg-[url('/images/contact-cta.jpg')] bg-cover bg-center bg-no-repeat"
@@ -24,17 +24,19 @@ const { localePath } = useLocale()
             />
 
             <div class="relative z-10">
-                <h2 class="mb-sm text-display-md text-on-surface">
+                <h2
+                    class="mb-sm text-headline-lg-mobile text-on-surface sm:text-headline-lg md:text-display-md"
+                >
                     {{ t('public.home.cta_title') }}
                 </h2>
                 <p
-                    class="mx-auto mb-lg max-w-2xl text-body-lg text-on-surface-variant"
+                    class="mx-auto mb-md max-w-2xl text-body-md text-on-surface-variant sm:mb-lg sm:text-body-lg"
                 >
                     {{ t('public.home.cta_body') }}
                 </p>
                 <Link
                     :href="localePath('contact')"
-                    class="inline-flex rounded-md bg-primary px-8 py-4 text-label-lg uppercase tracking-wider text-on-primary transition-colors hover:bg-primary-container hover:text-on-primary-container"
+                    class="inline-flex rounded-md bg-primary px-6 py-3 text-label-md uppercase tracking-wider text-on-primary transition-colors hover:bg-primary-container hover:text-on-primary-container sm:px-8 sm:py-4 sm:text-label-lg"
                 >
                     {{ t('public.home.cta_button') }}
                 </Link>
