@@ -1,10 +1,11 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import AuthLayout from '@/Layouts/AuthLayout.vue';
 import InputError from '@/Components/InputError.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import {
     IconArrowRight,
+    IconBuildingArch,
     IconEye,
     IconEyeOff,
 } from '@tabler/icons-vue';
@@ -18,6 +19,14 @@ defineProps({
     },
 });
 
+const page = usePage();
+const siteName = computed(
+    () => page.props.siteSettings?.name ?? 'Archify',
+);
+const logoUrl = computed(
+    () => page.props.siteSettings?.media?.logo ?? null,
+);
+
 const showPassword = ref(false);
 
 const form = useForm({
@@ -25,6 +34,9 @@ const form = useForm({
     password: '',
     remember: false,
 });
+
+const inputClass =
+    'w-full rounded-t-md border-0 border-b border-outline-variant bg-surface-container-highest px-sm py-sm text-body-md text-on-surface outline-none transition-colors duration-200 focus:border-primary focus:ring-0';
 
 const submit = () => {
     form.post(route('login'), {
@@ -40,6 +52,26 @@ const submit = () => {
         <div
             class="flex w-full flex-col gap-md rounded-xl border border-outline-variant bg-surface-container p-lg"
         >
+            <div class="mb-md flex items-center justify-center gap-sm">
+                <img
+                    v-if="logoUrl"
+                    :src="logoUrl"
+                    :alt="siteName"
+                    class="h-10 w-10 object-contain"
+                />
+                <IconBuildingArch
+                    v-else
+                    class="shrink-0 text-primary"
+                    :size="40"
+                    stroke-width="1.5"
+                />
+                <h1
+                    class="text-headline-lg uppercase tracking-tighter text-on-surface"
+                >
+                    {{ siteName }}
+                </h1>
+            </div>
+
             <div class="mb-md text-center">
                 <h2 class="mb-xs text-headline-lg text-on-surface">
                     Welcome back
@@ -57,6 +89,15 @@ const submit = () => {
             </div>
 
             <form class="flex w-full flex-col gap-md" @submit.prevent="submit">
+                <p
+                    class="rounded-md border border-outline-variant bg-surface-container-high px-sm py-sm text-label-md text-on-surface-variant"
+                >
+                    Demo admin access for review:
+                    <span class="mt-1 block text-on-surface">
+                        Email: admin@archify.com · Password: password
+                    </span>
+                </p>
+
                 <div class="flex flex-col gap-xs">
                     <label
                         for="email"
@@ -72,7 +113,7 @@ const submit = () => {
                         autofocus
                         autocomplete="username"
                         placeholder="admin@archify.com"
-                        class="rounded-md border border-outline-variant bg-surface-container-highest px-sm py-sm text-body-md text-on-surface outline-none transition-colors duration-200 focus:border-primary focus:ring-1 focus:ring-primary/20"
+                        :class="inputClass"
                     />
                     <InputError class="mt-1" :message="form.errors.email" />
                 </div>
@@ -92,7 +133,7 @@ const submit = () => {
                             required
                             autocomplete="current-password"
                             placeholder="••••••••"
-                            class="w-full rounded-md border border-outline-variant bg-surface-container-highest px-sm py-sm pe-12 text-body-md text-on-surface outline-none transition-colors duration-200 focus:border-primary focus:ring-1 focus:ring-primary/20"
+                            :class="[inputClass, 'pe-12']"
                         />
                         <button
                             type="button"
@@ -121,7 +162,7 @@ const submit = () => {
                             v-model="form.remember"
                             type="checkbox"
                             name="remember"
-                            class="rounded-sm border-outline-variant bg-surface-container-highest text-primary focus:ring-primary focus:ring-offset-surface"
+                            class="h-4 w-4 shrink-0 rounded-sm border border-outline-variant bg-surface-container-highest text-primary focus:ring-1 focus:ring-primary focus:ring-offset-1 focus:ring-offset-surface"
                         />
                         <span
                             class="text-label-md uppercase tracking-wide text-on-surface-variant transition-colors group-hover:text-on-surface"
@@ -140,7 +181,7 @@ const submit = () => {
 
                 <button
                     type="submit"
-                    class="group relative mt-sm flex w-full items-center justify-center gap-sm overflow-hidden rounded-md bg-primary py-sm text-label-lg uppercase tracking-wide text-on-primary transition-all duration-200 hover:bg-primary-container hover:text-on-primary-container disabled:cursor-not-allowed disabled:opacity-50"
+                    class="group relative mt-sm flex w-full items-center justify-center gap-sm overflow-hidden rounded-md bg-primary-container py-sm text-label-lg uppercase tracking-wide text-on-primary-container transition-all duration-200 hover:bg-primary hover:text-on-primary disabled:cursor-not-allowed disabled:opacity-50"
                     :disabled="form.processing"
                 >
                     <div

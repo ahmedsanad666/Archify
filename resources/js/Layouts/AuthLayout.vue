@@ -1,7 +1,6 @@
 <script setup>
 import { computed } from 'vue';
 import { Head, usePage } from '@inertiajs/vue3';
-import { IconBuildingArch } from '@tabler/icons-vue';
 
 defineProps({
     title: {
@@ -15,47 +14,27 @@ const page = usePage();
 const siteName = computed(
     () => page.props.siteSettings?.name ?? 'Archify',
 );
-const slogan = computed(
-    () =>
-        page.props.siteSettings?.slogan ??
-        'Sign in to manage your website',
-);
 </script>
 
 <template>
     <div
-        class="flex h-screen w-full overflow-hidden bg-surface text-on-surface antialiased"
+        class="flex h-screen w-full overflow-hidden bg-background font-sans text-on-surface antialiased"
     >
         <Head
             v-if="title"
             :title="`${title} | ${siteName}`"
         />
 
-        <!-- Brand panel -->
-        <div
-            class="relative hidden h-full flex-col justify-between bg-surface-container p-margin-desktop md:flex md:w-1/2"
-        >
-            <div
-                class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent"
+        <!-- Photo brand panel (md+) -->
+        <div class="relative hidden h-full md:block md:w-1/2">
+            <img
+                src="/images/auth-login.jpg"
+                alt=""
+                class="absolute inset-0 h-full w-full object-cover brightness-75 grayscale-[20%]"
             />
-            <div class="relative z-10">
-                <div class="mb-md flex items-center gap-sm text-primary">
-                    <IconBuildingArch :size="32" stroke-width="1.5" />
-                </div>
-                <h1
-                    class="text-display-md uppercase tracking-tighter text-on-surface"
-                >
-                    {{ siteName }}
-                </h1>
-                <p class="mt-md max-w-md text-body-lg text-on-surface-variant">
-                    {{ slogan }}
-                </p>
-            </div>
-            <p
-                class="relative z-10 text-label-md uppercase tracking-wide text-on-surface-variant"
-            >
-                © {{ new Date().getFullYear() }} {{ siteName }} Admin
-            </p>
+            <div
+                class="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/20 to-background/90"
+            />
         </div>
 
         <!-- Form panel -->
@@ -63,20 +42,15 @@ const slogan = computed(
             class="relative z-10 flex h-full w-full flex-col items-center justify-center bg-surface p-margin-mobile md:w-1/2 md:p-margin-desktop"
         >
             <div class="flex w-full max-w-[440px] flex-col items-center">
-                <div class="mb-lg text-center md:hidden">
-                    <IconBuildingArch
-                        class="mx-auto text-primary"
-                        :size="40"
-                        stroke-width="1.5"
-                    />
-                    <h1
-                        class="mt-sm text-headline-lg uppercase tracking-tighter text-on-surface"
-                    >
-                        {{ siteName }}
-                    </h1>
-                </div>
-
                 <slot />
+
+                <div class="mt-lg text-center">
+                    <p
+                        class="text-label-md uppercase tracking-wide text-on-surface-variant"
+                    >
+                        © {{ new Date().getFullYear() }} {{ siteName }} Admin
+                    </p>
+                </div>
             </div>
         </div>
     </div>
