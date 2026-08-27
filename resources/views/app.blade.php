@@ -10,6 +10,7 @@
             $seoDescription = $seo['description'] ?? '';
             $seoKeywords = $seo['keywords'] ?? '';
             $seoOgImage = $seo['og_image'] ?? '';
+            $seoFavicon = $seo['favicon'] ?? '';
         @endphp
 
         <title inertia>{{ $seoTitle }}</title>
@@ -28,6 +29,10 @@
 
         @if ($seoOgImage !== '')
             <meta inertia="og:image" property="og:image" content="{{ $seoOgImage }}">
+        @endif
+
+        @if ($seoFavicon !== '')
+            <link inertia="icon" rel="icon" href="{{ $seoFavicon }}">
         @endif
 
         <!-- Scripts -->

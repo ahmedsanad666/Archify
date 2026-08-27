@@ -112,7 +112,7 @@ class SiteSettingService
      *     keywords?: string,
      *     og_image?: string|null
      * }  $replacements
-     * @return array{title: string, description: string, keywords: string, og_image: string}
+     * @return array{title: string, description: string, keywords: string, og_image: string, favicon: string}
      */
     public function documentSeo(array $replacements = []): array
     {
@@ -174,8 +174,10 @@ class SiteSettingService
             : trim((string) ($translation?->meta_keywords ?? ''));
 
         $siteOgImage = '';
+        $siteFavicon = '';
         if ($settings) {
             $siteOgImage = (string) ($settings->getFirstMediaUrl('og_image') ?: '');
+            $siteFavicon = (string) ($settings->getFirstMediaUrl('favicon') ?: '');
         }
 
         $ogImage = array_key_exists('og_image', $replacements)
@@ -191,6 +193,7 @@ class SiteSettingService
             'description' => $description,
             'keywords' => $keywords,
             'og_image' => $this->absoluteUrl($ogImage),
+            'favicon' => $this->absoluteUrl($siteFavicon),
         ];
     }
 

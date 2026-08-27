@@ -15,6 +15,9 @@ const page = usePage();
 
 const direction = computed(() => page.props.locale?.direction ?? 'ltr');
 const siteName = computed(() => page.props.siteSettings?.name ?? 'Archify');
+const favicon = computed(
+    () => page.props.siteSettings?.media?.favicon || '',
+);
 </script>
 
 <template>
@@ -22,10 +25,14 @@ const siteName = computed(() => page.props.siteSettings?.name ?? 'Archify');
         class="min-h-screen bg-surface text-on-surface antialiased"
         :dir="direction"
     >
-        <Head
-            v-if="title"
-            :title="`${title} | ${siteName}`"
-        />
+        <Head :title="title ? `${title} | ${siteName}` : undefined">
+            <link
+                v-if="favicon"
+                head-key="icon"
+                rel="icon"
+                :href="favicon"
+            />
+        </Head>
 
         <Navbar />
         <main>

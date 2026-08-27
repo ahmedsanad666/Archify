@@ -37,7 +37,9 @@
         "contact": "Contact",
         "language": "Language",
         "menu": "Menu",
-        "all": "All"
+        "all": "All",
+        "login": "Login",
+        "dashboard": "Dashboard"
     },
     "public": {
         "footer": {

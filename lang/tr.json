@@ -37,7 +37,9 @@
         "contact": "İletişim",
         "language": "Dil",
         "menu": "Menü",
-        "all": "Tümü"
+        "all": "Tümü",
+        "login": "Giriş",
+        "dashboard": "Panel"
     },
     "public": {
         "footer": {

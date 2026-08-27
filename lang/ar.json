@@ -37,7 +37,9 @@
         "contact": "تواصل",
         "language": "اللغة",
         "menu": "القائمة",
-        "all": "الكل"
+        "all": "الكل",
+        "login": "تسجيل الدخول",
+        "dashboard": "لوحة التحكم"
     },
     "public": {
         "footer": {

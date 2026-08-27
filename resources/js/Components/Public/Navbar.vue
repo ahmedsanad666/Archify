@@ -132,6 +132,14 @@ const onNavClick = () => {
 const flagSrc = (code) => FLAG_SRC[code] ?? null
 
 const currentFlagSrc = computed(() => flagSrc(locale.value?.code))
+
+const isAuthenticated = computed(() => Boolean(page.props.auth?.user))
+const authHref = computed(() =>
+    isAuthenticated.value ? route('admin.dashboard') : route('login'),
+)
+const authLabel = computed(() =>
+    isAuthenticated.value ? t('nav.dashboard') : t('nav.login'),
+)
 </script>
 
 <template>
@@ -268,6 +276,13 @@ const currentFlagSrc = computed(() => flagSrc(locale.value?.code))
                         </MenuItem>
                     </MenuItems>
                 </Menu>
+
+                <Link
+                    :href="authHref"
+                    class="rounded-md border border-outline-variant px-3 py-1.5 text-label-md uppercase tracking-wide text-on-surface transition-colors duration-200 hover:bg-surface-container-high"
+                >
+                    {{ authLabel }}
+                </Link>
 
                 <button
                     type="button"
@@ -416,6 +431,14 @@ const currentFlagSrc = computed(() => flagSrc(locale.value?.code))
                             @click="onNavClick"
                         >
                             {{ t('nav.contact') }}
+                        </Link>
+
+                        <Link
+                            :href="authHref"
+                            class="border-b border-outline-variant px-md py-5 text-start text-label-lg uppercase tracking-wide text-on-surface transition-colors hover:text-primary"
+                            @click="onNavClick"
+                        >
+                            {{ authLabel }}
                         </Link>
                     </nav>
                 </template>

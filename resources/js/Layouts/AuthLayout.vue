@@ -14,16 +14,23 @@ const page = usePage();
 const siteName = computed(
     () => page.props.siteSettings?.name ?? 'Archify',
 );
+const favicon = computed(
+    () => page.props.siteSettings?.media?.favicon || '',
+);
 </script>
 
 <template>
     <div
         class="flex h-screen w-full overflow-hidden bg-background font-sans text-on-surface antialiased"
     >
-        <Head
-            v-if="title"
-            :title="`${title} | ${siteName}`"
-        />
+        <Head :title="title ? `${title} | ${siteName}` : undefined">
+            <link
+                v-if="favicon"
+                head-key="icon"
+                rel="icon"
+                :href="favicon"
+            />
+        </Head>
 
         <!-- Photo brand panel (md+) -->
         <div class="relative hidden h-full md:block md:w-1/2">
