@@ -9,6 +9,7 @@
             $seoTitle = $seo['title'] ?? config('app.name', 'Archify');
             $seoDescription = $seo['description'] ?? '';
             $seoKeywords = $seo['keywords'] ?? '';
+            $seoOgImage = $seo['og_image'] ?? '';
         @endphp
 
         <title inertia>{{ $seoTitle }}</title>
@@ -24,6 +25,10 @@
 
         <meta inertia="og:title" property="og:title" content="{{ $seoTitle }}">
         <meta inertia="og:type" property="og:type" content="website">
+
+        @if ($seoOgImage !== '')
+            <meta inertia="og:image" property="og:image" content="{{ $seoOgImage }}">
+        @endif
 
         <!-- Scripts -->
         @routes

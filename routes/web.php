@@ -28,7 +28,11 @@ $publicRoutes = function (): void {
     Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
     Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.show');
     Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
+    Route::get('/blogs/{slug}', [BlogController::class, 'show'])->name('blogs.show');
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+    Route::post('/contact', [ContactController::class, 'store'])
+        ->middleware('throttle:5,1')
+        ->name('contact.store');
 };
 
 Route::middleware('locale')->group($publicRoutes);
@@ -45,7 +49,10 @@ Route::prefix('{locale}')
         Route::get('/projects', [ProjectController::class, 'index']);
         Route::get('/projects/{slug}', [ProjectController::class, 'show']);
         Route::get('/blogs', [BlogController::class, 'index']);
+        Route::get('/blogs/{slug}', [BlogController::class, 'show']);
         Route::get('/contact', [ContactController::class, 'index']);
+        Route::post('/contact', [ContactController::class, 'store'])
+            ->middleware('throttle:5,1');
     });
 
 Route::middleware('auth')->group(function () {

@@ -6,8 +6,8 @@ import AboutStorySection from '@/Components/Public/AboutStorySection.vue'
 import ProjectsSection from '@/Components/Public/ProjectsSection.vue'
 import ServicesSection from '@/Components/Public/ServicesSection.vue'
 import StatisticsSection from '@/Components/Public/StatisticsSection.vue'
+import TestimonialsSection from '@/Components/Public/TestimonialsSection.vue'
 import BlogsSection from '@/Components/Public/BlogsSection.vue'
-import FaqsSection from '@/Components/Public/FaqsSection.vue'
 import ContactCtaSection from '@/Components/Public/ContactCtaSection.vue'
 import { useSiteSeo } from '@/Composables/useSiteSeo'
 
@@ -17,8 +17,8 @@ defineProps({
     services: { type: Array, default: () => [] },
     projects: { type: Array, default: () => [] },
     statistics: { type: Array, default: () => [] },
+    testimonials: { type: Array, default: () => [] },
     blogs: { type: Array, default: () => [] },
-    faqs: { type: Array, default: () => [] },
 })
 
 const { headTitle, title, description, keywords } = useSiteSeo()
@@ -58,8 +58,8 @@ const { headTitle, title, description, keywords } = useSiteSeo()
         <ProjectsSection :projects="projects" />
         <ServicesSection :services="services" />
         <StatisticsSection :statistics="statistics" />
+        <TestimonialsSection :testimonials="testimonials" />
         <BlogsSection :blogs="blogs" />
-        <FaqsSection :faqs="faqs" />
         <ContactCtaSection />
     </AppLayout>
 </template>

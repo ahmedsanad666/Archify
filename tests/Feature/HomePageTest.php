@@ -29,9 +29,9 @@ class HomePageTest extends TestCase
                 ->has('projects')
                 ->has('services')
                 ->has('statistics')
+                ->has('testimonials')
                 ->has('blogs')
-                ->has('faqs')
-                ->missing('testimonials')
+                ->missing('faqs')
                 ->missing('coreValues'));
     }
 

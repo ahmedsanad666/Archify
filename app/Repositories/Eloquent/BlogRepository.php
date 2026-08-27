@@ -35,11 +35,12 @@ class BlogRepository implements BlogRepositoryInterface
             ->first();
     }
 
-    public function paginate(?int $categoryId = null, int $perPage = 15): LengthAwarePaginator
+    public function paginate(?int $categoryId = null, int $perPage = 15, ?int $excludeId = null): LengthAwarePaginator
     {
         return Blog::query()
             ->with(self::ADMIN_WITH)
             ->when($categoryId, fn ($query) => $query->where('blog_category_id', $categoryId))
+            ->when($excludeId, fn ($query) => $query->whereKeyNot($excludeId))
             ->latest()
             ->paginate($perPage);
     }

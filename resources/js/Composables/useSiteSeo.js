@@ -4,7 +4,12 @@ import { usePage } from '@inertiajs/vue3'
 /**
  * Mirror SiteSettingService::documentSeo() for Inertia <Head> after SPA navigations.
  *
- * @param {{ pageTitle?: string }} [options]
+ * @param {{
+ *   pageTitle?: string,
+ *   description?: string,
+ *   keywords?: string,
+ *   ogImage?: string|null,
+ * }} [options]
  */
 export function useSiteSeo(options = {}) {
     const page = usePage()
@@ -18,18 +23,44 @@ export function useSiteSeo(options = {}) {
     const titleTemplate = computed(() =>
         (settings.value?.seo?.title_template ?? settings.value?.meta_title ?? '').trim(),
     )
-    const description = computed(() =>
+
+    const siteDescription = computed(() =>
         (
             settings.value?.seo?.description ??
             settings.value?.meta_description ??
             ''
         ).trim(),
     )
-    const keywords = computed(() =>
+    const siteKeywords = computed(() =>
         (settings.value?.seo?.keywords ?? settings.value?.meta_keywords ?? '').trim(),
+    )
+    const siteOgImage = computed(
+        () => (settings.value?.media?.og_image ?? '').trim(),
     )
 
     const pageTitle = computed(() => (options.pageTitle ?? '').trim())
+
+    const description = computed(() => {
+        if (options.description !== undefined && options.description !== null) {
+            return String(options.description).trim()
+        }
+        return siteDescription.value
+    })
+
+    const keywords = computed(() => {
+        if (options.keywords !== undefined && options.keywords !== null) {
+            return String(options.keywords).trim()
+        }
+        return siteKeywords.value
+    })
+
+    const ogImage = computed(() => {
+        const override =
+            options.ogImage !== undefined && options.ogImage !== null
+                ? String(options.ogImage).trim()
+                : ''
+        return override || siteOgImage.value || ''
+    })
 
     const resolveTitleTemplate = (template, replacements) => {
         const map = {
@@ -91,6 +122,23 @@ export function useSiteSeo(options = {}) {
         title,
         description,
         keywords,
+        ogImage,
         siteName,
     }
+}
+
+/**
+ * Space-split keywords and append category when missing (mirrors PHP mergeKeywords).
+ */
+export function mergeKeywords(metaKeywords, categoryName) {
+    const parts = String(metaKeywords ?? '')
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean)
+    const lower = parts.map((p) => p.toLowerCase())
+    const category = String(categoryName ?? '').trim()
+    if (category && !lower.includes(category.toLowerCase())) {
+        parts.push(category)
+    }
+    return parts.join(' ')
 }

@@ -103,8 +103,16 @@ class SiteSettingService
     /**
      * Document-level SEO for Blade View Source and Inertia Head mirroring.
      *
-     * @param  array{site_name?: string, tagline?: string, slogan?: string, page_title?: string}  $replacements
-     * @return array{title: string, description: string, keywords: string}
+     * @param  array{
+     *     site_name?: string,
+     *     tagline?: string,
+     *     slogan?: string,
+     *     page_title?: string,
+     *     description?: string,
+     *     keywords?: string,
+     *     og_image?: string|null
+     * }  $replacements
+     * @return array{title: string, description: string, keywords: string, og_image: string}
      */
     public function documentSeo(array $replacements = []): array
     {
@@ -157,11 +165,66 @@ class SiteSettingService
             $title = $siteName;
         }
 
+        $description = array_key_exists('description', $replacements)
+            ? trim((string) $replacements['description'])
+            : trim((string) ($translation?->meta_description ?? ''));
+
+        $keywords = array_key_exists('keywords', $replacements)
+            ? trim((string) $replacements['keywords'])
+            : trim((string) ($translation?->meta_keywords ?? ''));
+
+        $siteOgImage = '';
+        if ($settings) {
+            $siteOgImage = (string) ($settings->getFirstMediaUrl('og_image') ?: '');
+        }
+
+        $ogImage = array_key_exists('og_image', $replacements)
+            ? trim((string) ($replacements['og_image'] ?? ''))
+            : $siteOgImage;
+
+        if ($ogImage === '' && $siteOgImage !== '') {
+            $ogImage = $siteOgImage;
+        }
+
         return [
             'title' => $title,
-            'description' => trim((string) ($translation?->meta_description ?? '')),
-            'keywords' => trim((string) ($translation?->meta_keywords ?? '')),
+            'description' => $description,
+            'keywords' => $keywords,
+            'og_image' => $this->absoluteUrl($ogImage),
         ];
+    }
+
+    /**
+     * Space-split meta keywords and append category when not already present.
+     */
+    public function mergeKeywords(?string $metaKeywords, ?string $categoryName): string
+    {
+        $parts = preg_split('/\s+/', trim((string) $metaKeywords), -1, PREG_SPLIT_NO_EMPTY) ?: [];
+        $lower = array_map(
+            static fn (string $part): string => mb_strtolower($part),
+            $parts,
+        );
+
+        $category = trim((string) $categoryName);
+        if ($category !== '' && ! in_array(mb_strtolower($category), $lower, true)) {
+            $parts[] = $category;
+        }
+
+        return implode(' ', $parts);
+    }
+
+    public function absoluteUrl(?string $url): string
+    {
+        $url = trim((string) $url);
+        if ($url === '') {
+            return '';
+        }
+
+        if (str_starts_with($url, 'http://') || str_starts_with($url, 'https://')) {
+            return $url;
+        }
+
+        return url($url);
     }
 
     /**

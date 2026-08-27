@@ -116,6 +116,24 @@ export function useLocale() {
             return
         }
 
+        const blogShowMatch = path.match(/^\/blogs\/([^/]+)$/)
+
+        if (blogShowMatch) {
+            const siblingSlug = page.props.blog?.translations?.[code]?.slug
+            if (siblingSlug) {
+                router.visit(
+                    localePath('blogs.show', { slug: siblingSlug }, target),
+                    { preserveScroll: true },
+                )
+                return
+            }
+
+            router.visit(localePath('blogs.index', {}, target), {
+                preserveScroll: true,
+            })
+            return
+        }
+
         router.visit(localePath(currentPublicRouteName(), {}, target), {
             preserveScroll: true,
         })

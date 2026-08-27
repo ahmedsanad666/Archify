@@ -29,6 +29,14 @@ class LeadRepository implements LeadRepositoryInterface
             ->paginate($perPage);
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     */
+    public function create(array $data): Lead
+    {
+        return Lead::query()->create($data);
+    }
+
     public function update(Lead $lead, array $data): Lead
     {
         $lead->update($data);

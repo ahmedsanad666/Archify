@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Resources\AboutPageResource;
 use App\Http\Resources\CoreValueResource;
 use App\Http\Resources\StatisticResource;
+use App\Http\Resources\TeamMemberResource;
 use App\Services\AboutPageService;
 use App\Services\CoreValueService;
 use App\Services\SiteSettingService;
 use App\Services\StatisticService;
+use App\Services\TeamMemberService;
 use App\Support\UiTranslations;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -19,6 +21,7 @@ class AboutController extends Controller
         private readonly AboutPageService $aboutPageService,
         private readonly StatisticService $statisticService,
         private readonly CoreValueService $coreValueService,
+        private readonly TeamMemberService $teamMemberService,
         private readonly SiteSettingService $siteSettingService,
     ) {}
 
@@ -31,6 +34,7 @@ class AboutController extends Controller
             'about' => (new AboutPageResource($this->aboutPageService->get()))->resolve(),
             'statistics' => StatisticResource::collection($this->statisticService->all())->resolve(),
             'coreValues' => CoreValueResource::collection($this->coreValueService->all())->resolve(),
+            'members' => TeamMemberResource::collection($this->teamMemberService->all())->resolve(),
         ])->withViewData([
             'seo' => $this->siteSettingService->documentSeo([
                 'page_title' => $pageTitle,

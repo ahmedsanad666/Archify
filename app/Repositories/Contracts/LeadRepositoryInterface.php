@@ -15,6 +15,11 @@ interface LeadRepositoryInterface
 
     public function paginateByStatus(?string $status = null, int $perPage = 15): LengthAwarePaginator;
 
+    /**
+     * @param  array<string, mixed>  $data
+     */
+    public function create(array $data): Lead;
+
     public function update(Lead $lead, array $data): Lead;
 
     public function countCreatedBetween(Carbon $from, Carbon $to): int;

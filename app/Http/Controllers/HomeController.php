@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\AboutPageResource;
 use App\Http\Resources\BlogResource;
-use App\Http\Resources\FaqResource;
 use App\Http\Resources\ProjectResource;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\SliderResource;
 use App\Http\Resources\StatisticResource;
+use App\Http\Resources\TestimonialResource;
 use App\Services\AboutPageService;
 use App\Services\BlogService;
-use App\Services\FaqService;
 use App\Services\ProjectService;
 use App\Services\ServiceService;
 use App\Services\SiteSettingService;
 use App\Services\SliderService;
 use App\Services\StatisticService;
+use App\Services\TestimonialService;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -29,7 +29,7 @@ class HomeController extends Controller
         private readonly ProjectService $projectService,
         private readonly StatisticService $statisticService,
         private readonly BlogService $blogService,
-        private readonly FaqService $faqService,
+        private readonly TestimonialService $testimonialService,
         private readonly SiteSettingService $siteSettingService,
     ) {}
 
@@ -41,8 +41,8 @@ class HomeController extends Controller
             'services' => ServiceResource::collection($this->serviceService->forHomeLimited(3))->resolve(),
             'projects' => ProjectResource::collection($this->projectService->latestForHome(2))->resolve(),
             'statistics' => StatisticResource::collection($this->statisticService->all())->resolve(),
+            'testimonials' => TestimonialResource::collection($this->testimonialService->all())->resolve(),
             'blogs' => BlogResource::collection($this->blogService->latestForHome(3))->resolve(),
-            'faqs' => FaqResource::collection($this->faqService->all())->resolve(),
         ])->withViewData([
             'seo' => $this->siteSettingService->documentSeo(),
         ]);

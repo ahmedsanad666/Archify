@@ -14,7 +14,7 @@ interface BlogRepositoryInterface
 
     public function findBySlug(string $slug, int $languageId): ?Blog;
 
-    public function paginate(?int $categoryId = null, int $perPage = 15): LengthAwarePaginator;
+    public function paginate(?int $categoryId = null, int $perPage = 15, ?int $excludeId = null): LengthAwarePaginator;
 
     public function create(array $data): Blog;
 

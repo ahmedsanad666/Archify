@@ -5,7 +5,7 @@ import AppLayout from '@/Layouts/AppLayout.vue'
 import InnerHero from '@/Components/Public/InnerHero.vue'
 import ProjectGallerySection from '@/Components/Public/ProjectGallerySection.vue'
 import { useLocale } from '@/Composables/useLocale'
-import { useSiteSeo } from '@/Composables/useSiteSeo'
+import { mergeKeywords, useSiteSeo } from '@/Composables/useSiteSeo'
 import { useUiTranslations } from '@/Composables/useUiTranslations'
 
 const props = defineProps({
@@ -32,21 +32,44 @@ const pageTitle = computed(
         t('public.projects.title'),
 )
 
-const { headTitle, title, description: siteDescription, keywords: siteKeywords } =
-    useSiteSeo({
-        pageTitle: pageTitle.value,
-    })
-
-const seoDescription = computed(
+const seoDescriptionValue = computed(
     () =>
         localized(props.project, 'meta_description') ||
         shortDescription.value ||
-        siteDescription.value,
+        '',
+)
+
+const seoKeywordsValue = computed(() =>
+    mergeKeywords(
+        localized(props.project, 'meta_keywords'),
+        categoryName.value,
+    ),
+)
+
+const ogImageValue = computed(() => props.project?.thumbnail_url || null)
+
+const {
+    headTitle,
+    title,
+    description: siteDescription,
+    keywords: siteKeywords,
+    ogImage,
+} = useSiteSeo({
+    pageTitle: pageTitle.value,
+    description: seoDescriptionValue.value,
+    keywords: seoKeywordsValue.value,
+    ogImage: ogImageValue.value,
+})
+
+const seoDescription = computed(
+    () => seoDescriptionValue.value || siteDescription.value,
 )
 
 const seoKeywords = computed(
-    () => localized(props.project, 'meta_keywords') || siteKeywords.value,
+    () => seoKeywordsValue.value || siteKeywords.value,
 )
+
+const seoOgImage = computed(() => ogImage.value || ogImageValue.value || '')
 
 const breadcrumbs = computed(() => [
     { label: t('nav.home'), href: localePath('home') },
@@ -134,6 +157,12 @@ const youtubeEmbedUrl = computed(() =>
                 head-key="og:description"
                 property="og:description"
                 :content="seoDescription"
+            />
+            <meta
+                v-if="seoOgImage"
+                head-key="og:image"
+                property="og:image"
+                :content="seoOgImage"
             />
         </Head>
 

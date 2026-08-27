@@ -6,6 +6,7 @@ import AppLayout from '@/Layouts/AppLayout.vue'
 import InnerHero from '@/Components/Public/InnerHero.vue'
 import AboutStorySection from '@/Components/Public/AboutStorySection.vue'
 import StatisticsSection from '@/Components/Public/StatisticsSection.vue'
+import TeamSection from '@/Components/Public/TeamSection.vue'
 import ContactCtaSection from '@/Components/Public/ContactCtaSection.vue'
 import { resolveAppIcon } from '@/icons/appIcons'
 import { useLocale } from '@/Composables/useLocale'
@@ -16,6 +17,7 @@ const props = defineProps({
     about: { type: Object, default: null },
     statistics: { type: Array, default: () => [] },
     coreValues: { type: Array, default: () => [] },
+    members: { type: Array, default: () => [] },
 })
 
 const { t } = useUiTranslations()
@@ -56,7 +58,8 @@ const hasContent = computed(
         visionTitle.value ||
         missionTitle.value ||
         props.coreValues.length ||
-        props.statistics.length,
+        props.statistics.length ||
+        props.members.length,
 )
 
 const breadcrumbs = computed(() => [
@@ -210,6 +213,8 @@ const breadcrumbs = computed(() => [
                     </article>
                 </div>
             </section>
+
+            <TeamSection :members="members" />
 
             <ContactCtaSection />
         </template>

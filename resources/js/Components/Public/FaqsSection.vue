@@ -2,14 +2,26 @@
 import FaqList from '@/Components/Public/FaqList.vue'
 import { useUiTranslations } from '@/Composables/useUiTranslations'
 
-defineProps({
+const props = defineProps({
     faqs: {
         type: Array,
         default: () => [],
     },
+    title: {
+        type: String,
+        default: null,
+    },
+    subtitle: {
+        type: String,
+        default: null,
+    },
 })
 
 const { t } = useUiTranslations()
+
+const sectionTitle = () => props.title || t('public.home.faqs_title')
+const sectionSubtitle = () =>
+    props.subtitle || t('public.home.faqs_subtitle')
 </script>
 
 <template>
@@ -18,10 +30,10 @@ const { t } = useUiTranslations()
     >
         <div class="mb-xl text-center">
             <h2 class="mb-sm text-display-md text-on-surface">
-                {{ t('public.home.faqs_title') }}
+                {{ sectionTitle() }}
             </h2>
             <p class="text-body-lg text-on-surface-variant">
-                {{ t('public.home.faqs_subtitle') }}
+                {{ sectionSubtitle() }}
             </p>
         </div>
 

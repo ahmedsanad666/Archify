@@ -5,10 +5,12 @@ namespace App\Services;
 use App\Models\Blog;
 use App\Models\BlogTranslation;
 use App\Models\Language;
+use App\Repositories\Contracts\BlogCategoryRepositoryInterface;
 use App\Repositories\Contracts\BlogRepositoryInterface;
 use App\Repositories\Contracts\LanguageRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -18,6 +20,7 @@ class BlogService
 {
     public function __construct(
         private readonly BlogRepositoryInterface $blogRepository,
+        private readonly BlogCategoryRepositoryInterface $blogCategoryRepository,
         private readonly LanguageRepositoryInterface $languageRepository,
         private readonly TranslationDispatchService $translationDispatchService,
     ) {}
@@ -27,9 +30,78 @@ class BlogService
         return $this->blogRepository->paginate($categoryId, $perPage);
     }
 
+    /**
+     * Public journal index: optional featured (latest) on page 1 without category filter.
+     *
+     * @return array{featured: ?Blog, blogs: LengthAwarePaginator}
+     */
+    public function paginatePublic(?string $categorySlug = null, int $perPage = 9): array
+    {
+        $categoryId = null;
+
+        if (filled($categorySlug)) {
+            $language = $this->languageRepository->findByCode(app()->getLocale());
+            $categoryId = $language
+                ? $this->blogCategoryRepository->findIdBySlug($categorySlug, (int) $language->id)
+                : null;
+
+            if ($categoryId === null) {
+                return [
+                    'featured' => null,
+                    'blogs' => new Paginator(
+                        [],
+                        0,
+                        $perPage,
+                        1,
+                        [
+                            'path' => request()->url(),
+                            'query' => request()->query(),
+                        ],
+                    ),
+                ];
+            }
+        }
+
+        $page = Paginator::resolveCurrentPage();
+        $featured = null;
+        $excludeId = null;
+
+        if ($categoryId === null && $page === 1) {
+            $featured = $this->blogRepository->latestForHome(1)->first();
+            $excludeId = $featured?->id;
+        }
+
+        return [
+            'featured' => $featured,
+            'blogs' => $this->blogRepository->paginate($categoryId, $perPage, $excludeId),
+        ];
+    }
+
     public function find(int $id): ?Blog
     {
         return $this->blogRepository->find($id);
+    }
+
+    public function findBySlugOrFail(string $slug): Blog
+    {
+        $language = $this->languageRepository->findByCode(app()->getLocale());
+
+        if (! $language) {
+            abort(404);
+        }
+
+        $blog = $this->blogRepository->findBySlug($slug, (int) $language->id);
+
+        if (! $blog) {
+            abort(404);
+        }
+
+        return $blog;
+    }
+
+    public function recordView(Blog $blog): void
+    {
+        $blog->increment('views_count');
     }
 
     public function latestForHome(int $limit = 3): \Illuminate\Database\Eloquent\Collection

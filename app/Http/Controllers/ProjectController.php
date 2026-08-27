@@ -46,17 +46,37 @@ class ProjectController extends Controller
 
         $resource = (new ProjectResource($project))->resolve();
         $locale = app()->getLocale();
-        $pageTitle = $resource['translations'][$locale]['meta_title']
-            ?? $resource['translations'][$locale]['name']
+        $translation = $resource['translations'][$locale] ?? [];
+
+        $pageTitle = $translation['meta_title']
+            ?? $translation['name']
             ?? $resource['name']
             ?? 'Project';
+
+        $description = trim((string) ($translation['meta_description'] ?? ''));
+        if ($description === '') {
+            $description = trim((string) ($translation['short_description'] ?? ''));
+        }
+
+        $keywords = $this->siteSettingService->mergeKeywords(
+            $translation['meta_keywords'] ?? null,
+            data_get($resource, 'category.name'),
+        );
+
+        $seo = [
+            'page_title' => $pageTitle,
+            'keywords' => $keywords,
+            'og_image' => $resource['thumbnail_url'] ?? null,
+        ];
+
+        if ($description !== '') {
+            $seo['description'] = $description;
+        }
 
         return Inertia::render('Projects/Show', [
             'project' => $resource,
         ])->withViewData([
-            'seo' => $this->siteSettingService->documentSeo([
-                'page_title' => $pageTitle,
-            ]),
+            'seo' => $this->siteSettingService->documentSeo($seo),
         ]);
     }
 }

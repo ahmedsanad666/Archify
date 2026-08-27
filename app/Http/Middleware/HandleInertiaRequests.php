@@ -54,6 +54,7 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),
+                'contact_success' => fn () => (bool) $request->session()->get('contact_success'),
             ],
             'locale' => function () {
                 $language = $this->resolveCurrentLanguage();
